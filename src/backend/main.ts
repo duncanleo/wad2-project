@@ -2,6 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
 
+import routes from './routes';
+
 const { PORT, NODE_ENV } = process.env;
 
 const app = express();
@@ -35,6 +37,8 @@ switch (NODE_ENV) {
     break;
   }
 }
+
+routes(app);
 
 let port = 5000;
 
