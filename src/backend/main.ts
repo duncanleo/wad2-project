@@ -26,7 +26,7 @@ switch (NODE_ENV) {
     const devMiddleware = require('webpack-dev-middleware');
     const hotMiddleware = require('webpack-hot-middleware');
 
-    const webpackConfig = require('../../webpack.config');
+    const webpackConfig = require('../../webpack.config').default;
 
     const compiler = webpack(webpackConfig);
     app.use(devMiddleware(compiler, {}));
