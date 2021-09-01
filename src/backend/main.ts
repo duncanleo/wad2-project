@@ -12,17 +12,13 @@ app.use(morgan('dev'));
 
 switch (NODE_ENV) {
   case 'production': {
-    let assetsPath = path.join(__dirname, '../..', 'dist', 'public');
-
-    if (NODE_ENV === 'production') {
-      assetsPath = path.join(__dirname, 'public');
-    }
+    const assetsPath = path.join(__dirname, 'public');
 
     app.get('/', function (req, res) {
       res.sendFile(path.join(assetsPath, 'index.html'));
     });
 
-    app.use('/public', express.static(assetsPath));
+    app.use(express.static(assetsPath));
     break;
   }
   default: {
