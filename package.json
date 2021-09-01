@@ -33,7 +33,9 @@
     "vue": "^2.6.14"
   },
   "scripts": {
-    "dev": "webpack --watch --progress",
-    "clean": "rm -Rf dist/*"
+    "dev": "nodemon",
+    "clean": "rm -Rf dist/*",
+    "build": "tsc -p tsconfig.production.json && webpack build",
+    "start": "node dist/src/backend/main.js"
   }
 }

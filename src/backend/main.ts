@@ -1,12 +1,39 @@
 import express from 'express';
+import morgan from 'morgan';
+import path from 'path';
+import webpack from 'webpack';
+import devMiddleware from 'webpack-dev-middleware';
+
+import webpackConfig from '../../webpack.config';
+
+const { PORT, NODE_ENV } = process.env;
+
+const compiler = webpack(webpackConfig);
 
 const app = express();
 
-app.get('/', function (req, res) {
-  res.send('Hello world');
-});
+app.use(morgan('dev'));
 
-const { PORT } = process.env;
+switch (NODE_ENV) {
+  case 'production': {
+    let assetsPath = path.join(__dirname, '../..', 'dist', 'public');
+
+    if (NODE_ENV === 'production') {
+      assetsPath = path.join(__dirname, 'public');
+    }
+
+    app.get('/', function (req, res) {
+      res.sendFile(path.join(assetsPath, 'index.html'));
+    });
+
+    app.use('/public', express.static(assetsPath));
+    break;
+  }
+  default: {
+    app.use(devMiddleware(compiler, {}));
+    break;
+  }
+}
 
 let port = 5000;
 
@@ -16,6 +43,6 @@ if (PORT != null) {
   } catch (e) {}
 }
 
-console.log(`Starting backend on port ${port}`);
-
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Backend listening on port ${port}`);
+});
