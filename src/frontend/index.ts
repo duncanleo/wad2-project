@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import Hello from './hello.vue';
+import App from './App.vue';
 
 /**
  * HMR code
@@ -10,9 +10,5 @@ if (module['hot']) {
 }
 
 new Vue({
-  el: '#root',
-  template: '<Hello />',
-  components: {
-    Hello,
-  },
-});
+  render: (h) => h(App),
+}).$mount('#root');
