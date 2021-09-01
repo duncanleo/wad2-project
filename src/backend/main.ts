@@ -1,19 +1,14 @@
 import express from 'express';
 import morgan from 'morgan';
 import path from 'path';
-import webpack from 'webpack';
-import devMiddleware from 'webpack-dev-middleware';
-import hotMiddleware from 'webpack-hot-middleware';
-
-import webpackConfig from '../../webpack.config';
 
 const { PORT, NODE_ENV } = process.env;
-
-const compiler = webpack(webpackConfig);
 
 const app = express();
 
 app.use(morgan('dev'));
+
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 switch (NODE_ENV) {
   case 'production': {
@@ -31,6 +26,13 @@ switch (NODE_ENV) {
     break;
   }
   default: {
+    const webpack = require('webpack');
+    const devMiddleware = require('webpack-dev-middleware');
+    const hotMiddleware = require('webpack-hot-middleware');
+
+    const webpackConfig = require('../../webpack.config');
+
+    const compiler = webpack(webpackConfig);
     app.use(devMiddleware(compiler, {}));
 
     app.use(hotMiddleware(compiler));
