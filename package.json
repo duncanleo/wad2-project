@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
     "typescript": "^4.4.2",
     "webpack": "^5.51.1"
   }
