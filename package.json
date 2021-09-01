@@ -40,6 +40,6 @@
     "dev": "nodemon",
     "clean": "rm -Rf dist/*",
     "build": "tsc -p tsconfig.production.json && webpack build",
-    "start": "node dist/src/backend/main.js"
+    "start": "node dist/main.js"
   }
 }
