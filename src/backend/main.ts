@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import path from 'path';
 import webpack from 'webpack';
 import devMiddleware from 'webpack-dev-middleware';
+import hotMiddleware from 'webpack-hot-middleware';
 
 import webpackConfig from '../../webpack.config';
 
@@ -31,6 +32,8 @@ switch (NODE_ENV) {
   }
   default: {
     app.use(devMiddleware(compiler, {}));
+
+    app.use(hotMiddleware(compiler));
     break;
   }
 }

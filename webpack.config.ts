@@ -8,7 +8,7 @@ import * as webpack from 'webpack';
  **/
 const frontend: webpack.Configuration = {
   mode: 'development',
-  entry: ['./src/frontend/index.ts'],
+  entry: ['webpack-hot-middleware/client', './src/frontend/index.ts'],
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
@@ -17,8 +17,23 @@ const frontend: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: ['ts-loader'],
+        test: /\.(js|ts)$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    modules: false,
+                  },
+                ],
+                '@babel/preset-typescript',
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.vue$/,
