@@ -49,6 +49,8 @@
     "dev": "nodemon",
     "clean": "rm -Rf dist/*",
     "build": "tsc -p tsconfig.production.json && webpack build",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo"
   }
 }
