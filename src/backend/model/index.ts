@@ -20,7 +20,7 @@ const dbConfig = config[NODE_ENV as keyof typeof config];
 let sequelize;
 
 if ('use_env_variable' in dbConfig) {
-  sequelize = new Sequelize(dbConfig.use_env_variable);
+  sequelize = new Sequelize(dbConfig.use_env_variable, dbConfig as Options);
 } else {
   sequelize = new Sequelize(dbConfig as Options);
 }
