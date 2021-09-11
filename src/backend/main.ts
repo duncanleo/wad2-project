@@ -28,13 +28,15 @@ app.use(
 
 app.use(morgan('dev'));
 
+routes(app);
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 switch (NODE_ENV) {
   case 'production': {
     const assetsPath = path.join(__dirname, 'public');
 
-    app.get('/', function (req, res) {
+    app.get('*', function (req, res) {
       res.sendFile(path.join(assetsPath, 'index.html'));
     });
 
@@ -48,6 +50,14 @@ switch (NODE_ENV) {
 
     const webpackConfig = require('../../webpack.config').default;
 
+    // HACK: https://stackoverflow.com/a/59803899
+    app.use((req, res, next) => {
+      if (!/(\.(?!html)\w+$|__webpack.*)/.test(req.url)) {
+        req.url = '/'; // this would make express-js serve index.html
+      }
+      next();
+    });
+
     const compiler = webpack(webpackConfig);
     app.use(devMiddleware(compiler, {}));
 
@@ -55,8 +65,6 @@ switch (NODE_ENV) {
     break;
   }
 }
-
-routes(app);
 
 let port = 5000;
 
