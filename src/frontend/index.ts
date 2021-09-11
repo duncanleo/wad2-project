@@ -1,4 +1,5 @@
 import './index.scss';
+import 'bootstrap';
 
 import Vue from 'vue';
 import VueRouter, { RouterOptions } from 'vue-router';
