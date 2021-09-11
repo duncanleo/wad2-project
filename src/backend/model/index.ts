@@ -6,11 +6,9 @@ import { setupUser } from './User';
 
 dotenv.config();
 
-const { DATABASE_URL, NODE_ENV } = process.env;
+const { NODE_ENV } = process.env;
 
-if (DATABASE_URL == null) {
-  throw new Error('DATABASE_URL must be provided');
-} else if (
+if (
   NODE_ENV == null ||
   !['production', 'development', 'test'].includes(NODE_ENV)
 ) {
