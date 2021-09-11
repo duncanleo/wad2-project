@@ -57,6 +57,7 @@
     "build": "tsc -p tsconfig.production.json && webpack build",
     "start": "node dist/main.js",
     "db:migrate": "sequelize-cli db:migrate",
-    "db:migrate:undo": "sequelize-cli db:migrate:undo"
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:migration:generate": "sequelize-cli migration:generate"
   }
 }
