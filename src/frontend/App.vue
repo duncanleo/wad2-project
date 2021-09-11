@@ -1,17 +1,11 @@
 <template>
-  <p>{{ greeting }} World!</p>
+  <router-view></router-view>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
 
-const App = Vue.extend({
-  data: function () {
-    return {
-      greeting: 'Sup',
-    };
-  },
-});
+const App = Vue.extend({});
 
 export default App;
 </script>
