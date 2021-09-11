@@ -20,7 +20,13 @@ const dbConfig = config[NODE_ENV as keyof typeof config];
 let sequelize;
 
 if ('use_env_variable' in dbConfig) {
-  sequelize = new Sequelize(dbConfig.use_env_variable, dbConfig as Options);
+  const connectionUri = process.env[dbConfig.use_env_variable];
+
+  if (connectionUri == null) {
+    throw new Error(`${dbConfig.use_env_variable} not provided`);
+  }
+
+  sequelize = new Sequelize(connectionUri, dbConfig as Options);
 } else {
   sequelize = new Sequelize(dbConfig as Options);
 }
