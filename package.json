@@ -55,6 +55,7 @@
     "clean": "rm -Rf dist/*",
     "build": "tsc -p tsconfig.production.json && webpack build",
     "start": "node dist/main.js",
+    "heroku-postbuild": "sequelize-cli db:migrate",
     "db:migrate": "sequelize-cli db:migrate",
     "db:migrate:undo": "sequelize-cli db:migrate:undo"
   }
