@@ -29,7 +29,12 @@ const frontend: webpack.Configuration = {
                     modules: false,
                   },
                 ],
-                '@babel/preset-typescript',
+                [
+                  '@babel/preset-typescript',
+                  {
+                    allExtensions: true,
+                  },
+                ],
               ],
             },
           },
