@@ -1,3 +1,4 @@
+import cookieSession from 'cookie-session';
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
@@ -7,9 +8,23 @@ import routes from './routes';
 
 dotenv.config();
 
-const { PORT, NODE_ENV } = process.env;
+const { PORT, NODE_ENV, COOKIE_KEY } = process.env;
+
+if (COOKIE_KEY == null) {
+  throw new Error('COOKIE_KEY not provided');
+}
 
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: [COOKIE_KEY],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  })
+);
 
 app.use(morgan('dev'));
 
