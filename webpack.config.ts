@@ -27,6 +27,8 @@ const frontend: webpack.Configuration = {
                   '@babel/preset-env',
                   {
                     modules: false,
+                    useBuiltIns: 'entry',
+                    corejs: 3,
                   },
                 ],
                 [
