@@ -21,7 +21,7 @@ const routes = (app: Application) => {
     res.status(statusCode);
     res.json({
       status: false,
-      error: err.message,
+      message: err.message,
     });
     res.end();
   });

@@ -8,28 +8,28 @@ export class ErrorRequest extends Error {
 }
 
 export class ErrorUnauthorized extends ErrorRequest {
-  constructor(message?: string) {
+  constructor(message = 'Unauthorized') {
     super(message);
     this.statusCode = 401;
   }
 }
 
 export class ErrorBadRequest extends ErrorRequest {
-  constructor(message?: string) {
+  constructor(message = 'Bad Request') {
     super(message);
     this.statusCode = 400;
   }
 }
 
 export class ErrorNotFound extends ErrorRequest {
-  constructor(message?: string) {
+  constructor(message = 'Not Found') {
     super(message);
     this.statusCode = 404;
   }
 }
 
 export class ErrorInternalServerError extends ErrorRequest {
-  constructor(message?: string) {
+  constructor(message = 'Internal Server Error') {
     super(message);
     this.statusCode = 500;
   }
