@@ -10,12 +10,14 @@ import App from './App.vue';
 import Home from './screens/Home/index.vue';
 import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
+import Signup from './screens/Signup/index.vue';
 
 Vue.use(VueRouter);
 
 const routes: RouterOptions['routes'] = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
+  { path: '/signup', component: Signup },
   { path: '*', component: NotFound },
 ];
 
