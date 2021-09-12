@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import Joi from 'joi';
+import passwordComplexity from 'joi-password-complexity';
 
 import { ErrorBadRequest } from '../errors';
 import { User } from '../model';
@@ -13,8 +14,8 @@ interface SignupPayload {
 
 const SignupPayloadSchema = Joi.object<SignupPayload>({
   display_name: Joi.string().required(),
-  email: Joi.string().required(),
-  password: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: passwordComplexity(),
 });
 
 export async function signup(req: Request, res: Response) {
