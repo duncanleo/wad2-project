@@ -1,5 +1,7 @@
 import './index.scss';
 import 'bootstrap';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 import Vue from 'vue';
 import VueRouter, { RouterOptions } from 'vue-router';
