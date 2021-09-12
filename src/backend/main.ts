@@ -36,11 +36,12 @@ switch (NODE_ENV) {
   case 'production': {
     const assetsPath = path.join(__dirname, 'public');
 
+    app.use(express.static(assetsPath));
+
     app.get('*', function (req, res) {
       res.sendFile(path.join(assetsPath, 'index.html'));
     });
 
-    app.use(express.static(assetsPath));
     break;
   }
   default: {
