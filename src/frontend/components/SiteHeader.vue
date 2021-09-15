@@ -17,16 +17,12 @@
         <div class="collapse navbar-collapse" id="header01">
           <ul class="navbar-nav ms-auto mt-3 mt-lg-0 mb-3 mb-lg-0 me-4">
             <li class="nav-item">
-              <router-link class="nav-link" v-if="user != null" to="/app/feed">
+              <router-link class="nav-link" v-if="user != null" to="/feed">
                 Feed
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                class="nav-link"
-                v-if="user != null"
-                to="/app/checkin"
-              >
+              <router-link class="nav-link" v-if="user != null" to="/checkin">
                 Check-in
               </router-link>
             </li>
@@ -41,7 +37,7 @@
               </router-link>
             </li>
             <li class="nav-item" v-if="isHomePage && user != null">
-              <router-link class="btn btn-primary" to="/app">
+              <router-link class="btn btn-primary" to="/feed">
                 Back to App
               </router-link>
             </li>

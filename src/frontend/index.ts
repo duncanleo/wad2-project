@@ -6,9 +6,8 @@ import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import VueRouter, { RouterOptions } from 'vue-router';
 
-import App from './screens/App/index.vue';
-import CheckIn from './screens/App/screens/CheckIn/index.vue';
-import Feed from './screens/App/screens/Feed/index.vue';
+import CheckIn from './screens/CheckIn/index.vue';
+import Feed from './screens/Feed/index.vue';
 import Home from './screens/Home/index.vue';
 import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
@@ -23,15 +22,11 @@ const routes: RouterOptions['routes'] = [
   { path: '/signup', component: Signup },
   { path: '*', component: NotFound },
   {
-    path: '/app',
-    component: App,
-  },
-  {
-    path: '/app/feed',
+    path: '/feed',
     component: Feed,
   },
   {
-    path: '/app/checkin',
+    path: '/checkin',
     component: CheckIn,
   },
 ];
