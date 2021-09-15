@@ -73,17 +73,14 @@ const router = new VueRouter({
   mode: 'history',
 });
 
+let isAuthChecked = false;
+
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
-  if (!requiresAuth) {
-    next();
-    return;
-  }
-
   if (store.state.user != null) {
     next();
-  } else {
+  } else if (!isAuthChecked) {
     // Check auth
     try {
       const response = await axios.get<App.Frontend.Models.Me>('/api/me');
@@ -92,6 +89,13 @@ router.beforeEach(async (to, from, next) => {
     } catch (e) {
       next('login');
     }
+
+    isAuthChecked = true;
+  }
+
+  if (!requiresAuth) {
+    next();
+    return;
   }
 });
 
