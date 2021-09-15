@@ -1,5 +1,6 @@
 import { Application, NextFunction, Request, Response } from 'express';
 
+import auth from './api/auth';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
 import { signup } from './api/signup';
@@ -10,6 +11,7 @@ const routes = (app: Application) => {
   app.get('/healthz', asyncWrapper(healthz));
   app.post('/login', asyncWrapper(login));
   app.post('/signup', asyncWrapper(signup));
+  app.get('/auth', asyncWrapper(auth));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 400;
