@@ -13,6 +13,7 @@ const frontend: webpack.Configuration = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist', 'public'),
+    publicPath: '/',
   },
   module: {
     rules: [
