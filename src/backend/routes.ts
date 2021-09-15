@@ -3,6 +3,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 import auth from './api/auth';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
+import me from './api/me';
 import { signup } from './api/signup';
 import { ErrorRequest } from './errors';
 import asyncWrapper from './util/asyncWrapper';
@@ -12,6 +13,8 @@ const routes = (app: Application) => {
   app.post('/login', asyncWrapper(login));
   app.post('/signup', asyncWrapper(signup));
   app.get('/auth', asyncWrapper(auth));
+
+  app.get('/api/me', asyncWrapper(me));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 400;
