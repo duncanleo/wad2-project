@@ -10,10 +10,7 @@ import Vue from 'vue';
 
 interface Data {
   isAuthenticated: boolean | null;
-  user: {
-    email: string;
-    display_name: string;
-  } | null;
+  user: App.Frontend.Models.Me | null;
 }
 
 const App = Vue.extend({
@@ -28,10 +25,7 @@ const App = Vue.extend({
     let isAuthenticated = false;
 
     try {
-      const response = await axios.get<{ email: string; display_name: string }>(
-        '/api/me'
-      );
-      console.log(response);
+      const response = await axios.get<App.Frontend.Models.Me>('/api/me');
       this.user = response.data;
 
       this.isAuthenticated = true;
