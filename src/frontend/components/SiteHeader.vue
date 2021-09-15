@@ -65,15 +65,17 @@ const SiteHeader = Vue.extend({
   components: {
     UserDropdown,
   },
-  inject: ['getUser'],
-  data: function (): Data {
+  computed: {
+    user() {
+      const state = this.$store.state as App.Frontend.Store.RootState;
+
+      return state.user;
+    },
+  },
+  data: function () {
     return {
       isHomePage: false,
-      user: null,
     };
-  },
-  mounted: async function () {
-    this.user = await this.getUser();
   },
   watch: {
     $route: {

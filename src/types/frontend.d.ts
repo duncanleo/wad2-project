@@ -5,4 +5,10 @@ declare namespace App.Frontend {
       display_name: string;
     }
   }
+
+  namespace Store {
+    interface RootState {
+      user: Models.Me | null;
+    }
+  }
 }

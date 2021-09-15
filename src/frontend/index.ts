@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime';
 import axios from 'axios';
 import Vue from 'vue';
 import VueRouter, { RouterOptions } from 'vue-router';
+import Vuex from 'vuex';
 
 import CheckIn from './screens/CheckIn/index.vue';
 import Feed from './screens/Feed/index.vue';
@@ -16,6 +17,30 @@ import Signup from './screens/Signup/index.vue';
 import VueApp from './VueApp.vue';
 
 Vue.use(VueRouter);
+Vue.use(Vuex);
+
+const store = new Vuex.Store<App.Frontend.Store.RootState>({
+  state: {
+    user: null,
+  },
+  mutations: {
+    setUser(state, user: App.Frontend.Models.Me | null) {
+      state.user = user;
+    },
+  },
+  actions: {
+    setUser({ commit }, payload) {
+      commit('setUser', payload);
+    },
+  },
+  getters: {
+    getUser(state) {
+      return state.user;
+    },
+  },
+});
+
+export default store;
 
 /**
  * Route protection
@@ -56,12 +81,17 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
-  try {
-    // TODO: this will cause auth HTTP requests all the time
-    await axios.get('/auth');
+  if (store.state.user != null) {
     next();
-  } catch (e) {
-    next('login');
+  } else {
+    // Check auth
+    try {
+      const response = await axios.get<App.Frontend.Models.Me>('/api/me');
+      store.dispatch('setUser', response.data);
+      next();
+    } catch (e) {
+      next('login');
+    }
   }
 });
 
@@ -75,4 +105,5 @@ if (module['hot']) {
 new Vue({
   router,
   render: (h) => h(VueApp),
+  store,
 }).$mount('#root');

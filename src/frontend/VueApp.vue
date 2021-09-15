@@ -16,22 +16,6 @@ const App = Vue.extend({
   components: {
     SiteHeader,
   },
-  provide: function () {
-    return {
-      getUser: this.getUser,
-    };
-  },
-  methods: {
-    getUser: async function () {
-      try {
-        const response = await axios.get<App.Frontend.Models.Me>('/api/me');
-
-        return response.data;
-      } catch (e) {
-        return null;
-      }
-    },
-  },
 });
 
 export default App;
