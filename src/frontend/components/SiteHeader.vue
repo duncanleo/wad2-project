@@ -21,14 +21,19 @@
                 Somewhere
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isGuest">
               <router-link class="btn btn-outline-dark me-2" to="/login">
                 Login
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isGuest">
               <router-link class="btn btn-primary" to="/signup">
                 Sign-up
+              </router-link>
+            </li>
+            <li class="nav-item" v-else>
+              <router-link class="btn btn-primary" to="/app">
+                Back to App
               </router-link>
             </li>
           </ul>
@@ -39,9 +44,24 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import Vue from 'vue';
 
-const SiteHeader = Vue.extend({});
+const SiteHeader = Vue.extend({
+  data: function () {
+    return {
+      isGuest: true,
+    };
+  },
+  mounted: async function () {
+    try {
+      const response = await axios.get('/auth');
+      this.isGuest = false;
+    } catch (e) {
+      this.isGuest = true;
+    }
+  },
+});
 
 export default SiteHeader;
 </script>
