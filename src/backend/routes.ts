@@ -13,15 +13,19 @@ const routes = (app: Application) => {
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 400;
+    let message = 'An error occurred';
 
     if (err instanceof ErrorRequest) {
       statusCode = err.statusCode;
+      message = err.message;
     }
+
+    console.error(err);
 
     res.status(statusCode);
     res.json({
       status: false,
-      message: err.message,
+      message,
     });
     res.end();
   });
