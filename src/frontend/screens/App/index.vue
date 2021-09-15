@@ -1,6 +1,18 @@
 <template>
   <div v-if="isAuthenticated">
-    <h1>Hi, {{ user.display_name }}</h1>
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <router-link class="nav-link" active-class="active" to="/app/feed">
+          Feed
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" active-class="active" to="/app/checkin">
+          Check in
+        </router-link>
+      </li>
+    </ul>
+    <router-view />
   </div>
 </template>
 

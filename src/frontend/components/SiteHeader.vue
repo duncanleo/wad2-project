@@ -17,8 +17,13 @@
         <div class="collapse navbar-collapse" id="header01">
           <ul class="navbar-nav ms-auto mt-3 mt-lg-0 mb-3 mb-lg-0 me-4">
             <li class="nav-item">
-              <router-link class="nav-link" to="/somewhere">
-                Somewhere
+              <router-link class="nav-link" v-if="!isGuest" to="/app/feed">
+                Feed
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" v-if="!isGuest" to="/app/checkin">
+                Check-in
               </router-link>
             </li>
             <li class="nav-item" v-if="isGuest">
@@ -31,10 +36,13 @@
                 Sign-up
               </router-link>
             </li>
-            <li class="nav-item" v-else>
+            <li class="nav-item" v-if="isHomePage && !isGuest">
               <router-link class="btn btn-primary" to="/app">
                 Back to App
               </router-link>
+            </li>
+            <li class="nav-item" v-if="!isHomePage && !isGuest">
+              <user-dropdown v-bind:user="user"></user-dropdown>
             </li>
           </ul>
         </div>
@@ -46,20 +54,41 @@
 <script lang="ts">
 import axios from 'axios';
 import Vue from 'vue';
+import UserDropdown from './UserDropdown.vue';
+
+interface Data {
+  isGuest: boolean;
+  isHomePage: boolean;
+  user: App.Frontend.Models.Me | null;
+}
 
 const SiteHeader = Vue.extend({
-  data: function () {
+  components: {
+    UserDropdown,
+  },
+  data: function (): Data {
     return {
       isGuest: true,
+      isHomePage: false,
+      user: null,
     };
   },
   mounted: async function () {
     try {
-      const response = await axios.get('/auth');
+      const response = await axios.get<App.Frontend.Models.Me>('/api/me');
+      this.user = response.data;
       this.isGuest = false;
     } catch (e) {
       this.isGuest = true;
     }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler: function () {
+        this.isHomePage = this.$route.path === '/';
+      },
+    },
   },
 });
 
