@@ -17,31 +17,35 @@
         <div class="collapse navbar-collapse" id="header01">
           <ul class="navbar-nav ms-auto mt-3 mt-lg-0 mb-3 mb-lg-0 me-4">
             <li class="nav-item">
-              <router-link class="nav-link" v-if="!isGuest" to="/app/feed">
+              <router-link class="nav-link" v-if="user != null" to="/app/feed">
                 Feed
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" v-if="!isGuest" to="/app/checkin">
+              <router-link
+                class="nav-link"
+                v-if="user != null"
+                to="/app/checkin"
+              >
                 Check-in
               </router-link>
             </li>
-            <li class="nav-item" v-if="isGuest">
+            <li class="nav-item" v-if="user == null">
               <router-link class="btn btn-outline-dark me-2" to="/login">
                 Login
               </router-link>
             </li>
-            <li class="nav-item" v-if="isGuest">
+            <li class="nav-item" v-if="user == null">
               <router-link class="btn btn-primary" to="/signup">
                 Sign-up
               </router-link>
             </li>
-            <li class="nav-item" v-if="isHomePage && !isGuest">
+            <li class="nav-item" v-if="isHomePage && user != null">
               <router-link class="btn btn-primary" to="/app">
                 Back to App
               </router-link>
             </li>
-            <li class="nav-item" v-if="!isHomePage && !isGuest">
+            <li class="nav-item" v-if="!isHomePage && user != null">
               <user-dropdown v-bind:user="user"></user-dropdown>
             </li>
           </ul>
@@ -57,7 +61,6 @@ import Vue from 'vue';
 import UserDropdown from './UserDropdown.vue';
 
 interface Data {
-  isGuest: boolean;
   isHomePage: boolean;
   user: App.Frontend.Models.Me | null;
 }
@@ -66,21 +69,15 @@ const SiteHeader = Vue.extend({
   components: {
     UserDropdown,
   },
+  inject: ['getUser'],
   data: function (): Data {
     return {
-      isGuest: true,
       isHomePage: false,
       user: null,
     };
   },
   mounted: async function () {
-    try {
-      const response = await axios.get<App.Frontend.Models.Me>('/api/me');
-      this.user = response.data;
-      this.isGuest = false;
-    } catch (e) {
-      this.isGuest = true;
-    }
+    this.user = await this.getUser();
   },
   watch: {
     $route: {
