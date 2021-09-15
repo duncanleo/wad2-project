@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime';
 import Vue from 'vue';
 import VueRouter, { RouterOptions } from 'vue-router';
 
+import App from './screens/App/index.vue';
 import Home from './screens/Home/index.vue';
 import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
@@ -19,6 +20,7 @@ const routes: RouterOptions['routes'] = [
   { path: '/login', component: Login },
   { path: '/signup', component: Signup },
   { path: '*', component: NotFound },
+  { path: '/app', component: App },
 ];
 
 const router = new VueRouter({
