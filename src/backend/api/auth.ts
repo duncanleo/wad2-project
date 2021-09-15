@@ -8,6 +8,7 @@ export default async function auth(req: Request, res: Response) {
 
   if (user == null) {
     res.status(401).end();
+    return;
   }
 
   res.status(200).end();
