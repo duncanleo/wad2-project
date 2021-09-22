@@ -39,9 +39,20 @@ export function setupPlace(sequelize: Sequelize) {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: DataTypes.STRING,
-      data: DataTypes.JSONB,
-      remote_id: DataTypes.STRING,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: false,
+      },
+      data: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+      },
+      remote_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
     },
     {
       sequelize,
