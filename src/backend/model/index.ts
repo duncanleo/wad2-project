@@ -3,6 +3,7 @@ import { Options, Sequelize } from 'sequelize';
 
 import config from '../model/config.json';
 import { setupPlace } from './Place';
+import { setupPlaceCategory } from './PlaceCategory';
 import { setupUser } from './User';
 
 dotenv.config();
@@ -39,4 +40,6 @@ const User = setupUser(sequelize);
 
 const Place = setupPlace(sequelize);
 
-export { Place, sequelize, User };
+const PlaceCategory = setupPlaceCategory(sequelize);
+
+export { Place, PlaceCategory, sequelize, User };
