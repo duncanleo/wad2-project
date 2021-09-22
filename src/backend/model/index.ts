@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { Options, Sequelize } from 'sequelize';
 
 import config from '../model/config.json';
+import { setupPlace } from './Place';
 import { setupUser } from './User';
 
 dotenv.config();
@@ -36,4 +37,6 @@ if ('use_env_variable' in dbConfig) {
  **/
 const User = setupUser(sequelize);
 
-export { sequelize, User };
+const Place = setupPlace(sequelize);
+
+export { Place, sequelize, User };
