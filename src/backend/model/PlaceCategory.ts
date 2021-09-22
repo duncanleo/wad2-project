@@ -1,6 +1,8 @@
 'use strict';
 
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
+
+import { Place } from '.';
 
 interface PlaceCategoryAttributes {
   id: number;
@@ -23,6 +25,12 @@ export function setupPlaceCategory(sequelize: Sequelize) {
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
+
+    public readonly places?: InstanceType<typeof Place>[];
+
+    public static associations: {
+      places: Association<PlaceCategory, InstanceType<typeof Place>>;
+    };
   }
 
   PlaceCategory.init(
@@ -44,4 +52,3 @@ export function setupPlaceCategory(sequelize: Sequelize) {
   );
   return PlaceCategory;
 }
-

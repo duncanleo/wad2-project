@@ -4,6 +4,7 @@ import { Options, Sequelize } from 'sequelize';
 import config from '../model/config.json';
 import { setupPlace } from './Place';
 import { setupPlaceCategory } from './PlaceCategory';
+import { setupPlacePlaceCategory } from './PlacePlaceCategory';
 import { setupUser } from './User';
 
 dotenv.config();
@@ -42,4 +43,15 @@ const Place = setupPlace(sequelize);
 
 const PlaceCategory = setupPlaceCategory(sequelize);
 
-export { Place, PlaceCategory, sequelize, User };
+const PlacePlaceCategory = setupPlacePlaceCategory(sequelize);
+
+Place.belongsToMany(PlaceCategory, {
+  through: PlacePlaceCategory,
+  as: 'categories',
+});
+PlaceCategory.belongsToMany(Place, {
+  through: PlacePlaceCategory,
+  as: 'places',
+});
+
+export { Place, PlaceCategory, PlacePlaceCategory, sequelize, User };
