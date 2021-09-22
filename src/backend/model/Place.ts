@@ -2,7 +2,7 @@
 
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { PlaceCategory } from '.';
+import { CheckIn, PlaceCategory } from '.';
 
 interface PlaceAttributes {
   id: number;
@@ -24,9 +24,11 @@ export function setupPlace(sequelize: Sequelize) {
     public readonly updated_at!: Date;
 
     public readonly categories?: InstanceType<typeof PlaceCategory>[];
+    public readonly check_ins?: InstanceType<typeof CheckIn>[];
 
     public static associations: {
       categories: Association<Place, InstanceType<typeof PlaceCategory>>;
+      check_ins: Association<Place, InstanceType<typeof CheckIn>>;
     };
   }
 

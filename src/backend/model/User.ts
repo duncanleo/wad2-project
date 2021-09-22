@@ -1,6 +1,8 @@
 'use strict';
 
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
+
+import { CheckIn } from '.';
 
 interface UserAttributes {
   id: number;
@@ -23,6 +25,12 @@ export function setupUser(sequelize: Sequelize) {
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
+
+    public readonly check_ins?: InstanceType<typeof CheckIn>[];
+
+    public static associations: {
+      check_ins: Association<User, InstanceType<typeof CheckIn>>;
+    };
   }
 
   User.init(

@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { Options, Sequelize } from 'sequelize';
 
 import config from '../model/config.json';
+import { setupCheckIn } from './CheckIn';
 import { setupPlace } from './Place';
 import { setupPlaceCategory } from './PlaceCategory';
 import { setupPlacePlaceCategory } from './PlacePlaceCategory';
@@ -54,4 +55,24 @@ PlaceCategory.belongsToMany(Place, {
   as: 'places',
 });
 
-export { Place, PlaceCategory, PlacePlaceCategory, sequelize, User };
+const CheckIn = setupCheckIn(sequelize);
+
+CheckIn.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'id',
+});
+User.hasMany(CheckIn, {
+  as: 'check_ins',
+  foreignKey: 'user_id',
+});
+
+CheckIn.belongsTo(Place, {
+  as: 'place',
+  foreignKey: 'id',
+});
+Place.hasMany(CheckIn, {
+  as: 'check_ins',
+  foreignKey: 'place_id',
+});
+
+export { CheckIn, Place, PlaceCategory, PlacePlaceCategory, sequelize, User };
