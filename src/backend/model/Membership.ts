@@ -1,6 +1,6 @@
 'use strict';
 
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
 import { Team, User } from '.';
 
@@ -20,6 +20,14 @@ export function setupMembership(sequelize: Sequelize) {
     public id!: number;
     public user_id!: number;
     public team_id!: number;
+
+    public readonly user?: InstanceType<typeof User>;
+    public readonly team?: InstanceType<typeof Team>;
+
+    public static associations: {
+      user: Association<Membership, InstanceType<typeof User>>;
+      team: Association<Membership, InstanceType<typeof Team>>;
+    };
   }
 
   Membership.init(

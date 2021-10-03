@@ -42,4 +42,24 @@ const Team = setupTeam(sequelize);
 
 const Membership = setupMembership(sequelize);
 
+Membership.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'id',
+});
+
+Membership.belongsTo(Team, {
+  as: 'team',
+  foreignKey: 'id',
+});
+
+User.hasMany(Membership, {
+  as: 'memberships',
+  foreignKey: 'user_id',
+});
+
+Team.hasMany(Membership, {
+  as: 'memberships',
+  foreignKey: 'team_id',
+});
+
 export { Membership, sequelize, Team, User };

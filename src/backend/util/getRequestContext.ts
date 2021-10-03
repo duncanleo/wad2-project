@@ -1,6 +1,6 @@
 import { Request } from 'express';
 
-import { User } from '../model';
+import { Membership, Team, User } from '../model';
 
 export default async function getRequestContext(req: Request) {
   let user = null;
@@ -12,6 +12,18 @@ export default async function getRequestContext(req: Request) {
       where: {
         id: userId,
       },
+      include: [
+        {
+          model: Membership,
+          as: 'memberships',
+          include: [
+            {
+              model: Team,
+              as: 'team',
+            },
+          ],
+        },
+      ],
     });
   }
 
