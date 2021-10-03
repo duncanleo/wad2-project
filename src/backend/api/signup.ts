@@ -10,12 +10,14 @@ interface SignupPayload {
   display_name: string;
   email: string;
   password: string;
+  type: 'gamer' | 'organiser';
 }
 
 const SignupPayloadSchema = Joi.object<SignupPayload>({
   display_name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: passwordComplexity(),
+  type: Joi.string().valid('gamer', 'organiser').required(),
 });
 
 export async function signup(req: Request, res: Response) {
@@ -44,6 +46,7 @@ export async function signup(req: Request, res: Response) {
     display_name,
     email,
     password: hashedPassword,
+    type: 'gamer',
   });
 
   if (req.session != null) {
