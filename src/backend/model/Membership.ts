@@ -8,6 +8,7 @@ interface MembershipAttributes {
   id: number;
   user_id: number;
   team_id: number;
+  role: 'leader' | 'member';
 }
 
 type MembershipCreationAttributes = Optional<MembershipAttributes, 'id'>;
@@ -20,6 +21,7 @@ export function setupMembership(sequelize: Sequelize) {
     public id!: number;
     public user_id!: number;
     public team_id!: number;
+    public role!: 'leader' | 'member';
 
     public readonly user?: InstanceType<typeof User>;
     public readonly team?: InstanceType<typeof Team>;
@@ -50,6 +52,11 @@ export function setupMembership(sequelize: Sequelize) {
           model: Team,
           key: 'id',
         },
+      },
+      role: {
+        type: DataTypes.ENUM('leader', 'member'),
+        allowNull: false,
+        defaultValue: 'member',
       },
     },
     {
