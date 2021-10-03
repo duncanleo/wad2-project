@@ -7,6 +7,7 @@ interface UserAttributes {
   display_name: string;
   email: string;
   password: string;
+  type: 'gamer' | 'organiser';
 }
 
 type UserCreationAttributes = Optional<UserAttributes, 'id'>;
@@ -20,6 +21,7 @@ export function setupUser(sequelize: Sequelize) {
     public display_name!: string;
     public email!: string;
     public password!: string;
+    public type!: 'gamer' | 'organiser';
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
@@ -37,6 +39,7 @@ export function setupUser(sequelize: Sequelize) {
       display_name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      type: DataTypes.ENUM('gamer', 'organiser'),
     },
     {
       sequelize,
