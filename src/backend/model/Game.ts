@@ -1,4 +1,6 @@
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
+
+import { Tournament } from '.';
 
 interface GameAttributes {
   id: number;
@@ -25,6 +27,12 @@ export function setupGame(sequelize: Sequelize) {
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
+
+    public readonly tournaments?: InstanceType<typeof Tournament>[];
+
+    public static associations: {
+      tournaments: Association<Game, InstanceType<typeof Tournament>>;
+    };
   }
 
   Game.init(

@@ -5,6 +5,7 @@ import config from '../model/config.json';
 import { setupGame } from './Game';
 import { setupMembership } from './Membership';
 import { setupTeam } from './Team';
+import { setupTournament } from './Tournament';
 import { setupUser } from './User';
 
 dotenv.config();
@@ -45,6 +46,8 @@ const Membership = setupMembership(sequelize);
 
 const Game = setupGame(sequelize);
 
+const Tournament = setupTournament(sequelize);
+
 Membership.belongsTo(User, {
   as: 'user',
   foreignKey: 'id',
@@ -65,4 +68,14 @@ Team.hasMany(Membership, {
   foreignKey: 'team_id',
 });
 
-export { Game, Membership, sequelize, Team, User };
+Tournament.belongsTo(Game, {
+  as: 'game',
+  foreignKey: 'id',
+});
+
+Game.hasMany(Tournament, {
+  as: 'tournaments',
+  foreignKey: 'game_id',
+});
+
+export { Game, Membership, sequelize, Team, Tournament, User };
