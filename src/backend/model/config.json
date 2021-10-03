@@ -2,14 +2,14 @@
   "development": {
     "username": "postgres",
     "password": null,
-    "database": "places_dev",
+    "database": "wad2_project_dev",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "postgres",
-    "database": "places_test",
+    "database": "wad2_project_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

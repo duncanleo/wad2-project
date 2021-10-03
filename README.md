@@ -7,7 +7,7 @@ Hot module reloading is available for the frontend.
 ##### Initial Setup
 1. Install PostgreSQL on your system (Windows - installer, Mac - `brew install postgresql && brew services start postgresql && psql -c "CREATE ROLE postgres LOGIN"`)
 2. Copy `.env.example` to `.env`. The default value is suitable for development.
-3. Run `createdb places_dev` to create a database
+3. Run `createdb wad2_project_dev` to create a database
 
 ##### Running
 1. Run `yarn dev`
