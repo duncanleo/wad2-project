@@ -4,7 +4,6 @@ import auth from './api/auth';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
 import me from './api/me';
-import { placesNearby } from './api/places';
 import { signup } from './api/signup';
 import { ErrorRequest } from './errors';
 import asyncWrapper from './util/asyncWrapper';
@@ -16,7 +15,6 @@ const routes = (app: Application) => {
   app.get('/auth', asyncWrapper(auth));
 
   app.get('/api/me', asyncWrapper(me));
-  app.get('/api/places/nearby', asyncWrapper(placesNearby));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 400;

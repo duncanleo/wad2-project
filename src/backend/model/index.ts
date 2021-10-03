@@ -2,10 +2,6 @@ import dotenv from 'dotenv';
 import { Options, Sequelize } from 'sequelize';
 
 import config from '../model/config.json';
-import { setupCheckIn } from './CheckIn';
-import { setupPlace } from './Place';
-import { setupPlaceCategory } from './PlaceCategory';
-import { setupPlacePlaceCategory } from './PlacePlaceCategory';
 import { setupUser } from './User';
 
 dotenv.config();
@@ -40,39 +36,4 @@ if ('use_env_variable' in dbConfig) {
  **/
 const User = setupUser(sequelize);
 
-const Place = setupPlace(sequelize);
-
-const PlaceCategory = setupPlaceCategory(sequelize);
-
-const PlacePlaceCategory = setupPlacePlaceCategory(sequelize);
-
-Place.belongsToMany(PlaceCategory, {
-  through: PlacePlaceCategory,
-  as: 'categories',
-});
-PlaceCategory.belongsToMany(Place, {
-  through: PlacePlaceCategory,
-  as: 'places',
-});
-
-const CheckIn = setupCheckIn(sequelize);
-
-CheckIn.belongsTo(User, {
-  as: 'user',
-  foreignKey: 'id',
-});
-User.hasMany(CheckIn, {
-  as: 'check_ins',
-  foreignKey: 'user_id',
-});
-
-CheckIn.belongsTo(Place, {
-  as: 'place',
-  foreignKey: 'id',
-});
-Place.hasMany(CheckIn, {
-  as: 'check_ins',
-  foreignKey: 'place_id',
-});
-
-export { CheckIn, Place, PlaceCategory, PlacePlaceCategory, sequelize, User };
+export { sequelize, User };
