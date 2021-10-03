@@ -28,10 +28,7 @@ export function setupUser(sequelize: Sequelize) {
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
 
-    public readonly memberships?: Association<
-      User,
-      InstanceType<typeof Membership>
-    >[];
+    public readonly memberships?: InstanceType<typeof Membership>[];
 
     public static associations: {
       memberships: Association<User, InstanceType<typeof Membership>>;
