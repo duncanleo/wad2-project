@@ -13,6 +13,7 @@ export default async function me(req: Request, res: Response) {
       .json({
         email: user.email,
         display_name: user.display_name,
+        type: user.type,
       })
       .end();
     return;

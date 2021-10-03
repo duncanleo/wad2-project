@@ -21,6 +21,13 @@ export class ErrorBadRequest extends ErrorRequest {
   }
 }
 
+export class ErrorForbidden extends ErrorRequest {
+  constructor(message = 'Forbidden') {
+    super(message);
+    this.statusCode = 403;
+  }
+}
+
 export class ErrorNotFound extends ErrorRequest {
   constructor(message = 'Not Found') {
     super(message);
