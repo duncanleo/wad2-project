@@ -9,7 +9,7 @@ import VueRouter, { RouterOptions } from 'vue-router';
 import Vuex from 'vuex';
 
 import CheckIn from './screens/CheckIn/index.vue';
-import Feed from './screens/Feed/index.vue';
+import Dashboard from './screens/Dashboard/index.vue';
 import Home from './screens/Home/index.vue';
 import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
@@ -53,8 +53,8 @@ const routes: RouterOptions['routes'] = [
   { path: '/signup', component: Signup },
   { path: '*', component: NotFound },
   {
-    path: '/feed',
-    component: Feed,
+    path: '/dashboard',
+    component: Dashboard,
     meta: {
       requiresAuth: true,
     },

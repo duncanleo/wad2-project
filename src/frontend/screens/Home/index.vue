@@ -2,7 +2,7 @@
   <div class="container pt-5">
     <div class="row align-items-center mb-5">
       <div class="col-12 col-lg-5 mb-5 mb-lg-0 me-auto">
-        <h2 class="display-4 fw-bold mb-5">Explore the world.</h2>
+        <h2 class="display-4 fw-bold mb-5">Find your gamer community.</h2>
         <p class="lead text-muted mb-5">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit
           amet ligula lacus. Vestibulum tristique, nisl consectetur commodo

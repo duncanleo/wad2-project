@@ -2,7 +2,7 @@
   <header class="pb-5">
     <nav class="navbar navbar-expand-lg navbar-light py-4">
       <div class="container">
-        <router-link class="navbar-brand" to="/">Places App</router-link>
+        <router-link class="navbar-brand" to="/">Alpha</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -16,32 +16,73 @@
         </button>
         <div class="collapse navbar-collapse" id="header01">
           <ul class="navbar-nav ms-auto mt-3 mt-lg-0 mb-3 mb-lg-0 me-4">
-            <li class="nav-item">
-              <router-link class="nav-link" v-if="user != null" to="/feed">
-                Feed
+            <li class="nav-item" v-if="!isHomePage && user != null">
+              <router-link
+                class="nav-link"
+                to="/dashboard"
+                active-class="active"
+              >
+                Dashboard
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" v-if="user != null" to="/checkin">
-                Check-in
+              <router-link
+                class="nav-link"
+                v-if="user != null"
+                to="/teams"
+                active-class="active"
+              >
+                Teams
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                v-if="user != null"
+                to="/tournaments"
+                active-class="active"
+              >
+                Tournaments
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                v-if="user != null"
+                to="/games"
+                active-class="active"
+              >
+                Games
               </router-link>
             </li>
             <li class="nav-item" v-if="user == null">
-              <router-link class="btn btn-outline-dark me-2" to="/login">
+              <router-link
+                class="btn btn-outline-dark me-2"
+                to="/login"
+                active-class="active"
+              >
                 Login
               </router-link>
             </li>
             <li class="nav-item" v-if="user == null">
-              <router-link class="btn btn-primary" to="/signup">
+              <router-link
+                class="btn btn-primary"
+                to="/signup"
+                active-class="active"
+              >
                 Sign-up
               </router-link>
             </li>
             <li class="nav-item" v-if="isHomePage && user != null">
-              <router-link class="btn btn-primary" to="/feed">
+              <router-link
+                class="btn btn-primary"
+                to="/dashboard"
+                active-class="active"
+              >
                 Back to App
               </router-link>
             </li>
-            <li class="nav-item" v-if="!isHomePage && user != null">
+            <li v-if="!isHomePage && user != null">
               <user-dropdown v-bind:user="user"></user-dropdown>
             </li>
           </ul>
@@ -52,7 +93,6 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import Vue from 'vue';
 import UserDropdown from './UserDropdown.vue';
 
