@@ -19,5 +19,8 @@ module.exports = {
    **/
   down: async (queryInterface, Sequelize) => {
     await queryInterface.removeColumn('memberships', 'role');
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS enum_memberships_role'
+    );
   },
 };
