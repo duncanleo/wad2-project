@@ -1,6 +1,6 @@
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { Game, TournamentParticipation } from '.';
+import { Game, TournamentParticipation, User } from '.';
 
 interface TournamentAttributes {
   id: number;
@@ -12,6 +12,7 @@ interface TournamentAttributes {
   game_id: number;
   start_at: Date;
   end_at: Date;
+  owner_id: number;
 }
 
 type TournamentCreationAttributes = Optional<TournamentAttributes, 'id'>;
@@ -30,6 +31,7 @@ export function setupTournament(sequelize: Sequelize) {
     public game_id!: number;
     public start_at!: Date;
     public end_at!: Date;
+    public owner_id!: number;
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
@@ -38,6 +40,7 @@ export function setupTournament(sequelize: Sequelize) {
     public readonly participations?: InstanceType<
       typeof TournamentParticipation
     >[];
+    public readonly owner?: InstanceType<typeof User>;
 
     public static associations: {
       game: Association<Tournament, InstanceType<typeof Game>>;
@@ -45,6 +48,7 @@ export function setupTournament(sequelize: Sequelize) {
         Tournament,
         InstanceType<typeof TournamentParticipation>
       >;
+      user: Association<Tournament, InstanceType<typeof User>>;
     };
   }
 
@@ -79,6 +83,14 @@ export function setupTournament(sequelize: Sequelize) {
         type: DataTypes.INTEGER,
         references: {
           model: Game,
+          key: 'id',
+        },
+        allowNull: false,
+      },
+      owner_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: User,
           key: 'id',
         },
         allowNull: false,

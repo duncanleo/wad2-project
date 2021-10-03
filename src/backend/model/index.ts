@@ -101,6 +101,16 @@ Team.hasMany(TournamentParticipation, {
   foreignKey: 'team_id',
 });
 
+Tournament.belongsTo(User, {
+  as: 'owner',
+  foreignKey: 'id',
+});
+
+User.hasMany(Tournament, {
+  as: 'tournamentsOwned',
+  foreignKey: 'owner_id',
+});
+
 export {
   Game,
   Membership,
