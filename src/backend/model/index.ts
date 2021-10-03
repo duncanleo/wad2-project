@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { Options, Sequelize } from 'sequelize';
 
 import config from '../model/config.json';
+import { setupMembership } from './Membership';
 import { setupTeam } from './Team';
 import { setupUser } from './User';
 
@@ -39,4 +40,6 @@ const User = setupUser(sequelize);
 
 const Team = setupTeam(sequelize);
 
-export { sequelize, Team, User };
+const Membership = setupMembership(sequelize);
+
+export { Membership, sequelize, Team, User };
