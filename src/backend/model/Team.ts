@@ -1,6 +1,6 @@
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { Membership } from '.';
+import { Membership, TournamentParticipation } from '.';
 
 interface TeamAttributes {
   id: number;
@@ -23,9 +23,16 @@ export function setupTeam(sequelize: Sequelize) {
     public readonly updated_at!: Date;
 
     public readonly memberships?: InstanceType<typeof Membership>[];
+    public readonly participations?: InstanceType<
+      typeof TournamentParticipation
+    >[];
 
     public static associations: {
       memberships: Association<Team, InstanceType<typeof Membership>>;
+      participations: Association<
+        Team,
+        InstanceType<typeof TournamentParticipation>
+      >;
     };
   }
 
