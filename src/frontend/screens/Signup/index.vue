@@ -1,6 +1,25 @@
 <template>
   <div class="mb-3">
     <span class="error text-danger">{{ error }}</span>
+    <span>I am a...</span>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          :class="type === 'gamer' && 'active'"
+          v-on:click="setTypeGamer"
+          >Gamer</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          :class="type === 'organiser' && 'active'"
+          v-on:click="setTypeOrganiser"
+          >Organiser</a
+        >
+      </li>
+    </ul>
     <form method="POST" action="/login" v-on:submit="handleSubmit">
       <input
         class="form-control"
@@ -26,6 +45,7 @@
         v-model="password"
         required
       />
+      <input type="hidden" name="type" v-model="type" />
       <input class="form-control" type="submit" value="Sign up" />
     </form>
   </div>
@@ -42,11 +62,18 @@ const Signup = Vue.extend({
       email: '',
       password: '',
       error: '',
+      type: 'gamer',
     };
   },
   methods: {
+    setTypeGamer: function () {
+      this.type = 'gamer';
+    },
+    setTypeOrganiser: function () {
+      this.type = 'organiser';
+    },
     handleSubmit: async function (e: SubmitEvent) {
-      const { display_name, email, password } = this;
+      const { display_name, email, password, type } = this;
 
       e.preventDefault();
 
@@ -55,6 +82,7 @@ const Signup = Vue.extend({
           display_name,
           email,
           password,
+          type,
         });
 
         this.$router.push('/');
