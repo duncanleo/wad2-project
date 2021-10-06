@@ -14,4 +14,6 @@ Hot module reloading is available for the frontend.
 
 ### Production
 1. Build `yarn build`
-2. Run `yarn start`
+2. Run `yarn stop`
+
+Hello world
