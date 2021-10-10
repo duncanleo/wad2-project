@@ -1,6 +1,6 @@
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { Tournament } from '.';
+import { GameAccount, Tournament } from '.';
 
 interface GameAttributes {
   id: number;
@@ -9,6 +9,7 @@ interface GameAttributes {
   release_year: number;
   banner_image: string | null;
   banner_image_license: string | null;
+  internal_id: string;
 }
 
 type GameCreationAttributes = Optional<GameAttributes, 'id'>;
@@ -24,14 +25,17 @@ export function setupGame(sequelize: Sequelize) {
     public release_year!: number;
     public banner_image!: string | null;
     public banner_image_license!: string | null;
+    public internal_id!: string;
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
 
     public readonly tournaments?: InstanceType<typeof Tournament>[];
+    public readonly gameAccounts?: InstanceType<typeof GameAccount>[];
 
     public static associations: {
       tournaments: Association<Game, InstanceType<typeof Tournament>>;
+      gameAccounts: Association<Game, InstanceType<typeof GameAccount>>;
     };
   }
 
@@ -61,6 +65,11 @@ export function setupGame(sequelize: Sequelize) {
       banner_image_license: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      internal_id: {
+        type: DataTypes.STRING(30),
+        unique: true,
+        allowNull: false,
       },
     },
     {
