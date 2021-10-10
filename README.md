@@ -7,8 +7,9 @@ Hot module reloading is available for the frontend.
 ##### Initial Setup
 1. Install PostgreSQL on your system (Windows - installer, Mac - `brew install postgresql && brew services start postgresql && psql -c "CREATE ROLE postgres LOGIN"`)
 2. Copy `.env.example` to `.env`. The default value is suitable for development.
-3. Run `createdb wad2_project_dev` to create a database
-4. Run `yarn db:migrate` to migrate the database
+3. Run `yarn install` to install Node.js dependencies
+4. Run `createdb wad2_project_dev` to create a database
+5. Run `yarn db:migrate` to migrate the database
 
 ### Initialising the database with useful data
 The initdata script contains data useful for the app. In this case, it will initialise the database with games that we support.
