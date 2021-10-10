@@ -34,7 +34,7 @@ routes(app);
 
 switch (NODE_ENV) {
   case 'production': {
-    const assetsPath = path.join(__dirname, 'public');
+    const assetsPath = path.join(__dirname, '..', 'public');
 
     app.use(express.static(assetsPath));
 
