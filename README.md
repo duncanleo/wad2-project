@@ -10,6 +10,11 @@ Hot module reloading is available for the frontend.
 3. Run `createdb wad2_project_dev` to create a database
 4. Run `yarn db:migrate` to migrate the database
 
+### Initialising the database with useful data
+The initdata script contains data useful for the app. In this case, it will initialise the database with games that we support.
+
+To do this, run `yarn db:initdata` in a terminal. Don't worry about running this too many times - the code here will ensure only 1 copy of data is made.
+
 ##### Running
 1. Run `yarn dev`
 
