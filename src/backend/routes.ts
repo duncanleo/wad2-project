@@ -2,6 +2,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 
 import auth from './api/auth';
 import { gamesList } from './api/game';
+import { gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
 import me from './api/me';
@@ -30,6 +31,7 @@ const routes = (app: Application) => {
   app.delete('/api/teams/:id', asyncWrapper(teamDelete));
 
   app.get('/api/games', asyncWrapper(gamesList));
+  app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));
 
   app.get('/api/tournaments', asyncWrapper(tournamentsList));
   app.post('/api/tournaments', asyncWrapper(tournamentCreate));
