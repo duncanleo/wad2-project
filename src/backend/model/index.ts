@@ -3,6 +3,7 @@ import { Options, Sequelize } from 'sequelize';
 
 import config from '../model/config.json';
 import { setupGame } from './Game';
+import setupGameAccount from './GameAccount';
 import { setupMembership } from './Membership';
 import { setupTeam } from './Team';
 import { setupTournament } from './Tournament';
@@ -50,6 +51,8 @@ const Game = setupGame(sequelize);
 const Tournament = setupTournament(sequelize);
 
 const TournamentParticipation = setupTournamentParticipation(sequelize);
+
+const GameAccount = setupGameAccount(sequelize);
 
 Membership.belongsTo(User, {
   as: 'user',
@@ -111,8 +114,29 @@ User.hasMany(Tournament, {
   foreignKey: 'owner_id',
 });
 
+GameAccount.belongsTo(Game, {
+  as: 'game',
+  foreignKey: 'id',
+});
+
+GameAccount.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'id',
+});
+
+Game.hasMany(GameAccount, {
+  as: 'gameAccounts',
+  foreignKey: 'game_id',
+});
+
+User.hasMany(GameAccount, {
+  as: 'gameAccounts',
+  foreignKey: 'user_id',
+});
+
 export {
   Game,
+  GameAccount,
   Membership,
   sequelize,
   Team,
