@@ -7,7 +7,20 @@ import { healthz } from './api/healthz';
 import { login } from './api/login';
 import me from './api/me';
 import { signup } from './api/signup';
-import { teamCreate, teamDelete, teamsList, teamUpdate } from './api/team';
+import {
+  teamCreate,
+  teamDelete,
+  teamInvitesList,
+  teamInviteUser,
+  teamRequestJoin,
+  teamsList,
+  teamUpdate,
+} from './api/team';
+import {
+  teamInvitationsDelete,
+  teamInvitationsList,
+  teamInvitationsUpdate,
+} from './api/teamInvitations';
 import {
   tournamentCreate,
   tournamentDelete,
@@ -29,6 +42,14 @@ const routes = (app: Application) => {
   app.post('/api/teams', asyncWrapper(teamCreate));
   app.patch('/api/teams/:id', asyncWrapper(teamUpdate));
   app.delete('/api/teams/:id', asyncWrapper(teamDelete));
+  app.post('/api/teams/:id/invite', asyncWrapper(teamInviteUser));
+  app.post('/api/teams/:id/join', asyncWrapper(teamRequestJoin));
+
+  app.get('/api/teams/:id/invitations', asyncWrapper(teamInvitesList));
+
+  app.get('/api/team_invitations', asyncWrapper(teamInvitationsList));
+  app.patch('/api/team_invitations/:id', asyncWrapper(teamInvitationsUpdate));
+  app.delete('/api/team_invitations/:id', asyncWrapper(teamInvitationsDelete));
 
   app.get('/api/games', asyncWrapper(gamesList));
   app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));
