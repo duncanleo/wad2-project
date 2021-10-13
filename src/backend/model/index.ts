@@ -7,6 +7,7 @@ import setupGameAccount from './GameAccount';
 import { setupMembership } from './Membership';
 import { setupTeam } from './Team';
 import setupTeamInvitation from './TeamInvitation';
+import setupTeamJoinRequest from './TeamJoinRequest';
 import { setupTournament } from './Tournament';
 import { setupTournamentParticipation } from './TournamentParticipation';
 import { setupUser } from './User';
@@ -56,6 +57,8 @@ const TournamentParticipation = setupTournamentParticipation(sequelize);
 const GameAccount = setupGameAccount(sequelize);
 
 const TeamInvitation = setupTeamInvitation(sequelize);
+
+const TeamJoinRequest = setupTeamJoinRequest(sequelize);
 
 Membership.belongsTo(User, {
   as: 'user',
@@ -162,6 +165,31 @@ Team.hasMany(TeamInvitation, {
   foreignKey: 'team_id',
 });
 
+TeamJoinRequest.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'user_id',
+});
+
+TeamJoinRequest.belongsTo(User, {
+  as: 'approver',
+  foreignKey: 'approver_id',
+});
+
+TeamJoinRequest.belongsTo(Team, {
+  as: 'team',
+  foreignKey: 'team_id',
+});
+
+User.hasMany(TeamJoinRequest, {
+  as: 'team_join_requests',
+  foreignKey: 'user_id',
+});
+
+Team.hasMany(TeamJoinRequest, {
+  as: 'join_requests',
+  foreignKey: 'team_id',
+});
+
 export {
   Game,
   GameAccount,
@@ -169,6 +197,7 @@ export {
   sequelize,
   Team,
   TeamInvitation,
+  TeamJoinRequest,
   Tournament,
   TournamentParticipation,
   User,

@@ -2,7 +2,13 @@
 
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { GameAccount, Membership, TeamInvitation, Tournament } from '.';
+import {
+  GameAccount,
+  Membership,
+  TeamInvitation,
+  TeamJoinRequest,
+  Tournament,
+} from '.';
 
 interface UserAttributes {
   id: number;
@@ -32,12 +38,14 @@ export function setupUser(sequelize: Sequelize) {
     public readonly tournamentsOwned?: InstanceType<typeof Tournament>[];
     public readonly gameAccounts?: InstanceType<typeof GameAccount>[];
     public readonly team_invitations?: InstanceType<typeof TeamInvitation>[];
+    public readonly team_join_requests?: InstanceType<typeof TeamJoinRequest>[];
 
     public static associations: {
       memberships: Association<User, InstanceType<typeof Membership>>;
       tournamentsOwned: Association<User, InstanceType<typeof Tournament>>;
       gameAccounts: Association<User, InstanceType<typeof GameAccount>>;
       team_invitations: Association<InstanceType<typeof TeamInvitation>>;
+      team_join_requests: Association<InstanceType<typeof TeamJoinRequest>>;
     };
   }
 
