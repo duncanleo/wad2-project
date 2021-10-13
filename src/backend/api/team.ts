@@ -91,7 +91,7 @@ export async function teamCreate(req: Request, res: Response) {
   await Membership.create({
     user_id: user.id,
     team_id: team.id,
-    role: 'member',
+    role: 'leader',
   });
 
   res
