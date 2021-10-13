@@ -56,12 +56,12 @@ const GameAccount = setupGameAccount(sequelize);
 
 Membership.belongsTo(User, {
   as: 'user',
-  foreignKey: 'id',
+  foreignKey: 'user_id',
 });
 
 Membership.belongsTo(Team, {
   as: 'team',
-  foreignKey: 'id',
+  foreignKey: 'team_id',
 });
 
 User.hasMany(Membership, {
@@ -76,7 +76,7 @@ Team.hasMany(Membership, {
 
 Tournament.belongsTo(Game, {
   as: 'game',
-  foreignKey: 'id',
+  foreignKey: 'team_id',
 });
 
 Game.hasMany(Tournament, {
@@ -86,12 +86,12 @@ Game.hasMany(Tournament, {
 
 TournamentParticipation.belongsTo(Tournament, {
   as: 'tournament',
-  foreignKey: 'id',
+  foreignKey: 'tournament_id',
 });
 
 TournamentParticipation.belongsTo(Team, {
   as: 'teams',
-  foreignKey: 'id',
+  foreignKey: 'team_id',
 });
 
 Tournament.hasMany(TournamentParticipation, {
@@ -106,7 +106,7 @@ Team.hasMany(TournamentParticipation, {
 
 Tournament.belongsTo(User, {
   as: 'owner',
-  foreignKey: 'id',
+  foreignKey: 'owner_id',
 });
 
 User.hasMany(Tournament, {
@@ -116,12 +116,12 @@ User.hasMany(Tournament, {
 
 GameAccount.belongsTo(Game, {
   as: 'game',
-  foreignKey: 'id',
+  foreignKey: 'game_id',
 });
 
 GameAccount.belongsTo(User, {
   as: 'user',
-  foreignKey: 'id',
+  foreignKey: 'user_id',
 });
 
 Game.hasMany(GameAccount, {
