@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Joi from 'joi';
+import { Sequelize } from 'sequelize';
 
 import {
   ErrorBadRequest,
@@ -43,18 +44,49 @@ export async function teamsList(req: Request, res: Response) {
 
   if (self) {
     teams = await Team.findAll({
+      attributes: [
+        'id',
+        'name',
+        'avatar',
+        'created_at',
+        [
+          Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
+          'memberships_count',
+        ],
+      ],
       include: [
         {
           model: Membership,
           as: 'memberships',
+          attributes: [],
           where: {
             user_id: user.id,
           },
         },
       ],
+      group: ['Team.id'],
     });
   } else {
-    teams = await Team.findAll();
+    teams = await Team.findAll({
+      attributes: [
+        'id',
+        'name',
+        'avatar',
+        'created_at',
+        [
+          Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
+          'memberships_count',
+        ],
+      ],
+      include: [
+        {
+          model: Membership,
+          as: 'memberships',
+          attributes: [],
+        },
+      ],
+      group: ['Team.id'],
+    });
   }
 
   res

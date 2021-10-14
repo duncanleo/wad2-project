@@ -1,13 +1,13 @@
 declare namespace App.API {
-  interface Result<TData> {
+  interface ResponseBase {
     status: boolean;
-    data: TData;
   }
 
-  interface NearbyResult {
-    headerLocation: string;
-    headerLocationGranularity: string;
-    headerFullLocation: string;
-    items: Foursquare.API.GroupItem[];
+  interface Team {
+    id: number;
+    name: string;
+    avatar: string | null;
+    memberships_count: number;
+    created_at: string;
   }
 }
