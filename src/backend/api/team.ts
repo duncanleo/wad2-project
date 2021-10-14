@@ -124,7 +124,7 @@ export async function teamSingle(req: Request, res: Response) {
           {
             model: User,
             as: 'user',
-            attributes: ['id', 'display_name'],
+            attributes: ['id', 'display_name', 'bio'],
             include: [
               {
                 model: GameAccount,
