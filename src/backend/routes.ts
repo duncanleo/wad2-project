@@ -13,6 +13,7 @@ import {
   teamInvitesList,
   teamInviteUser,
   teamRequestJoin,
+  teamSingle,
   teamsList,
   teamUpdate,
 } from './api/team';
@@ -40,6 +41,7 @@ const routes = (app: Application) => {
 
   app.get('/api/teams', asyncWrapper(teamsList));
   app.post('/api/teams', asyncWrapper(teamCreate));
+  app.get('/api/teams/:id', asyncWrapper(teamSingle));
   app.patch('/api/teams/:id', asyncWrapper(teamUpdate));
   app.delete('/api/teams/:id', asyncWrapper(teamDelete));
   app.post('/api/teams/:id/invite', asyncWrapper(teamInviteUser));

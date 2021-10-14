@@ -9,6 +9,8 @@ import {
   ErrorUnauthorized,
 } from '../errors';
 import {
+  Game,
+  GameAccount,
   Membership,
   Team,
   TeamInvitation,
@@ -94,6 +96,64 @@ export async function teamsList(req: Request, res: Response) {
     .json({
       status: true,
       teams,
+    })
+    .end();
+}
+
+export async function teamSingle(req: Request, res: Response) {
+  const context = await getRequestContext(req);
+  const { user } = context;
+
+  if (user == null) {
+    throw new ErrorUnauthorized();
+  }
+
+  const { id } = req.params;
+
+  const team = await Team.findOne({
+    attributes: ['id', 'name', 'avatar', 'created_at'],
+    where: {
+      id,
+    },
+    include: [
+      {
+        model: Membership,
+        as: 'memberships',
+        attributes: ['id'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'display_name'],
+            include: [
+              {
+                model: GameAccount,
+                as: 'gameAccounts',
+                attributes: ['id'],
+                include: [
+                  {
+                    model: Game,
+                    as: 'game',
+                    attributes: ['id', 'name', 'developer', 'release_year'],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  if (team == null) {
+    throw new ErrorNotFound();
+  }
+
+  res
+    .status(200)
+    .json({
+      status: true,
+      team,
     })
     .end();
 }
