@@ -1,6 +1,11 @@
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { Membership, TournamentParticipation } from '.';
+import {
+  Membership,
+  TeamInvitation,
+  TeamJoinRequest,
+  TournamentParticipation,
+} from '.';
 
 interface TeamAttributes {
   id: number;
@@ -26,6 +31,8 @@ export function setupTeam(sequelize: Sequelize) {
     public readonly participations?: InstanceType<
       typeof TournamentParticipation
     >[];
+    public readonly invitations?: InstanceType<typeof TeamInvitation>[];
+    public readonly join_requests?: InstanceType<typeof TeamJoinRequest>[];
 
     public static associations: {
       memberships: Association<Team, InstanceType<typeof Membership>>;
@@ -33,6 +40,8 @@ export function setupTeam(sequelize: Sequelize) {
         Team,
         InstanceType<typeof TournamentParticipation>
       >;
+      invitations: Association<InstanceType<typeof TeamInvitation>>;
+      join_requests: Association<InstanceType<typeof TeamJoinRequest>>;
     };
   }
 
