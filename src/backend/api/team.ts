@@ -160,10 +160,12 @@ export async function teamSingle(req: Request, res: Response) {
 
 interface TeamCreatePayload {
   name: string;
+  description: string;
 }
 
 const TeamCreatePayloadSchema = Joi.object<TeamCreatePayload>({
   name: Joi.string().required(),
+  description: Joi.string().default(null),
 });
 
 export async function teamCreate(req: Request, res: Response) {
@@ -179,11 +181,12 @@ export async function teamCreate(req: Request, res: Response) {
     throw new ErrorBadRequest(validationResult.error.message);
   }
 
-  const { name } = validationResult.value as TeamCreatePayload;
+  const { name, description } = validationResult.value as TeamCreatePayload;
 
   const team = await Team.create({
     name,
     avatar: null,
+    description,
   });
 
   await Membership.create({

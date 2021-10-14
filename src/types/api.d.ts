@@ -31,6 +31,7 @@ declare namespace App.API {
     id: number;
     name: string;
     avatar: string | null;
+    description: string | null;
     memberships_count: number;
     created_at: string;
     memberships?: Membership[];

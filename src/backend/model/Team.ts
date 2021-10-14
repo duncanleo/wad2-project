@@ -11,6 +11,7 @@ interface TeamAttributes {
   id: number;
   name: string;
   avatar: string | null;
+  description: string | null;
 }
 
 type TeamCreationAttributes = Optional<TeamAttributes, 'id'>;
@@ -23,6 +24,7 @@ export function setupTeam(sequelize: Sequelize) {
     public id!: number;
     public name!: string;
     public avatar!: string | null;
+    public description!: string | null;
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
@@ -58,6 +60,10 @@ export function setupTeam(sequelize: Sequelize) {
       },
       avatar: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+      description: {
+        type: DataTypes.TEXT,
         allowNull: true,
       },
     },
