@@ -8,12 +8,13 @@ import Vue from 'vue';
 import VueRouter, { RouterOptions } from 'vue-router';
 import Vuex from 'vuex';
 
-import CheckIn from './screens/CheckIn/index.vue';
-import Dashboard from './screens/Dashboard/index.vue';
 import Home from './screens/Home/index.vue';
 import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
+import Player from './screens/Player/index.vue';
 import Signup from './screens/Signup/index.vue';
+import Teams from './screens/Teams/index.vue';
+import Tournaments from './screens/Tournaments/index.vue';
 import VueApp from './VueApp.vue';
 
 Vue.use(VueRouter);
@@ -53,15 +54,50 @@ const routes: RouterOptions['routes'] = [
   { path: '/signup', component: Signup },
   { path: '*', component: NotFound },
   {
-    path: '/dashboard',
-    component: Dashboard,
+    path: '/search',
+    component: NotFound,
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: '/checkin',
-    component: CheckIn,
+    path: '/teams',
+    component: Teams,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/teams/:id',
+    component: NotFound,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/players/:id',
+    component: Player,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/tournaments',
+    component: Tournaments,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/tournaments/:id',
+    component: NotFound,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/profile',
+    component: NotFound,
     meta: {
       requiresAuth: true,
     },

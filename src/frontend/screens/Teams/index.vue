@@ -1,10 +1,11 @@
 <template>
-  <div>Feed</div>
+  <h1>Teams</h1>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-const Feed = Vue.extend({});
 
-export default Feed;
+const Teams = Vue.extend({});
+
+export default Teams;
 </script>

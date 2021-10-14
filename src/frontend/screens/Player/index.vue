@@ -1,10 +1,11 @@
 <template>
-  <div>Checkin</div>
+  <h1>Player</h1>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-const CheckIn = Vue.extend({});
 
-export default CheckIn;
+const Player = Vue.extend({});
+
+export default Player;
 </script>
