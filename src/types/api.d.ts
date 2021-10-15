@@ -32,8 +32,14 @@ declare namespace App.API {
     gameAccounts: GameAccount[];
   }
 
+  interface CurrentUser extends User {
+    memberships: Membership[];
+  }
+
   interface Membership {
     id: number;
+    team_id: number;
+    role: 'leader' | 'member';
     user: User;
   }
 
@@ -45,5 +51,17 @@ declare namespace App.API {
     memberships_count: number;
     created_at: string;
     memberships?: Membership[];
+  }
+
+  interface TeamInvitation {
+    id: number;
+    message: string | null;
+    user: User;
+  }
+
+  interface TeamJoinRequest {
+    id: number;
+    message: string | null;
+    status: 'idle' | 'approved' | 'rejected';
   }
 }

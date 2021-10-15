@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Joi from 'joi';
 
 import { ErrorBadRequest, ErrorNotFound, ErrorUnauthorized } from '../errors';
-import { TeamInvitation } from '../model';
+import { TeamInvitation, User } from '../model';
 import getRequestContext from '../util/getRequestContext';
 
 export async function teamInvitationsList(req: Request, res: Response) {
@@ -14,6 +14,14 @@ export async function teamInvitationsList(req: Request, res: Response) {
   }
 
   const invitations = await TeamInvitation.findAll({
+    attributes: ['id', 'team_id', 'message'],
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'display_name', 'bio'],
+      },
+    ],
     where: {
       user_id: user.id,
     },

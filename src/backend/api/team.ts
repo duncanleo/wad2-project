@@ -348,6 +348,64 @@ export async function teamInvitesList(req: Request, res: Response) {
   });
 }
 
+export async function teamJoinRequestsList(req: Request, res: Response) {
+  const context = await getRequestContext(req);
+  const { user } = context;
+
+  if (user == null) {
+    throw new ErrorUnauthorized();
+  }
+
+  const { id } = req.params;
+
+  const team = await Team.findOne({
+    attributes: ['id'],
+    where: {
+      id,
+    },
+    include: [
+      {
+        model: TeamJoinRequest,
+        as: 'join_requests',
+        attributes: ['id', 'message', 'status'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'display_name', 'bio'],
+          },
+          {
+            model: User,
+            as: 'approver',
+            attributes: ['id', 'display_name', 'bio'],
+          },
+        ],
+      },
+    ],
+  });
+
+  if (team == null) {
+    throw new ErrorNotFound('invalid team');
+  }
+
+  const membership = await Membership.findOne({
+    attributes: ['id', 'role', 'team_id', 'user_id'],
+    where: {
+      team_id: team.id,
+      user_id: user.id,
+    },
+  });
+
+  if (membership == null || membership.role !== 'leader') {
+    throw new ErrorForbidden();
+  }
+
+  res.status(200).json({
+    status: true,
+    join_requests: team.join_requests,
+  });
+}
+
 interface TeamInviteUserPayload {
   user_id: number;
   message: string | null;

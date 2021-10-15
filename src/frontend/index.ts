@@ -13,6 +13,7 @@ import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
 import Player from './screens/Player/index.vue';
 import Signup from './screens/Signup/index.vue';
+import SingleTeam from './screens/SingleTeam/index.vue';
 import Teams from './screens/Teams/index.vue';
 import Tournaments from './screens/Tournaments/index.vue';
 import VueApp from './VueApp.vue';
@@ -69,7 +70,7 @@ const routes: RouterOptions['routes'] = [
   },
   {
     path: '/teams/:id',
-    component: NotFound,
+    component: SingleTeam,
     meta: {
       requiresAuth: true,
     },
