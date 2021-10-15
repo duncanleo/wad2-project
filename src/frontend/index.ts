@@ -12,6 +12,7 @@ import Home from './screens/Home/index.vue';
 import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
 import Player from './screens/Player/index.vue';
+import Profile from './screens/Profile/index.vue';
 import Signup from './screens/Signup/index.vue';
 import SingleTeam from './screens/SingleTeam/index.vue';
 import Teams from './screens/Teams/index.vue';
@@ -98,7 +99,7 @@ const routes: RouterOptions['routes'] = [
   },
   {
     path: '/profile',
-    component: NotFound,
+    component: Profile,
     meta: {
       requiresAuth: true,
     },

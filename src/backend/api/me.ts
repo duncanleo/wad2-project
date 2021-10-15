@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { ErrorUnauthorized } from '../errors';
-import { GameAccount, Membership } from '../model';
+import { Game, GameAccount, Membership } from '../model';
 import getRequestContext from '../util/getRequestContext';
 
 export default async function me(req: Request, res: Response) {
@@ -21,6 +21,13 @@ export default async function me(req: Request, res: Response) {
       where: {
         user_id: user.id,
       },
+      include: [
+        {
+          model: Game,
+          as: 'game',
+          attributes: ['id', 'name', 'developer', 'release_year'],
+        },
+      ],
     });
 
     res
