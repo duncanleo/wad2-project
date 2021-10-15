@@ -43,8 +43,6 @@ const store = new Vuex.Store<App.Frontend.Store.RootState>({
   },
 });
 
-export default store;
-
 /**
  * Route protection
  * https://webomnizz.com/protecting-route-for-authenticated-users-in-vue-js/
@@ -111,24 +109,18 @@ const router = new VueRouter({
   mode: 'history',
 });
 
-let isAuthChecked = false;
-
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
   if (store.state.user != null) {
     next();
-  } else if (!isAuthChecked) {
+  } else if (to.path !== '/login') {
     // Check auth
     try {
       const response = await axios.get<App.Frontend.Models.Me>('/api/me');
-      store.dispatch('setUser', response.data);
+      store.commit('setUser', response.data);
       next();
-    } catch (e) {
-      next('login');
-    }
-
-    isAuthChecked = true;
+    } catch (e) {}
   }
 
   if (!requiresAuth) {
