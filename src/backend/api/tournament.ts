@@ -7,7 +7,7 @@ import {
   ErrorNotFound,
   ErrorUnauthorized,
 } from '../errors';
-import { Game, Tournament } from '../model';
+import { Game, Tournament, User } from '../model';
 import getRequestContext from '../util/getRequestContext';
 
 export async function tournamentsList(req: Request, res: Response) {
@@ -27,6 +27,13 @@ export async function tournamentsList(req: Request, res: Response) {
       'start_at',
       'end_at',
       'game_id',
+    ],
+    include: [
+      {
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'display_name', 'bio'],
+      },
     ],
   });
 

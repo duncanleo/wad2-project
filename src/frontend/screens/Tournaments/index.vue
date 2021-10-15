@@ -23,7 +23,11 @@
     </div>
     <ul>
       <li v-for="tournament in results()" v-bind:key="tournament.id">
-        <span>{{ tournament.name }}</span>
+        <span>Name: {{ tournament.name }}</span>
+        <span>Prize: {{ tournament.prize_pool }}</span>
+        <span>Starts at: {{ tournament.start_at }}</span>
+        <span>Ends at: {{ tournament.ends_at }}</span>
+        <span>Organiser: {{ tournament.owner.display_name }}</span>
       </li>
     </ul>
   </div>
