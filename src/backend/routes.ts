@@ -6,6 +6,7 @@ import { gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
 import me from './api/me';
+import { playerGet } from './api/players';
 import { signup } from './api/signup';
 import {
   teamCreate,
@@ -62,6 +63,8 @@ const routes = (app: Application) => {
   app.post('/api/tournaments', asyncWrapper(tournamentCreate));
   app.patch('/api/tournaments/:id', asyncWrapper(tournamentUpdate));
   app.delete('/api/tournaments/:id', asyncWrapper(tournamentDelete));
+
+  app.get('/api/players/:id', asyncWrapper(playerGet));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 400;

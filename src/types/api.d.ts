@@ -12,7 +12,9 @@ declare namespace App.API {
 
   interface GameAccount {
     id: number;
+    data: object;
     game: Game;
+    updated_at: string;
   }
 
   interface Tournament {
@@ -31,6 +33,7 @@ declare namespace App.API {
     display_name: string;
     bio: string;
     gameAccounts: GameAccount[];
+    memberships: Membership[];
   }
 
   interface CurrentUser extends User {
