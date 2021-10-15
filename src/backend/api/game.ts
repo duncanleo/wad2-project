@@ -12,7 +12,9 @@ export async function gamesList(req: Request, res: Response) {
     throw new ErrorUnauthorized();
   }
 
-  const games = await Game.findAll();
+  const games = await Game.findAll({
+    attributes: ['id', 'name', 'developer'],
+  });
 
   res
     .status(200)

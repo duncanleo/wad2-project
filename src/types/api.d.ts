@@ -15,6 +15,16 @@ declare namespace App.API {
     game: Game;
   }
 
+  interface Tournament {
+    id: number;
+    name: string;
+    region: string;
+    prize_pool: number;
+    start_at: string;
+    end_at: string;
+    game_id: number;
+  }
+
   interface User {
     id: number;
     display_name: string;

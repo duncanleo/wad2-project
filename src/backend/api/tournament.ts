@@ -4,7 +4,6 @@ import Joi from 'joi';
 import {
   ErrorBadRequest,
   ErrorForbidden,
-  ErrorInternalServerError,
   ErrorNotFound,
   ErrorUnauthorized,
 } from '../errors';
@@ -19,7 +18,17 @@ export async function tournamentsList(req: Request, res: Response) {
     throw new ErrorUnauthorized();
   }
 
-  const tournaments = await Tournament.findAll();
+  const tournaments = await Tournament.findAll({
+    attributes: [
+      'id',
+      'name',
+      'region',
+      'prize_pool',
+      'start_at',
+      'end_at',
+      'game_id',
+    ],
+  });
 
   res
     .status(200)
