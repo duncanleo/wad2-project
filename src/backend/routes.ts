@@ -5,6 +5,7 @@ import { gamesList } from './api/game';
 import { gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
+import { logout } from './api/logout';
 import me from './api/me';
 import { playerGet } from './api/players';
 import { signup } from './api/signup';
@@ -38,6 +39,7 @@ const routes = (app: Application) => {
   app.post('/login', asyncWrapper(login));
   app.post('/signup', asyncWrapper(signup));
   app.get('/auth', asyncWrapper(auth));
+  app.get('/logout', asyncWrapper(logout));
 
   app.get('/api/me', asyncWrapper(me));
 
