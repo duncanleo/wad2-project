@@ -15,9 +15,11 @@
     <div>
       <h1>Games</h1>
       <ul>
-        <li v-for="gameAccount in me.gameAccounts" v-bind:key="gameAccount.id">
-          <span>{{ gameAccount.game.name }}</span>
-        </li>
+        <game-account
+          v-for="gameAccount in me.gameAccounts"
+          v-bind:key="gameAccount.id"
+          v-bind:gameAccount="gameAccount"
+        />
       </ul>
     </div>
   </div>
@@ -26,12 +28,17 @@
 <script lang="ts">
 import axios from 'axios';
 import Vue from 'vue';
+import GameAccount from '../../components/GameAccount/index.vue';
 
 interface TeamsResponse extends App.API.ResponseBase {
   teams: App.API.Team[];
 }
 
 const Profile = Vue.extend({
+  components: {
+    GameAccount,
+  },
+
   data() {
     return {
       me: this.$store.state.user as App.API.CurrentUser,

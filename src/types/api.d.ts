@@ -8,6 +8,7 @@ declare namespace App.API {
     name: string;
     developer: string;
     release_year: number;
+    internal_id: string;
   }
 
   interface GameAccount {

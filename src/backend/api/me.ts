@@ -25,7 +25,13 @@ export default async function me(req: Request, res: Response) {
         {
           model: Game,
           as: 'game',
-          attributes: ['id', 'name', 'developer', 'release_year'],
+          attributes: [
+            'id',
+            'name',
+            'developer',
+            'release_year',
+            'internal_id',
+          ],
         },
       ],
     });
