@@ -21,7 +21,7 @@
       </li>
       <li><hr class="dropdown-divider" /></li>
       <li>
-        <a href="#" class="dropdown-item">Edit Profile</a>
+        <router-link to="profile" class="dropdown-item">My Profile</router-link>
       </li>
       <li>
         <a href="/logout" class="dropdown-item">Logout</a>

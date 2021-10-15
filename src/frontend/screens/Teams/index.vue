@@ -10,13 +10,18 @@
       placeholder="Search"
     />
     <div class="teams-list">
-      <div class="team" v-for="team in results()" v-bind:key="team.id">
+      <router-link
+        class="team"
+        v-for="team in results()"
+        v-bind:key="team.id"
+        v-bind:to="getTeamLink(team.id)"
+      >
         <span class="name">{{ team.name }}</span>
         <span class="memberships-count">
           {{ team.memberships_count }} Members
         </span>
         <button>Join</button>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -56,6 +61,10 @@ const Teams = Vue.extend({
       return this.teams.filter((team) =>
         team.name.toLowerCase().includes(this.searchTerm)
       );
+    },
+
+    getTeamLink(id: number) {
+      return `/teams/${id}`;
     },
   },
 });
