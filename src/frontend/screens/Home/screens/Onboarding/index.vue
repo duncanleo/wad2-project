@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-12 col-12 bg-dark">
-      <div class="content" v-if="selectedGameIndex != null">
+      <div class="content" v-if="selectedGame != null">
         <img
           class="background-image"
           v-bind:src="selectedGame.background_image"
