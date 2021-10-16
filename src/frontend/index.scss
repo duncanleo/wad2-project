@@ -1,3 +1,7 @@
+@import "styles/custom";
+@import "styles/variables";
+@import "styles/user-dropdown";
+
 * {
   box-sizing: border-box;
   font-family: Dosis, sans-serif;
@@ -5,7 +9,10 @@
 
 html {
   width: 100%;
+  background-color: $primary-600;
 }
 
-@import "styles/custom";
-@import "styles/user-dropdown";
+body {
+  background-color: transparent;
+}
+

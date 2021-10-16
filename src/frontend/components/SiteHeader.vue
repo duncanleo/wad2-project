@@ -1,8 +1,10 @@
 <template>
   <header class="pb-5">
-    <nav class="navbar navbar-expand-lg navbar-light py-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
       <div class="container">
-        <router-link class="navbar-brand" to="/">Alpha</router-link>
+        <router-link class="navbar-brand fw-bold" to="/">
+          WAD Project
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
