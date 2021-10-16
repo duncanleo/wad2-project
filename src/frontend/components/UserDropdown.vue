@@ -14,15 +14,12 @@
       aria-labelledby="user-dropdown-button"
     >
       <li>
-        <div class="profile dropdown-item">
+        <router-link to="/profile" class="profile dropdown-item">
           <span class="name">{{ user.display_name }}</span>
           <span class="email">{{ user.email }}</span>
-        </div>
+        </router-link>
       </li>
       <li><hr class="dropdown-divider" /></li>
-      <li>
-        <router-link to="profile" class="dropdown-item">My Profile</router-link>
-      </li>
       <li>
         <a href="/logout" class="dropdown-item">Logout</a>
       </li>
