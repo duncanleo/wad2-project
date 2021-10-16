@@ -33,7 +33,7 @@
             <div class="bg-light">
               <h2 class="display-4 fw-bold mb-5">Find your gamer community.</h2>
               <p class="lead text-muted mb-5">It's just a tap away</p>
-              <div class="d-flex flex-wrap">
+              <div class="d-flex flex-wrap" v-if="$store.state.user == null">
                 <router-link
                   class="btn btn-primary me-2 mb-2 mb-sm-0"
                   to="/signup"
