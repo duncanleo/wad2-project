@@ -6,7 +6,7 @@ import { gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
 import { logout } from './api/logout';
-import me from './api/me';
+import me, { meUpdate } from './api/me';
 import { playerGet } from './api/players';
 import { search } from './api/search';
 import { signup } from './api/signup';
@@ -45,6 +45,7 @@ const routes = (app: Application) => {
   app.post('/api/search', asyncWrapper(search));
 
   app.get('/api/me', asyncWrapper(me));
+  app.patch('/api/me', asyncWrapper(meUpdate));
 
   app.get('/api/teams', asyncWrapper(teamsList));
   app.post('/api/teams', asyncWrapper(teamCreate));
