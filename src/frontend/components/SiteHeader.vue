@@ -51,6 +51,16 @@
                 Tournaments
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                v-if="user != null"
+                to="/search"
+                active-class="active"
+              >
+                Search
+              </router-link>
+            </li>
             <li class="nav-item" v-if="user == null">
               <router-link
                 class="btn btn-outline-dark me-2"

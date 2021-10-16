@@ -14,6 +14,7 @@ import Login from './screens/Login/index.vue';
 import NotFound from './screens/NotFound.vue';
 import Player from './screens/Player/index.vue';
 import Profile from './screens/Profile/index.vue';
+import Search from './screens/Search/index.vue';
 import Signup from './screens/Signup/index.vue';
 import SingleTeam from './screens/SingleTeam/index.vue';
 import Teams from './screens/Teams/index.vue';
@@ -57,7 +58,7 @@ const routes: RouterOptions['routes'] = [
   { path: '*', component: NotFound },
   {
     path: '/search',
-    component: NotFound,
+    component: Search,
     meta: {
       requiresAuth: true,
     },
