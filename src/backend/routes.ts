@@ -8,6 +8,7 @@ import { login } from './api/login';
 import { logout } from './api/logout';
 import me from './api/me';
 import { playerGet } from './api/players';
+import { search } from './api/search';
 import { signup } from './api/signup';
 import {
   teamCreate,
@@ -40,6 +41,8 @@ const routes = (app: Application) => {
   app.post('/signup', asyncWrapper(signup));
   app.get('/auth', asyncWrapper(auth));
   app.get('/logout', asyncWrapper(logout));
+
+  app.post('/api/search', asyncWrapper(search));
 
   app.get('/api/me', asyncWrapper(me));
 
