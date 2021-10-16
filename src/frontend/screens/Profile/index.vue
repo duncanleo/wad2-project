@@ -1,19 +1,28 @@
 <template>
-  <div>
-    <h1>{{ me.display_name }}</h1>
-    <span>{{ me.bio }}</span>
-    <button>Edit Profile</button>
-    <div>
-      <h1>My Teams</h1>
-      <button>Create Team</button>
-      <ul>
-        <li v-for="team in teams" v-bind:key="team.id">
-          <span>{{ team.name }}</span>
-        </li>
-      </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <h1 class="text-white fw-bold">{{ me.display_name }}</h1>
+        <span class="text-white">{{ me.bio || 'No bio' }}</span>
+        <button>Edit Profile</button>
+      </div>
+      <div class="col-4">
+        <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" />
+      </div>
     </div>
-    <div>
-      <h1>Games</h1>
+    <div class="row">
+      <div class="bg-secondary col-8">
+        <h4 class="text-white fw-bold">My Teams</h4>
+      </div>
+      <div class="bg-secondary col-4">
+        <button>Create Team</button>
+      </div>
+      <div v-for="team in teams" v-bind:key="team.id">
+        <span>{{ team.name }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <h4 class="text-white fw-bold">My Games</h4>
       <ul>
         <game-account
           v-for="gameAccount in me.gameAccounts"
@@ -29,6 +38,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import GameAccount from '../../components/GameAccount/index.vue';
+import generateAvatar from '../../util/generateAvatar';
 
 interface TeamsResponse extends App.API.ResponseBase {
   teams: App.API.Team[];
@@ -56,6 +66,8 @@ const Profile = Vue.extend({
 
       this.teams = response.data.teams;
     },
+
+    generateAvatar,
   },
 
   head: {

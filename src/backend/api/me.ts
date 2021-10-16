@@ -39,6 +39,7 @@ export default async function me(req: Request, res: Response) {
     res
       .status(200)
       .json({
+        id: user.id,
         email: user.email,
         display_name: user.display_name,
         type: user.type,

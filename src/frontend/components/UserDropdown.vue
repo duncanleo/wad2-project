@@ -7,7 +7,7 @@
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
-      <img class="avatar" />
+      <img class="avatar img-thumbnail" v-bind:src="generateAvatar(user.id)" />
     </button>
     <ul
       class="dropdown-menu dropdown-menu-end"
@@ -32,9 +32,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import generateAvatar from '../util/generateAvatar';
 
 const UserDropdown = Vue.component('user-dropdown', {
   props: ['user'],
+
+  methods: {
+    generateAvatar,
+  },
 });
 
 export default UserDropdown;
