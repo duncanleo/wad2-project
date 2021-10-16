@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h1 class="text-white">Welcome, {{ user.display_name }}</h1>
     <input
       type="text"
       name=""
@@ -63,6 +64,14 @@ const Dashboard = Vue.extend({
       teams: [] as App.API.Team[],
       tournaments: [] as App.API.Tournament[],
     };
+  },
+
+  computed: {
+    user() {
+      const state = this.$store.state as App.Frontend.Store.RootState;
+
+      return state.user;
+    },
   },
 
   methods: {

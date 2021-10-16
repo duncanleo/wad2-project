@@ -6,9 +6,9 @@
       <div class="row gy-2">
         <div
           class="card px-0 bg-transparent text-white"
-          v-for="game in games"
+          v-for="(game, index) in games"
           v-bind:key="game.id"
-          v-on:click="setSelectedGameId(game.id)"
+          v-on:click="setSelectedGameIndex(index)"
         >
           <img
             class="card-img"
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-12 col-12 bg-dark">
-      <div class="content" v-if="selectedGameId != null">
+      <div class="content" v-if="selectedGameIndex != null">
         <img
           class="background-image"
           v-bind:src="selectedGame.background_image"
@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import axios from 'axios';
+import { sample } from 'lodash';
 import Vue from 'vue';
 import Logo from '../../../../components/Logo.vue';
 
@@ -61,13 +62,33 @@ const Onboarding = Vue.extend({
 
   data: function () {
     return {
-      selectedGameId: null as number | null,
+      selectedGameIndex: null as number | null,
       games: [] as App.API.Game[],
+      intervalId: null as NodeJS.Timer | null,
     };
   },
 
   beforeMount() {
     this.fetchGames();
+
+    this.intervalId = setInterval(() => {
+      if (this.selectedGameIndex == null) {
+        return;
+      }
+
+      let targetIndex = this.selectedGameIndex + 1;
+      if (targetIndex > this.games.length) {
+        targetIndex = 0;
+      }
+
+      this.selectedGameIndex = targetIndex;
+    }, 5000);
+  },
+
+  beforeDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   },
 
   methods: {
@@ -75,23 +96,20 @@ const Onboarding = Vue.extend({
       const response = await axios.get<GamesResponse>('/api/games');
 
       this.games = response.data.games;
-      this.selectedGameId = this.games[0].id;
+      this.selectedGameIndex = 0;
     },
 
-    setSelectedGameId(id: number) {
-      this.selectedGameId = id;
+    setSelectedGameIndex(index: number) {
+      this.selectedGameIndex = index;
     },
   },
 
   computed: {
     selectedGame() {
-      if (this.selectedGameId == null) {
+      if (this.selectedGameIndex == null) {
         return null;
       }
-
-      return (
-        this.games?.find((game) => game.id === this.selectedGameId) ?? null
-      );
+      return this.games[this.selectedGameIndex] ?? null;
     },
   },
 

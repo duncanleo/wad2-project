@@ -60,7 +60,8 @@ export function setupUser(sequelize: Sequelize) {
       },
       display_name: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+        unique: true,
       },
       email: {
         type: DataTypes.STRING,
