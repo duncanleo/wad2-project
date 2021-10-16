@@ -1,6 +1,14 @@
 <template>
   <header class="pb-5">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+    <nav
+      v-bind:class="[
+        'navbar',
+        'navbar-expand-lg',
+        'navbar-dark',
+        !isHomePage && 'bg-dark',
+        'py-4',
+      ]"
+    >
       <div class="container">
         <router-link class="navbar-brand fw-bold" to="/">
           WAD Project

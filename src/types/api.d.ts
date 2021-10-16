@@ -9,6 +9,12 @@ declare namespace App.API {
     developer: string;
     release_year: number;
     internal_id: string;
+    banner_image: string;
+    banner_image_license: string;
+    logo_image: string;
+    logo_image_license: string;
+    background_image: string;
+    background_image_license: string;
   }
 
   interface GameAccount {
