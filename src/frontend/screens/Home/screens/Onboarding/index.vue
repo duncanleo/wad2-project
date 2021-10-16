@@ -77,7 +77,7 @@ const Onboarding = Vue.extend({
       }
 
       let targetIndex = this.selectedGameIndex + 1;
-      if (targetIndex > this.games.length) {
+      if (targetIndex >= this.games.length) {
         targetIndex = 0;
       }
 
