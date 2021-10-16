@@ -57,6 +57,12 @@ const Profile = Vue.extend({
       this.teams = response.data.teams;
     },
   },
+
+  head: {
+    title: {
+      inner: 'Profile',
+    },
+  },
 });
 
 export default Profile;

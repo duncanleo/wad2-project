@@ -51,6 +51,12 @@ const Player = Vue.extend({
       this.player = response.data.player;
     },
   },
+
+  head: {
+    title: {
+      inner: 'Player Details',
+    },
+  },
 });
 
 export default Player;

@@ -95,6 +95,12 @@ const Signup = Vue.extend({
       }
     },
   },
+
+  head: {
+    title: {
+      inner: 'Sign up',
+    },
+  },
 });
 
 export default Signup;

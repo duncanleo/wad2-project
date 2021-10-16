@@ -33,6 +33,12 @@ const Home = Vue.extend({
       greeting: 'Sup',
     };
   },
+
+  head: {
+    title: {
+      inner: 'Home',
+    },
+  },
 });
 
 export default Home;

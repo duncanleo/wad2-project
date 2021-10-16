@@ -131,6 +131,12 @@ const SingleTeam = Vue.extend({
       this.role = membershipsMap.get(teamID)?.role ?? null;
     },
   },
+
+  head: {
+    title: {
+      inner: 'Team',
+    },
+  },
 });
 
 export default SingleTeam;

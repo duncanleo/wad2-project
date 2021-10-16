@@ -5,6 +5,7 @@ import 'regenerator-runtime/runtime';
 
 import axios from 'axios';
 import Vue from 'vue';
+import VueHead from 'vue-head';
 import VueRouter, { RouterOptions } from 'vue-router';
 import Vuex from 'vuex';
 
@@ -19,6 +20,7 @@ import Teams from './screens/Teams/index.vue';
 import Tournaments from './screens/Tournaments/index.vue';
 import VueApp from './VueApp.vue';
 
+Vue.use(VueHead);
 Vue.use(VueRouter);
 Vue.use(Vuex);
 

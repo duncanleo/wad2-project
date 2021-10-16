@@ -67,6 +67,12 @@ const Teams = Vue.extend({
       return `/teams/${id}`;
     },
   },
+
+  head: {
+    title: {
+      inner: 'Teams',
+    },
+  },
 });
 
 export default Teams;

@@ -86,6 +86,12 @@ const Tournaments = Vue.extend({
       this.selectedGameId = id;
     },
   },
+
+  head: {
+    title: {
+      inner: 'Tournaments',
+    },
+  },
 });
 
 export default Tournaments;
