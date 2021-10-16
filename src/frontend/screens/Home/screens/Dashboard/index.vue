@@ -1,7 +1,12 @@
 <template>
   <div class="container">
-    <h1 class="text-white fw-bold">Search</h1>
-    <input type="text" name="" v-model="searchTerm" v-on:input="handleInput" />
+    <input
+      type="text"
+      name=""
+      v-model="searchTerm"
+      v-on:input="handleInput"
+      placeholder="Search..."
+    />
     <div class="row" v-if="players.length > 0">
       <h1 class="text-white">Players</h1>
       <router-link
@@ -50,7 +55,7 @@ interface SearchResponse extends App.API.ResponseBase {
   tournaments: App.API.Tournament[];
 }
 
-const Search = Vue.extend({
+const Dashboard = Vue.extend({
   data() {
     return {
       searchTerm: '',
@@ -85,5 +90,5 @@ const Search = Vue.extend({
   },
 });
 
-export default Search;
+export default Dashboard;
 </script>

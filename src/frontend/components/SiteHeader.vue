@@ -1,18 +1,8 @@
 <template>
-  <header class="pb-5">
-    <nav
-      v-bind:class="[
-        'navbar',
-        'navbar-expand-lg',
-        'navbar-dark',
-        !isHomePage && 'navbar-bg',
-        'py-4',
-      ]"
-    >
+  <header class="pb-5" v-if="!isHomePage || user != null">
+    <nav v-bind:class="['navbar', 'navbar-expand-lg', 'navbar-dark', 'py-4']">
       <div class="container">
-        <router-link class="navbar-brand fw-bold" to="/">
-          WAD Project
-        </router-link>
+        <logo />
         <button
           class="navbar-toggler"
           type="button"
@@ -51,16 +41,6 @@
                 Tournaments
               </router-link>
             </li>
-            <li class="nav-item">
-              <router-link
-                class="nav-link"
-                v-if="user != null"
-                to="/search"
-                active-class="active"
-              >
-                Search
-              </router-link>
-            </li>
             <li class="nav-item" v-if="user == null">
               <router-link
                 class="btn btn-outline-dark me-2"
@@ -91,6 +71,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Logo from './Logo.vue';
 import UserDropdown from './UserDropdown.vue';
 
 interface Data {
@@ -101,6 +82,7 @@ interface Data {
 const SiteHeader = Vue.extend({
   components: {
     UserDropdown,
+    Logo,
   },
   computed: {
     user() {
@@ -114,6 +96,7 @@ const SiteHeader = Vue.extend({
       isHomePage: false,
     };
   },
+
   watch: {
     $route: {
       immediate: true,
