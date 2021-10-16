@@ -5,7 +5,7 @@
         'navbar',
         'navbar-expand-lg',
         'navbar-dark',
-        !isHomePage && 'bg-dark',
+        !isHomePage && 'navbar-bg',
         'py-4',
       ]"
     >
