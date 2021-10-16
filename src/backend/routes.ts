@@ -12,19 +12,19 @@ import { signup } from './api/signup';
 import {
   teamCreate,
   teamDelete,
-  teamInvitesList,
   teamInviteUser,
-  teamJoinRequestsList,
   teamRequestJoin,
   teamSingle,
   teamsList,
   teamUpdate,
 } from './api/team';
 import {
+  invitationsList,
   teamInvitationsDelete,
   teamInvitationsList,
   teamInvitationsUpdate,
 } from './api/teamInvitations';
+import { joinRequestsList, teamJoinRequestsList } from './api/teamJoinRequests';
 import {
   tournamentCreate,
   tournamentDelete,
@@ -51,12 +51,14 @@ const routes = (app: Application) => {
   app.post('/api/teams/:id/invite', asyncWrapper(teamInviteUser));
   app.post('/api/teams/:id/join', asyncWrapper(teamRequestJoin));
 
-  app.get('/api/teams/:id/invitations', asyncWrapper(teamInvitesList));
+  app.get('/api/teams/:id/invitations', asyncWrapper(teamInvitationsList));
   app.get('/api/teams/:id/join_requests', asyncWrapper(teamJoinRequestsList));
 
-  app.get('/api/team_invitations', asyncWrapper(teamInvitationsList));
+  app.get('/api/team_invitations', asyncWrapper(invitationsList));
   app.patch('/api/team_invitations/:id', asyncWrapper(teamInvitationsUpdate));
   app.delete('/api/team_invitations/:id', asyncWrapper(teamInvitationsDelete));
+
+  app.get('/api/join_requests', asyncWrapper(joinRequestsList));
 
   app.get('/api/games', asyncWrapper(gamesList));
   app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));
