@@ -4,11 +4,10 @@ import Joi from 'joi';
 import {
   ErrorBadRequest,
   ErrorForbidden,
-  ErrorInternalServerError,
   ErrorNotFound,
   ErrorUnauthorized,
 } from '../errors';
-import { Game, Tournament } from '../model';
+import { Game, Tournament, User } from '../model';
 import getRequestContext from '../util/getRequestContext';
 
 export async function tournamentsList(req: Request, res: Response) {
@@ -19,7 +18,24 @@ export async function tournamentsList(req: Request, res: Response) {
     throw new ErrorUnauthorized();
   }
 
-  const tournaments = await Tournament.findAll();
+  const tournaments = await Tournament.findAll({
+    attributes: [
+      'id',
+      'name',
+      'region',
+      'prize_pool',
+      'start_at',
+      'end_at',
+      'game_id',
+    ],
+    include: [
+      {
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'display_name', 'bio'],
+      },
+    ],
+  });
 
   res
     .status(200)

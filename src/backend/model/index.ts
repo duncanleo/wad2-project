@@ -82,7 +82,7 @@ Team.hasMany(Membership, {
 
 Tournament.belongsTo(Game, {
   as: 'game',
-  foreignKey: 'team_id',
+  foreignKey: 'game_id',
 });
 
 Game.hasMany(Tournament, {

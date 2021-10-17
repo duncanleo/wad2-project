@@ -7,7 +7,7 @@ import * as webpack from 'webpack';
  * Frontend configuration
  **/
 const frontend: webpack.Configuration = {
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: ['webpack-hot-middleware/client', './src/frontend/index.ts'],
   devtool: 'source-map',
   output: {

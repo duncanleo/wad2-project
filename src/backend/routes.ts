@@ -5,22 +5,27 @@ import { gamesList } from './api/game';
 import { gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
-import me from './api/me';
+import { logout } from './api/logout';
+import me, { meUpdate } from './api/me';
+import { playerGet } from './api/players';
+import { search } from './api/search';
 import { signup } from './api/signup';
 import {
   teamCreate,
   teamDelete,
-  teamInvitesList,
   teamInviteUser,
   teamRequestJoin,
+  teamSingle,
   teamsList,
   teamUpdate,
 } from './api/team';
 import {
+  invitationsList,
   teamInvitationsDelete,
   teamInvitationsList,
   teamInvitationsUpdate,
 } from './api/teamInvitations';
+import { joinRequestsList, teamJoinRequestsList } from './api/teamJoinRequests';
 import {
   tournamentCreate,
   tournamentDelete,
@@ -35,21 +40,29 @@ const routes = (app: Application) => {
   app.post('/login', asyncWrapper(login));
   app.post('/signup', asyncWrapper(signup));
   app.get('/auth', asyncWrapper(auth));
+  app.get('/logout', asyncWrapper(logout));
+
+  app.post('/api/search', asyncWrapper(search));
 
   app.get('/api/me', asyncWrapper(me));
+  app.patch('/api/me', asyncWrapper(meUpdate));
 
   app.get('/api/teams', asyncWrapper(teamsList));
   app.post('/api/teams', asyncWrapper(teamCreate));
+  app.get('/api/teams/:id', asyncWrapper(teamSingle));
   app.patch('/api/teams/:id', asyncWrapper(teamUpdate));
   app.delete('/api/teams/:id', asyncWrapper(teamDelete));
   app.post('/api/teams/:id/invite', asyncWrapper(teamInviteUser));
   app.post('/api/teams/:id/join', asyncWrapper(teamRequestJoin));
 
-  app.get('/api/teams/:id/invitations', asyncWrapper(teamInvitesList));
+  app.get('/api/teams/:id/invitations', asyncWrapper(teamInvitationsList));
+  app.get('/api/teams/:id/join_requests', asyncWrapper(teamJoinRequestsList));
 
-  app.get('/api/team_invitations', asyncWrapper(teamInvitationsList));
+  app.get('/api/team_invitations', asyncWrapper(invitationsList));
   app.patch('/api/team_invitations/:id', asyncWrapper(teamInvitationsUpdate));
   app.delete('/api/team_invitations/:id', asyncWrapper(teamInvitationsDelete));
+
+  app.get('/api/join_requests', asyncWrapper(joinRequestsList));
 
   app.get('/api/games', asyncWrapper(gamesList));
   app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));
@@ -58,6 +71,8 @@ const routes = (app: Application) => {
   app.post('/api/tournaments', asyncWrapper(tournamentCreate));
   app.patch('/api/tournaments/:id', asyncWrapper(tournamentUpdate));
   app.delete('/api/tournaments/:id', asyncWrapper(tournamentDelete));
+
+  app.get('/api/players/:id', asyncWrapper(playerGet));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 400;

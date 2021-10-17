@@ -8,23 +8,25 @@ export default async function getRequestContext(req: Request) {
   if (req.session != null) {
     const { userId } = req.session;
 
-    user = await User.findOne({
-      where: {
-        id: userId,
-      },
-      include: [
-        {
-          model: Membership,
-          as: 'memberships',
-          include: [
-            {
-              model: Team,
-              as: 'team',
-            },
-          ],
+    if (userId != null) {
+      user = await User.findOne({
+        where: {
+          id: userId,
         },
-      ],
-    });
+        include: [
+          {
+            model: Membership,
+            as: 'memberships',
+            include: [
+              {
+                model: Team,
+                as: 'team',
+              },
+            ],
+          },
+        ],
+      });
+    }
   }
 
   return {

@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+
+.content {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+
+  .background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .content-inner {
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.5);
+    width: 70%;
+    margin-right: 5%;
+    padding: 15px 20px;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    color: $text-100;
+  }
+}

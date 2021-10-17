@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Joi from 'joi';
+import { Sequelize } from 'sequelize';
 
 import {
   ErrorBadRequest,
@@ -8,6 +9,8 @@ import {
   ErrorUnauthorized,
 } from '../errors';
 import {
+  Game,
+  GameAccount,
   Membership,
   Team,
   TeamInvitation,
@@ -43,18 +46,49 @@ export async function teamsList(req: Request, res: Response) {
 
   if (self) {
     teams = await Team.findAll({
+      attributes: [
+        'id',
+        'name',
+        'avatar',
+        'created_at',
+        [
+          Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
+          'memberships_count',
+        ],
+      ],
       include: [
         {
           model: Membership,
           as: 'memberships',
+          attributes: [],
           where: {
             user_id: user.id,
           },
         },
       ],
+      group: ['Team.id'],
     });
   } else {
-    teams = await Team.findAll();
+    teams = await Team.findAll({
+      attributes: [
+        'id',
+        'name',
+        'avatar',
+        'created_at',
+        [
+          Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
+          'memberships_count',
+        ],
+      ],
+      include: [
+        {
+          model: Membership,
+          as: 'memberships',
+          attributes: [],
+        },
+      ],
+      group: ['Team.id'],
+    });
   }
 
   res
@@ -66,12 +100,72 @@ export async function teamsList(req: Request, res: Response) {
     .end();
 }
 
+export async function teamSingle(req: Request, res: Response) {
+  const context = await getRequestContext(req);
+  const { user } = context;
+
+  if (user == null) {
+    throw new ErrorUnauthorized();
+  }
+
+  const { id } = req.params;
+
+  const team = await Team.findOne({
+    attributes: ['id', 'name', 'avatar', 'created_at'],
+    where: {
+      id,
+    },
+    include: [
+      {
+        model: Membership,
+        as: 'memberships',
+        attributes: ['id'],
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'display_name', 'bio'],
+            include: [
+              {
+                model: GameAccount,
+                as: 'gameAccounts',
+                attributes: ['id'],
+                include: [
+                  {
+                    model: Game,
+                    as: 'game',
+                    attributes: ['id', 'name', 'developer', 'release_year'],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  if (team == null) {
+    throw new ErrorNotFound();
+  }
+
+  res
+    .status(200)
+    .json({
+      status: true,
+      team,
+    })
+    .end();
+}
+
 interface TeamCreatePayload {
   name: string;
+  description: string;
 }
 
 const TeamCreatePayloadSchema = Joi.object<TeamCreatePayload>({
   name: Joi.string().required(),
+  description: Joi.string().default(null),
 });
 
 export async function teamCreate(req: Request, res: Response) {
@@ -87,11 +181,12 @@ export async function teamCreate(req: Request, res: Response) {
     throw new ErrorBadRequest(validationResult.error.message);
   }
 
-  const { name } = validationResult.value as TeamCreatePayload;
+  const { name, description } = validationResult.value as TeamCreatePayload;
 
   const team = await Team.create({
     name,
     avatar: null,
+    description,
   });
 
   await Membership.create({
@@ -206,51 +301,6 @@ export async function teamDelete(req: Request, res: Response) {
   await team.destroy();
 
   res.status(204).end();
-}
-
-export async function teamInvitesList(req: Request, res: Response) {
-  const context = await getRequestContext(req);
-  const { user } = context;
-
-  if (user == null) {
-    throw new ErrorUnauthorized();
-  }
-
-  const { id } = req.params;
-
-  const team = await Team.findOne({
-    attributes: ['id'],
-    where: {
-      id,
-    },
-    include: [
-      {
-        model: TeamInvitation,
-        as: 'invitations',
-      },
-    ],
-  });
-
-  if (team == null) {
-    throw new ErrorNotFound('invalid team');
-  }
-
-  const membership = await Membership.findOne({
-    attributes: ['id', 'role', 'team_id', 'user_id'],
-    where: {
-      team_id: team.id,
-      user_id: user.id,
-    },
-  });
-
-  if (membership == null || membership.role !== 'leader') {
-    throw new ErrorForbidden();
-  }
-
-  res.status(200).json({
-    status: true,
-    invitations: team.invitations,
-  });
 }
 
 interface TeamInviteUserPayload {

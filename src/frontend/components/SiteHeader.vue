@@ -1,8 +1,8 @@
 <template>
-  <header class="pb-5">
-    <nav class="navbar navbar-expand-lg navbar-light py-4">
+  <header class="pb-5" v-if="!isHomePage || user != null">
+    <nav v-bind:class="['navbar', 'navbar-expand-lg', 'navbar-dark', 'py-4']">
       <div class="container">
-        <router-link class="navbar-brand" to="/">Alpha</router-link>
+        <logo />
         <button
           class="navbar-toggler"
           type="button"
@@ -16,13 +16,9 @@
         </button>
         <div class="collapse navbar-collapse" id="header01">
           <ul class="navbar-nav ms-auto mt-3 mt-lg-0 mb-3 mb-lg-0 me-4">
-            <li class="nav-item" v-if="!isHomePage && user != null">
-              <router-link
-                class="nav-link"
-                to="/dashboard"
-                active-class="active"
-              >
-                Dashboard
+            <li class="nav-item" v-if="user != null">
+              <router-link class="nav-link" to="/" exact active-class="active">
+                Home
               </router-link>
             </li>
             <li class="nav-item">
@@ -45,16 +41,6 @@
                 Tournaments
               </router-link>
             </li>
-            <li class="nav-item">
-              <router-link
-                class="nav-link"
-                v-if="user != null"
-                to="/games"
-                active-class="active"
-              >
-                Games
-              </router-link>
-            </li>
             <li class="nav-item" v-if="user == null">
               <router-link
                 class="btn btn-outline-dark me-2"
@@ -73,16 +59,7 @@
                 Sign-up
               </router-link>
             </li>
-            <li class="nav-item" v-if="isHomePage && user != null">
-              <router-link
-                class="btn btn-primary"
-                to="/dashboard"
-                active-class="active"
-              >
-                Back to App
-              </router-link>
-            </li>
-            <li v-if="!isHomePage && user != null">
+            <li v-if="user != null">
               <user-dropdown v-bind:user="user"></user-dropdown>
             </li>
           </ul>
@@ -94,6 +71,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Logo from './Logo.vue';
 import UserDropdown from './UserDropdown.vue';
 
 interface Data {
@@ -104,6 +82,7 @@ interface Data {
 const SiteHeader = Vue.extend({
   components: {
     UserDropdown,
+    Logo,
   },
   computed: {
     user() {
@@ -117,6 +96,7 @@ const SiteHeader = Vue.extend({
       isHomePage: false,
     };
   },
+
   watch: {
     $route: {
       immediate: true,

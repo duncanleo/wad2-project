@@ -47,6 +47,7 @@ export async function signup(req: Request, res: Response) {
     email,
     password: hashedPassword,
     type: 'gamer',
+    bio: null,
   });
 
   if (req.session != null) {

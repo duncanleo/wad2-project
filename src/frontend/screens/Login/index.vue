@@ -55,6 +55,11 @@ const Login = Vue.extend({
       }
     },
   },
+  head: {
+    title: {
+      inner: 'Login',
+    },
+  },
 });
 
 export default Login;

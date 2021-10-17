@@ -15,6 +15,7 @@ interface UserAttributes {
   display_name: string;
   email: string;
   password: string;
+  bio: string | null;
   type: 'gamer' | 'organiser';
 }
 
@@ -29,6 +30,7 @@ export function setupUser(sequelize: Sequelize) {
     public display_name!: string;
     public email!: string;
     public password!: string;
+    public bio!: string | null;
     public type!: 'gamer' | 'organiser';
 
     public readonly created_at!: Date;
@@ -56,10 +58,27 @@ export function setupUser(sequelize: Sequelize) {
         autoIncrement: true,
         primaryKey: true,
       },
-      display_name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      type: DataTypes.ENUM('gamer', 'organiser'),
+      display_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      bio: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      type: {
+        type: DataTypes.ENUM('gamer', 'organiser'),
+        allowNull: false,
+      },
     },
     {
       sequelize,
