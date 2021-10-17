@@ -2,13 +2,20 @@
 
 import { Association, DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
-import { GameAccount, Membership, Tournament } from '.';
+import {
+  GameAccount,
+  Membership,
+  TeamInvitation,
+  TeamJoinRequest,
+  Tournament,
+} from '.';
 
 interface UserAttributes {
   id: number;
   display_name: string;
   email: string;
   password: string;
+  bio: string | null;
   type: 'gamer' | 'organiser';
 }
 
@@ -23,6 +30,7 @@ export function setupUser(sequelize: Sequelize) {
     public display_name!: string;
     public email!: string;
     public password!: string;
+    public bio!: string | null;
     public type!: 'gamer' | 'organiser';
 
     public readonly created_at!: Date;
@@ -31,11 +39,15 @@ export function setupUser(sequelize: Sequelize) {
     public readonly memberships?: InstanceType<typeof Membership>[];
     public readonly tournamentsOwned?: InstanceType<typeof Tournament>[];
     public readonly gameAccounts?: InstanceType<typeof GameAccount>[];
+    public readonly team_invitations?: InstanceType<typeof TeamInvitation>[];
+    public readonly team_join_requests?: InstanceType<typeof TeamJoinRequest>[];
 
     public static associations: {
       memberships: Association<User, InstanceType<typeof Membership>>;
       tournamentsOwned: Association<User, InstanceType<typeof Tournament>>;
       gameAccounts: Association<User, InstanceType<typeof GameAccount>>;
+      team_invitations: Association<InstanceType<typeof TeamInvitation>>;
+      team_join_requests: Association<InstanceType<typeof TeamJoinRequest>>;
     };
   }
 
@@ -46,10 +58,27 @@ export function setupUser(sequelize: Sequelize) {
         autoIncrement: true,
         primaryKey: true,
       },
-      display_name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      type: DataTypes.ENUM('gamer', 'organiser'),
+      display_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      bio: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      type: {
+        type: DataTypes.ENUM('gamer', 'organiser'),
+        allowNull: false,
+      },
     },
     {
       sequelize,

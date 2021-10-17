@@ -6,6 +6,8 @@ import { setupGame } from './Game';
 import setupGameAccount from './GameAccount';
 import { setupMembership } from './Membership';
 import { setupTeam } from './Team';
+import setupTeamInvitation from './TeamInvitation';
+import setupTeamJoinRequest from './TeamJoinRequest';
 import { setupTournament } from './Tournament';
 import { setupTournamentParticipation } from './TournamentParticipation';
 import { setupUser } from './User';
@@ -54,14 +56,18 @@ const TournamentParticipation = setupTournamentParticipation(sequelize);
 
 const GameAccount = setupGameAccount(sequelize);
 
+const TeamInvitation = setupTeamInvitation(sequelize);
+
+const TeamJoinRequest = setupTeamJoinRequest(sequelize);
+
 Membership.belongsTo(User, {
   as: 'user',
-  foreignKey: 'id',
+  foreignKey: 'user_id',
 });
 
 Membership.belongsTo(Team, {
   as: 'team',
-  foreignKey: 'id',
+  foreignKey: 'team_id',
 });
 
 User.hasMany(Membership, {
@@ -76,7 +82,7 @@ Team.hasMany(Membership, {
 
 Tournament.belongsTo(Game, {
   as: 'game',
-  foreignKey: 'id',
+  foreignKey: 'game_id',
 });
 
 Game.hasMany(Tournament, {
@@ -86,12 +92,12 @@ Game.hasMany(Tournament, {
 
 TournamentParticipation.belongsTo(Tournament, {
   as: 'tournament',
-  foreignKey: 'id',
+  foreignKey: 'tournament_id',
 });
 
 TournamentParticipation.belongsTo(Team, {
   as: 'teams',
-  foreignKey: 'id',
+  foreignKey: 'team_id',
 });
 
 Tournament.hasMany(TournamentParticipation, {
@@ -106,7 +112,7 @@ Team.hasMany(TournamentParticipation, {
 
 Tournament.belongsTo(User, {
   as: 'owner',
-  foreignKey: 'id',
+  foreignKey: 'owner_id',
 });
 
 User.hasMany(Tournament, {
@@ -116,12 +122,12 @@ User.hasMany(Tournament, {
 
 GameAccount.belongsTo(Game, {
   as: 'game',
-  foreignKey: 'id',
+  foreignKey: 'game_id',
 });
 
 GameAccount.belongsTo(User, {
   as: 'user',
-  foreignKey: 'id',
+  foreignKey: 'user_id',
 });
 
 Game.hasMany(GameAccount, {
@@ -134,12 +140,64 @@ User.hasMany(GameAccount, {
   foreignKey: 'user_id',
 });
 
+TeamInvitation.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'user_id',
+});
+
+TeamInvitation.belongsTo(User, {
+  as: 'inviter',
+  foreignKey: 'inviter_id',
+});
+
+TeamInvitation.belongsTo(Team, {
+  as: 'team',
+  foreignKey: 'team_id',
+});
+
+User.hasMany(TeamInvitation, {
+  as: 'team_invitations',
+  foreignKey: 'user_id',
+});
+
+Team.hasMany(TeamInvitation, {
+  as: 'invitations',
+  foreignKey: 'team_id',
+});
+
+TeamJoinRequest.belongsTo(User, {
+  as: 'user',
+  foreignKey: 'user_id',
+});
+
+TeamJoinRequest.belongsTo(User, {
+  as: 'approver',
+  foreignKey: 'approver_id',
+});
+
+TeamJoinRequest.belongsTo(Team, {
+  as: 'team',
+  foreignKey: 'team_id',
+});
+
+User.hasMany(TeamJoinRequest, {
+  as: 'team_join_requests',
+  foreignKey: 'user_id',
+});
+
+Team.hasMany(TeamJoinRequest, {
+  as: 'join_requests',
+  foreignKey: 'team_id',
+});
+
 export {
   Game,
   GameAccount,
   Membership,
   sequelize,
   Team,
+  TeamInvitation,
+  TeamJoinRequest,
   Tournament,
   TournamentParticipation,
   User,

@@ -1,18 +1,22 @@
 import { Request, Response } from 'express';
 
-import { ErrorUnauthorized } from '../errors';
 import { Game } from '../model';
-import getRequestContext from '../util/getRequestContext';
 
 export async function gamesList(req: Request, res: Response) {
-  const context = await getRequestContext(req);
-  const { user } = context;
-
-  if (user == null) {
-    throw new ErrorUnauthorized();
-  }
-
-  const games = await Game.findAll();
+  const games = await Game.findAll({
+    attributes: [
+      'id',
+      'name',
+      'developer',
+      'internal_id',
+      'banner_image',
+      'banner_image_license',
+      'logo_image',
+      'logo_image_license',
+      'background_image',
+      'background_image_license',
+    ],
+  });
 
   res
     .status(200)

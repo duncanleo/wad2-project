@@ -7,22 +7,19 @@
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
-      <img class="avatar" />
+      <img class="avatar img-thumbnail" v-bind:src="generateAvatar(user.id)" />
     </button>
     <ul
       class="dropdown-menu dropdown-menu-end"
       aria-labelledby="user-dropdown-button"
     >
       <li>
-        <div class="profile dropdown-item">
+        <router-link to="/profile" class="profile dropdown-item">
           <span class="name">{{ user.display_name }}</span>
           <span class="email">{{ user.email }}</span>
-        </div>
+        </router-link>
       </li>
       <li><hr class="dropdown-divider" /></li>
-      <li>
-        <a href="#" class="dropdown-item">Edit Profile</a>
-      </li>
       <li>
         <a href="/logout" class="dropdown-item">Logout</a>
       </li>
@@ -32,9 +29,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import generateAvatar from '../util/generateAvatar';
 
 const UserDropdown = Vue.component('user-dropdown', {
   props: ['user'],
+
+  methods: {
+    generateAvatar,
+  },
 });
 
 export default UserDropdown;

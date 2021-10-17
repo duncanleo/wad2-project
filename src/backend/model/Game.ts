@@ -10,6 +10,10 @@ interface GameAttributes {
   banner_image: string | null;
   banner_image_license: string | null;
   internal_id: string;
+  logo_image: string | null;
+  logo_image_license: string | null;
+  background_image: string | null;
+  background_image_license: string | null;
 }
 
 type GameCreationAttributes = Optional<GameAttributes, 'id'>;
@@ -26,6 +30,10 @@ export function setupGame(sequelize: Sequelize) {
     public banner_image!: string | null;
     public banner_image_license!: string | null;
     public internal_id!: string;
+    public logo_image!: string | null;
+    public logo_image_license!: string | null;
+    public background_image!: string | null;
+    public background_image_license!: string | null;
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
@@ -70,6 +78,22 @@ export function setupGame(sequelize: Sequelize) {
         type: DataTypes.STRING(30),
         unique: true,
         allowNull: false,
+      },
+      logo_image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      logo_image_license: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      background_image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      background_image_license: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
