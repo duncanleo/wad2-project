@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-3">
+  <div class="mb-3 width:50%">
     <span class="error text-danger">{{ error }}</span>
-    <form class="width: 50%" method="POST" action="/login" v-on:submit="handleSubmit">
+    <form method="POST" action="/login" v-on:submit="handleSubmit">
       <input
         class="form-control"
         name="email"
