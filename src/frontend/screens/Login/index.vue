@@ -1,6 +1,6 @@
 <template>
-  <div class="mb-3 width:50%">
-    <span class="error text-danger">{{ error }}</span>
+  <div class="mb-3">
+    <span class="error text-secondary">{{ error }}</span>
     <form method="POST" action="/login" v-on:submit="handleSubmit">
       <input
         class="form-control"
