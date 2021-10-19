@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div style="background-color: #96B8B5; position: absolute; width: 700px; height: 550px; left: 363px; top: 150px;">
+      <h3>Login</h3>
       <form style="position: absolute; margin-top: 320px; margin-left: 45px" method="POST" action="/login" v-on:submit="handleSubmit">
         <input
           class="form-control"
@@ -20,7 +21,7 @@
         />
         <input 
           class="form-control"
-          style="width: 150px; height: 50px; background: #729B98; margin-left: 100px; border-radius: 7px;"
+          style="width: 150px; height: 50px; background: #729B98; margin-left: 200px; border-radius: 7px;"
           type="submit" 
           value="Login" 
         />
