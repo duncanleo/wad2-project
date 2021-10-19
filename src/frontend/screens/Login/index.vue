@@ -1,23 +1,25 @@
 <template>
-  <div class="mb-3">
-    <form method="POST" action="/login" v-on:submit="handleSubmit">
-      <input
-        class="form-control"
-        name="email"
-        type="text"
-        placeholder="Email"
-        v-model="email"
-      />
-      <input
-        class="form-control"
-        name="password"
-        type="password"
-        placeholder="Password"
-        v-model="password"
-      />
+  <div class="container">
+    <div class="mb-3">
+      <form class="bg-info" method="POST" action="/login" v-on:submit="handleSubmit">
+        <input
+          class="form-control"
+          name="email"
+          type="text"
+          placeholder="Email"
+          v-model="email"
+        />
+        <input
+          class="form-control"
+          name="password"
+          type="password"
+          placeholder="Password"
+          v-model="password"
+        />
       <input class="form-control" type="submit" value="Login" />
       <span class="error text-danger">{{ error }}</span>
-    </form>
+     </form>
+    </div>
   </div>
 </template>
 
