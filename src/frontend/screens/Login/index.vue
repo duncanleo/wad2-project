@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="background-color: #96B8B5; position: absolute; width: 600px; height: 500px; left: 363px; top: 175px;">
+    <div style="background-color: #96B8B5; position: absolute; width: 650px; height: 500px; left: 363px; top: 175px;">
       <form method="POST" action="/login" v-on:submit="handleSubmit">
         <input
           class="form-control"
