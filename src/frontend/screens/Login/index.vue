@@ -1,10 +1,9 @@
 <template>
   <div class="container">
-    <div style="background-color: #96B8B5; position: absolute; width: 675px; height: 500px; left: 363px; top: 175px;">
-      <form style="top: 525px" method="POST" action="/login" v-on:submit="handleSubmit">
+    <div style="background-color: #96B8B5; position: absolute; width: 700px; height: 500px; left: 363px; top: 175px;">
+      <form style="width: 613px; height: 50px; background: #729B98; border-radius: 7px;" method="POST" action="/login" v-on:submit="handleSubmit">
         <input
-          class="form-control"
-          style="width: 613px; height: 50px; background: #729B98; padding-bottom: 10px;border-radius: 7px;"
+          class="form-control pb-2"
           name="email"
           type="text"
           placeholder="Email"
@@ -12,7 +11,6 @@
         />
         <input
           class="form-control"
-          style="width: 613px; height: 50px; background: #729B98; border-radius: 7px;"
           name="password"
           type="password"
           placeholder="Password"
