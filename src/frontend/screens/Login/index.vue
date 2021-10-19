@@ -25,7 +25,6 @@
           type="submit" 
           value="Login" 
         />
-        <input class="form-control" type="checkbox" id="gridCheck1"> Remember Me
       <span class="error text-danger">{{ error }}</span>
      </form>
     </div>
