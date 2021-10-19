@@ -4,21 +4,26 @@
       <form style="position: absolute; margin-top: 325px; margin-left: 45px" method="POST" action="/login" v-on:submit="handleSubmit">
         <input
           class="form-control"
-          style="width: 613px; height: 50px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
+          style="width: 613px; height: 100px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
           name="email"
           type="text"
-          placeholder="Email"
+          placeholder="Email Address"
           v-model="email"
         />
         <input
           class="form-control"
-          style="width: 613px; height: 50px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
+          style="width: 613px; height: 100px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
           name="password"
           type="password"
           placeholder="Password"
           v-model="password"
         />
-      <input class="form-control" type="submit" value="Login" />
+        <input 
+          class="form-control" 
+          style="width: 200px; height: 75px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
+          type="submit" 
+          value="Login" 
+        />
       <span class="error text-danger">{{ error }}</span>
      </form>
     </div>
