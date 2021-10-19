@@ -4,7 +4,7 @@
       <form method="POST" action="/login" v-on:submit="handleSubmit">
         <input
           class="form-control"
-          style="position: absolute; width: 613px; height: 132px; left: 419px; top: 525px; background: #729B98; border-radius: 7px;"
+          style="width: 613px; height: 132px; left: 419px; top: 525px; background: #729B98; border-radius: 7px;"
           name="email"
           type="text"
           placeholder="Email"
@@ -12,7 +12,7 @@
         />
         <input
           class="form-control"
-          style="position: absolute; width: 613px; height: 132px; left: 419px; top: 679px; background: #729B98; border-radius: 7px;"
+          style="width: 613px; height: 132px; left: 419px; top: 679px; background: #729B98; border-radius: 7px;"
           name="password"
           type="password"
           placeholder="Password"
