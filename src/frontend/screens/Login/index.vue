@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="mb-3">
-      <form class="bg-info" method="POST" action="/login" v-on:submit="handleSubmit">
+    <div style="background-color: lightgreen;">
+      <form class="w-75" method="POST" action="/login" v-on:submit="handleSubmit">
         <input
           class="form-control"
           name="email"
