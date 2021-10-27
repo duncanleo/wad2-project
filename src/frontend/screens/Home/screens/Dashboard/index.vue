@@ -55,8 +55,6 @@
       <h4 class="text-white">No results</h4>
     </div>
 
-    <br />
-
     <div style="background-color: #729b98" class="p-4 row">
       <h1 class="text-white">UPCOMING</h1>
       <hr />
@@ -71,7 +69,7 @@
           <!-- col should be based on tournamentArr.length-->
           <img class="card-img-top" src="" alt="Card image cap" />
           <div class="card-body">
-            <h5 class="card-title">{{ tournaments }}</h5>
+            <h5 class="card-title">tournamentName</h5>
             <p class="card-text">tournamentStartDate</p>
             <p class="card-text">tournamentEndDate</p>
             <p class="card-text">tournamentPricePool</p>
@@ -81,6 +79,7 @@
           </div>
           <!-- col -->
         </div>
+        <!-- row -->
       </div>
     </div>
   </div>
