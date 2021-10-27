@@ -3,8 +3,8 @@
     <h1 class="text-white">Welcome, {{ user.display_name }}</h1>
     <input
       type="text"
-      style="width:80%; height:50px; background-color:#729B98; "
-      class="border rounded "
+      style="width:100%; height:50px; background-color:#729B98; "
+      class="border border-1 form-control"
       name=""
       v-model="searchTerm"
       v-on:input="handleInput"
@@ -52,52 +52,29 @@
       <h1 class="text-white">UPCOMING</h1>
       <hr>
 
-      <div 
-      class="col mx-3 px-0"
-      style="background-color:#252525; width: 27%; height: 300px display:inline-block;">
-        <div style="width: 100%; height: 40%; background-color:grey;"> 
-            <!-- image div, styling inplace as placeholder. -->
-            <img src="" alt="">
+
+      <div class="row justify-content-center">
+        <!-- row -->
+        <div class="col-4 card m-4 text-white" style="width: 18rem; background-color:black;" v-for="n in 6">
+          <!-- col should be based on tournamentArr.length-->
+            <img class="card-img-top" src="" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">tournamentName</h5>
+              <p class="card-text">tournamentStartDate</p>
+              <p class="card-text">tournamentEndDate</p>
+              <p class="card-text">tournamentPricePool</p>
+              <p class="card-text">tournamentOrganizer</p>
+              <a href="#" class="btn btn-outline-success">More Details</a>
+              <!-- # = tournament.link -->
+            </div>
+            <!-- col -->
         </div>
-        <div>
-          <!-- Finding out if there's an api for tournaments and how to retrieve the info -->
-          <p class="text-white ps-2">Tournament Name</p>
-          <p class="text-white ps-2">Price Pool</p>
-          <p class="text-white ps-2">Date</p>
-          <hr style="color:white;">
-          <p class="text-white ps-2">Organizer</p>
-        </div>
+        <!-- row -->
       </div>
 
-      <div 
-      class="col mx-3 px-0"
-      style="background-color:#252525; width: 27%; height: 300px;">
-        <div style="width: 100%; height: 40%; background-color:grey;">
-            <img src="" alt="">
-        </div>
-        <div>
-          <p class="text-white ps-2">Tournament Name</p>
-          <p class="text-white ps-2">Price Pool</p>
-          <p class="text-white ps-2">Date</p>
-          <hr style="color:white;">
-          <p class="text-white ps-2">Organizer</p>
-        </div>
-      </div>
 
-      <div 
-      class="col mx-3 px-0"
-      style="background-color:#252525; width: 27%; height: 300px;">
-        <div style="width: 100%; height: 40%; background-color:grey;">
-            <img src="" alt="">
-        </div>
-        <div>
-          <p class="text-white ps-2">Tournament Name</p>
-          <p class="text-white ps-2">Price Pool</p>
-          <p class="text-white ps-2">Date</p>
-          <hr style="color:white;">
-          <p class="text-white ps-2">Organizer</p>
-        </div>
-      </div>
+
+
     </div>
   </div>
 </template>
