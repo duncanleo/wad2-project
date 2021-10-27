@@ -1,19 +1,23 @@
 <template>
   <div>
-    <h1>Tournaments</h1>
+    <h1 class="text-white">Tournaments</h1>
     <div class="dropdown">
       <button
         class="btn btn-secondary dropdown-toggle"
         type="button"
         id="game-dropdown-button"
+        style="width:100%; height:50px; background-color:#729B98; font-size:25px; text-align:start;"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        Game
+        {{ selectedGame }}
       </button>
-      <ul class="dropdown-menu" aria-labelledby="game-dropdown-button">
+      <ul class="dropdown-menu" aria-labelledby="game-dropdown-button" style="width:100%;" v-model="selectedGame">
+        <!-- url = logo -->
         <li
+          style="height: 50px; font-size:25px; background-image:url();"
           v-for="game in games"
+          v-bind:value="game.name"
           v-bind:key="game.id"
           v-on:click="setSelectedGameId(game.id)"
         >
@@ -33,6 +37,37 @@
         <span>Organiser: {{ tournament.owner.display_name }}</span>
       </li>
     </ul>
+
+  <div 
+    style="background-color: #729B98;"
+    class="p-4 row" v-if="selectedGame !== 'Select a game'">
+    <!-- tournament box -->
+      <h1 class="text-white">UPCOMING</h1>
+      <hr>
+
+
+      <div class="row justify-content-center">
+        <!-- row -->
+        <div class="col-4 card m-4 text-white" style="width: 18rem; background-color:black;" v-for="n in 6">
+          <!-- col should be based on tournamentArr.length-->
+            <img class="card-img-top" src="" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">tournamentName</h5>
+              <p class="card-text">tournamentStartDate</p>
+              <p class="card-text">tournamentEndDate</p>
+              <p class="card-text">tournamentPricePool</p>
+              <p class="card-text">tournamentOrganizer</p>
+              <a href="#" class="btn btn-outline-success">More Details</a>
+              <!-- # = tournament.link -->
+            </div>
+            <!-- col -->
+        </div>
+        <!-- row -->
+      </div>
+      <!-- tournament box -->
+
+
+      </div>
   </div>
 </template>
 
@@ -54,6 +89,7 @@ const Tournaments = Vue.extend({
       games: [] as App.API.Game[],
       tournaments: [] as App.API.Tournament[],
       selectedGameId: null as number | null,
+      selectedGame: "Select a game" 
     };
   },
 
