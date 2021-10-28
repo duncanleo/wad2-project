@@ -1,8 +1,65 @@
-import { Game } from '../backend/model';
+import moment from 'moment';
+
+import playersData from '../backend/initdata/players.json';
+import tournamentData from '../backend/initdata/tournaments.json';
+import { Game, GameAccount, Tournament, User } from '../backend/model';
 import { SUPPORTED_GAMES } from '../constants';
 
+async function createTournament(
+  tns: typeof tournamentData['warzone'],
+  game_id: number
+) {
+  for (const tn of tns) {
+    const [organiser] = await User.findOrCreate({
+      where: {
+        display_name: tn.organizer,
+      },
+      defaults: {
+        display_name: tn.organizer,
+        password: '',
+        email: `${tn.organizer}@example.com`,
+        bio: null,
+        type: 'organiser',
+      },
+    });
+
+    const [tournament, created] = await Tournament.findOrCreate({
+      where: {
+        name: tn.name,
+      },
+      defaults: {
+        name: tn.name,
+        prize_pool: tn.prize_pool,
+        start_at: moment(tn.start_date).toDate(),
+        end_at: moment(tn.end_date).toDate(),
+        url: tn.link,
+        owner_id: organiser.id,
+        region: tn.region,
+        banner_image: tn.banner_image ?? null,
+        banner_image_license: tn.banner_image_license ?? null,
+        game_id,
+      },
+    });
+
+    if (!created) {
+      await tournament.update({
+        name: tn.name,
+        prize_pool: tn.prize_pool,
+        start_at: moment(tn.start_date).toDate(),
+        end_at: moment(tn.end_date).toDate(),
+        url: tn.link,
+        owner_id: organiser.id,
+        region: tn.region,
+        banner_image: tn.banner_image ?? null,
+        banner_image_license: tn.banner_image_license ?? null,
+        game_id,
+      });
+    }
+  }
+}
+
 async function run() {
-  const [codmw2019] = await Game.findOrCreate({
+  const [codmw] = await Game.findOrCreate({
     where: {
       internal_id: SUPPORTED_GAMES.CODMW_2019,
     },
@@ -21,7 +78,7 @@ async function run() {
     },
   });
 
-  await codmw2019.update({
+  await codmw.update({
     banner_image: 'https://media.snl.no/media/148627/standard_cod.png',
     banner_image_license: 'CC BY NC SA 3.0',
     background_image:
@@ -110,6 +167,127 @@ async function run() {
     background_image: 'https://www.hdwallpapers.net/previews/dota-2-519.jpg',
     background_image_license: 'CC BY SA 3.0',
   });
+
+  const { warzone, fortnite: fnt, apex, dota2: dota } = tournamentData;
+
+  await createTournament(warzone, codmw.id);
+  await createTournament(fnt, fortnite.id);
+  await createTournament(apex, apexLegends.id);
+  await createTournament(dota, dota2.id);
+
+  const {
+    warzone: wzPlayers,
+    fortnite: fntPlayers,
+    apex: apexPlayers,
+    dota2: dotaPlayers,
+  } = playersData;
+
+  // Disabled because Warzone API is not working
+  // for (const player of wzPlayers) {
+  //   const [user] = await User.findOrCreate({
+  //     where: {
+  //       display_name: player.ign,
+  //     },
+  //     defaults: {
+  //       display_name: player.ign,
+  //       email: `${player.ign}@example.com`,
+  //       password: '',
+  //       bio: null,
+  //       type: 'gamer',
+  //     },
+  //   });
+
+  //   await GameAccount.findOrCreate({
+  //     where: {
+  //       user_id: user.id,
+  //       game_id: codmw.id,
+  //     },
+  //     defaults: {
+  //       data: player.data,
+  //       user_id: user.id,
+  //       game_id: codmw.id,
+  //     },
+  //   });
+  // }
+
+  for (const player of fntPlayers) {
+    const [user] = await User.findOrCreate({
+      where: {
+        display_name: player.ign,
+      },
+      defaults: {
+        display_name: player.ign,
+        email: `${player.ign}@example.com`,
+        password: '',
+        bio: null,
+        type: 'gamer',
+      },
+    });
+
+    await GameAccount.findOrCreate({
+      where: {
+        user_id: user.id,
+        game_id: fortnite.id,
+      },
+      defaults: {
+        data: player.data,
+        user_id: user.id,
+        game_id: fortnite.id,
+      },
+    });
+  }
+  for (const player of apexPlayers) {
+    const [user] = await User.findOrCreate({
+      where: {
+        display_name: player.ign,
+      },
+      defaults: {
+        display_name: player.ign,
+        email: `${player.ign}@example.com`,
+        password: '',
+        bio: null,
+        type: 'gamer',
+      },
+    });
+
+    await GameAccount.findOrCreate({
+      where: {
+        user_id: user.id,
+        game_id: apexLegends.id,
+      },
+      defaults: {
+        data: player.data,
+        user_id: user.id,
+        game_id: apexLegends.id,
+      },
+    });
+  }
+  for (const player of dotaPlayers) {
+    const [user] = await User.findOrCreate({
+      where: {
+        display_name: player.ign,
+      },
+      defaults: {
+        display_name: player.ign,
+        email: `${player.ign}@example.com`,
+        password: '',
+        bio: null,
+        type: 'gamer',
+      },
+    });
+
+    await GameAccount.findOrCreate({
+      where: {
+        user_id: user.id,
+        game_id: dota2.id,
+      },
+      defaults: {
+        data: player.data,
+        user_id: user.id,
+        game_id: dota2.id,
+      },
+    });
+  }
 }
 
 run()
