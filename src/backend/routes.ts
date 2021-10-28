@@ -1,7 +1,7 @@
 import { Application, NextFunction, Request, Response } from 'express';
 
 import auth from './api/auth';
-import { gamesList } from './api/game';
+import { gameGet, gamesList } from './api/game';
 import { gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
@@ -65,6 +65,7 @@ const routes = (app: Application) => {
   app.get('/api/join_requests', asyncWrapper(joinRequestsList));
 
   app.get('/api/games', asyncWrapper(gamesList));
+  app.get('/api/games/:id', asyncWrapper(gameGet));
   app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));
 
   app.get('/api/tournaments', asyncWrapper(tournamentsList));
