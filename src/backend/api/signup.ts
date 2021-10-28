@@ -24,7 +24,7 @@ export async function signup(req: Request, res: Response) {
   const validationResult = SignupPayloadSchema.validate(req.body);
 
   if (validationResult.error) {
-    throw validationResult.error;
+    throw new ErrorBadRequest(validationResult.error.message);
   }
 
   const { email, password, display_name } =

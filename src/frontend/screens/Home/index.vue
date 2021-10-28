@@ -2,16 +2,17 @@
   <div class="container">
     <onboarding v-if="!isLoggedIn" />
     <dashboard v-else />
+    <img v-bind:src="rockImage" />
   </div>
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import Vue from 'vue';
-import Logo from '../../components/Logo.vue';
 import Dashboard from './screens/Dashboard/index.vue';
 import Onboarding from './screens/Onboarding/index.vue';
 import './styles.scss';
+
+import rockImage from '../../assets/images/test.png';
 
 const Home = Vue.extend({
   components: {
@@ -25,6 +26,12 @@ const Home = Vue.extend({
 
       return state.user != null;
     },
+  },
+
+  data() {
+    return {
+      rockImage,
+    };
   },
 
   head: {
