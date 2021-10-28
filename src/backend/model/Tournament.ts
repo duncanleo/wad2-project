@@ -13,6 +13,7 @@ interface TournamentAttributes {
   start_at: Date;
   end_at: Date;
   owner_id: number;
+  url: string | null;
 }
 
 type TournamentCreationAttributes = Optional<TournamentAttributes, 'id'>;
@@ -32,6 +33,7 @@ export function setupTournament(sequelize: Sequelize) {
     public start_at!: Date;
     public end_at!: Date;
     public owner_id!: number;
+    public url!: string | null;
 
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
@@ -102,6 +104,10 @@ export function setupTournament(sequelize: Sequelize) {
       end_at: {
         type: DataTypes.DATE,
         allowNull: false,
+      },
+      url: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {
