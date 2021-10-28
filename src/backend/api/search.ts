@@ -68,6 +68,7 @@ export async function search(req: Request, res: Response) {
       display_name: {
         [Op.iLike]: queryTerm,
       },
+      type: 'gamer',
     },
   });
 
