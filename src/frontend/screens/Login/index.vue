@@ -4,7 +4,6 @@
       <h5>Login</h5>
       <input
         class="form-control"
-        style="width: 613px; height: 75px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
         name="email"
         type="text"
         placeholder="Email Address"
@@ -12,7 +11,6 @@
       />
       <input
         class="form-control"
-        style="width: 613px; height: 75px; background: #729B98; margin-bottom: 10px; border-radius: 7px;"
         name="password"
         type="password"
         placeholder="Password"
@@ -20,7 +18,6 @@
       />
       <input 
         class="form-control"
-        style="width: 150px; height: 50px; background: #729B98; margin-left: 200px; border-radius: 7px;"
         type="submit" 
         alue="Login" 
       />
