@@ -2,12 +2,13 @@
   <div class="contain">
     <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5>Login</h5>
-      
-      <input class="form-control form-control-lg mb-2" name="email" type="text" placeholder="Email Address" v-model="email"/>
+      <div style="width: 613px; height: 75px; background: #729B98; margin-bottom: 10px; border-radius: 7px;">
+        <input class="form-control form-control-lg mb-2" name="email" type="text" placeholder="Email Address" v-model="email"/>
+      </div>
 
-      <input class="form-control form-control-lg" name="password" type="password" placeholder="Password" v-model="password"/>
+      <input class="form-control form-control-lg mb-2" name="password" type="password" placeholder="Password" v-model="password"/>
 
-      <input class="form-control form-control-lg" type="submit" value="Login"/>
+      <input class="form-control form-control-lg mb-2" type="submit" value="Login"/>
 
       <span class="error text-danger">{{ error }}</span>
     </form>
