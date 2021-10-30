@@ -1,5 +1,5 @@
 <template>
-  <div class="container-md">
+  <div class="container-fluid">
     <div style="background-color: #96B8B5; position: absolute; width: 700px; height: 550px; left: 363px; top: 150px;">
       <form style="position: absolute; margin-top: 250px; margin-left: 45px" method="POST" action="/login" v-on:submit="handleSubmit">
         <h5>Login</h5>
