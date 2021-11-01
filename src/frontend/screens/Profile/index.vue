@@ -1,3 +1,6 @@
+
+
+
 <template>
   <div class="container">
     <div class="row">
@@ -10,29 +13,100 @@
         <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" />
       </div>
     </div>
+
+    <!-- Teams row to show what teams you are in and to create teams -->
     <div class="row">
       <div class="bg-secondary col-8">
         <h4 class="text-white fw-bold">My Teams</h4>
       </div>
       <div class="bg-secondary col-4">
-        <button>Create Team</button>
+        <button class="btn btn-primary">Create Team</button>
       </div>
       <div v-for="team in teams" v-bind:key="team.id">
         <span>{{ team.name }}</span>
       </div>
     </div>
-    <div class="row">
-      <h4 class="text-white fw-bold">My Games</h4>
+
+    <!-- Games row  to display games you have and to link games -->
+    <div class="row mt-4 pt-3 bg-danger">
+      <div class="bg-secondary col-8">
+        <h4 class="text-white fw-bold">My Games</h4>
+      </div>
+
+      <div class="bg-secondary col-4">
+        <!-- <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+    </div> -->
+
+        <button v-on:click="linkGame" class="" v-if="linkedGame == false">
+          Link an account
+        </button>
+
+        <div v-if="linkedGame">
+          <form>
+            <div class="form-group">
+              <div class="d-flex justify-content-between pe-2">
+                <label
+                  for="game"
+                  class="bg-danger text-center"
+                  style="padding-top: 6px"
+                  >Game you want to link:</label
+                >
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Dropdown button
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Another action</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="form-group pt-2">
+              <label for="gameName">In Game Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inGameName"
+                placeholder="IGN"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+
       <ul>
-        <game-account v-for="gameAccount in me.gameAccounts" v-bind:key="gameAccount.id" v-bind:gameAccount="gameAccount"
-        
-          
-          
-          
-          
+        <game-account
+          v-for="gameAccount in me.gameAccounts"
+          v-bind:key="gameAccount.id"
+          v-bind:gameAccount="gameAccount"
         />
       </ul>
-      
+
       {{ apexacc }}
     </div>
   </div>
@@ -44,9 +118,6 @@ import Vue from 'vue';
 import { gameAccountLink } from '../../../backend/api/gameaccount';
 import GameAccount from '../../components/GameAccount/index.vue';
 import generateAvatar from '../../util/generateAvatar';
-
-
-
 
 interface TeamsResponse extends App.API.ResponseBase {
   teams: App.API.Team[];
@@ -61,8 +132,11 @@ const Profile = Vue.extend({
     return {
       me: this.$store.state.user as App.API.CurrentUser,
       teams: [] as App.API.Team[],
-      allGame:"",
-      apexacc:"",
+      allGame: '',
+      apexacc: '',
+      linkedGame: false,
+      inGameName: '',
+      games: {},
     };
   },
 
@@ -70,8 +144,7 @@ const Profile = Vue.extend({
     this.fetchMyTeams();
     this.fetchAllGames();
     this.fetchMyGames();
-    this.apiMe()
-    
+    this.apiMe();
   },
 
   methods: {
@@ -81,50 +154,36 @@ const Profile = Vue.extend({
       this.teams = response.data.teams;
     },
 
-  async fetchAllGames() {
-      
-       const response = await axios.get('/api/games', {
-      
-      });
-      this.allGame=response.data
-      
-      
-      
+    async fetchAllGames() {
+      const response = await axios.get('/api/games', {});
+      this.allGame = response.data;
     },
     async fetchMyGames() {
-      
-       const response = await axios.post('/api/games/3/account', {
-        "gamertag": "TofuBoy",
-        
+      const response = await axios.post('/api/games/3/account', {
+        gamertag: 'TofuBoy',
       });
 
-      this.apexacc="response"
-      console.log(response.data)
-      
-
-
-      
-      
+      this.apexacc = 'response';
+      console.log(response.data);
     },
 
-   async apiMe() {
-      
-       const response = await axios.get('/api/me', {
-      
-      });
-   
-      console.log(response.data)
-      console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
-      
-      
+    async apiMe() {
+      const response = await axios.get('/api/me', {});
+
+      console.log(response.data);
+      console.log(
+        'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+      );
     },
-    
 
     generateAvatar,
+
+    linkGame() {
+      this.linkedGame = true;
+    },
   },
 
   head: {
-
     title: {
       inner: 'Profile',
     },
@@ -132,5 +191,5 @@ const Profile = Vue.extend({
 });
 
 export default Profile;
-
 </script>
+
