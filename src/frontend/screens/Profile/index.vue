@@ -24,12 +24,16 @@
     <div class="row">
       <h4 class="text-white fw-bold">My Games</h4>
       <ul>
-        <game-account
-          v-for="gameAccount in me.gameAccounts"
-          v-bind:key="gameAccount.id"
-          v-bind:gameAccount="gameAccount"
+        <game-account v-for="gameAccount in me.gameAccounts" v-bind:key="gameAccount.id" v-bind:gameAccount="gameAccount"
+        
+          
+          
+          
+          
         />
       </ul>
+      
+      {{ apexacc }}
     </div>
   </div>
 </template>
@@ -37,8 +41,12 @@
 <script lang="ts">
 import axios from 'axios';
 import Vue from 'vue';
+import { gameAccountLink } from '../../../backend/api/gameaccount';
 import GameAccount from '../../components/GameAccount/index.vue';
 import generateAvatar from '../../util/generateAvatar';
+
+
+
 
 interface TeamsResponse extends App.API.ResponseBase {
   teams: App.API.Team[];
@@ -53,11 +61,17 @@ const Profile = Vue.extend({
     return {
       me: this.$store.state.user as App.API.CurrentUser,
       teams: [] as App.API.Team[],
+      allGame:"",
+      apexacc:"",
     };
   },
 
   beforeMount() {
     this.fetchMyTeams();
+    this.fetchAllGames();
+    this.fetchMyGames();
+    this.apiMe()
+    
   },
 
   methods: {
@@ -67,10 +81,50 @@ const Profile = Vue.extend({
       this.teams = response.data.teams;
     },
 
+  async fetchAllGames() {
+      
+       const response = await axios.get('/api/games', {
+      
+      });
+      this.allGame=response.data
+      
+      
+      
+    },
+    async fetchMyGames() {
+      
+       const response = await axios.post('/api/games/3/account', {
+        "gamertag": "TofuBoy",
+        
+      });
+
+      this.apexacc="response"
+      console.log(response.data)
+      
+
+
+      
+      
+    },
+
+   async apiMe() {
+      
+       const response = await axios.get('/api/me', {
+      
+      });
+   
+      console.log(response.data)
+      console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
+      
+      
+    },
+    
+
     generateAvatar,
   },
 
   head: {
+
     title: {
       inner: 'Profile',
     },
@@ -78,4 +132,5 @@ const Profile = Vue.extend({
 });
 
 export default Profile;
+
 </script>

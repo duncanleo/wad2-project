@@ -1,12 +1,10 @@
-.form-control::placeholder {
-    color: white;
-}
+.form-control::-webkit-input-placeholder {
+    color: lightgray;
+    font-size:20px;
+  
+  }
 
-.box{
-    min-height:75vh;
-}
-
-.center{
-    margin: auto;
+  input[type=submit] {
     width: 50%;
+    font-size:20px
 }
