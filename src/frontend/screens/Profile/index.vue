@@ -56,11 +56,28 @@
 
       <button v-on:click="linkGame" class="" v-if="linkedGame==false">Link an account</button>
 
-      <div v-if="linkedGame">
+      
+
+      </div>
+      
+      
+
+
+      <ul>
+        <game-account
+          v-for="gameAccount in me.gameAccounts"
+          v-bind:key="gameAccount.id"
+          v-bind:gameAccount="gameAccount"
+        />
+      </ul>
+    </div>
+
+    <div class="row mt-3">
+      <div v-if="linkedGame==true" class="bg-danger">
         <form>
           <div class="form-group">
-            <div class="d-flex justify-content-between pe-2">
-              <label for="game" class="bg-danger text-center" style="padding-top:6px;">Game you want to link:</label>
+            <div class="d-flex pe-2">
+              <label for="game" class="bg-danger text-center pe-3" style="padding-top:6px;">Game you want to link:</label>
               <div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown button
@@ -84,86 +101,10 @@
         </form>
 
       </div>
-
-      </div>
-      
-
-
-      <ul>
-        <game-account
-          v-for="gameAccount in me.gameAccounts"
-          v-bind:key="gameAccount.id"
-          v-bind:gameAccount="gameAccount"
-        />
-      </ul>
     </div>
-
-    <div class="row">
-      <div v-if="linkedGame == true" class="bg-dark">
-        <form>
-          <div class="form-group">
-            <div class="d-flex pe-2">
-              <label
-                for="game"
-                class="text-white text-center pe-3"
-                style="padding-top: 6px"
-                ><h4 class="fw-bold">Game you want to link:</h4></label
-              >
-
-              <select v-model="userSelectedGame">
-                <option
-                  v-for="(game, index) in gameDropdown"
-                  v-bind:value="game[index + 1]"
-                >
-                  {{ game[index + 1] }}
-                </option>
-              </select>
-
-              <!-- <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Games
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"  v-model="userSelectedGame">
-                  <li v-for="(game,index) in gameDropdown">
-                    <a class="dropdown-item" href="#" v-bind:value="game[index+1]">{{ game[index+1]}}</a>
-                  </li>
-                </ul>
-              </div> -->
-            </div>
-          </div>
-          <div class="form-group pt-2">
-            <label for="gameName" class="text-white">In Game Name</label>
-            <input
-              type="text"
-              class="form-control w-50"
-              id="inGameName"
-              placeholder="IGN"
-            />
-
-            <label for="gameName" class="text-white">In Game Name</label>
-            <input
-              type="text"
-              class="form-control w-50"
-              id="inGameName"
-              placeholder="IGN"
-            />
-          </div>
-
-          <button type="submit" class="btn btn-primary mt-3">Submit</button>
-        </form>
-      </div>
-      {{ gamesList }}
-      {{ gameDropdown }}
-      {{ userSelectedGame }}
-      here
-    </div>
+    
   </div>
+  
   
 </template>
 
