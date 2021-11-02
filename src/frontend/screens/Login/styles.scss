@@ -7,3 +7,7 @@
     margin-bottom: 10px; 
     border-radius: 7px;
 }
+
+.form-control::placeholder {
+    color: white;
+}
