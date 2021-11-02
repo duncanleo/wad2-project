@@ -8,7 +8,7 @@
 
       <input class="form-control form-control-lg mb-2 w-50" name="password" type="password" placeholder="Password" v-model="password"/>
 
-      <input class="form-control form-control-lg mb-2" type="submit" value="Login"/>
+      <input class="form-control form-control-lg mb-2 " type="submit" value="Login"/>
 
       <span class="error text-danger">{{ error }}</span>
     </form>
@@ -18,6 +18,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import axios from 'axios';
+import './styles.scss';
 
 const Login = Vue.extend({
   data: function () {
