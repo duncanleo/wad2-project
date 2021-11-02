@@ -1,11 +1,11 @@
 <template>
     <form class="form w-50 h-75 ms-3" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5>Login</h5>
-      <input class="form-control" name="email" type="text" placeholder="Email Address" v-model="email"/>
+      <input class="form-control w-25" name="email" type="text" placeholder="Email Address" v-model="email"/>
 
-      <input class="form-control" name="password" type="password" placeholder="Password" v-model="password"/>
+      <input class="form-control w-25" name="password" type="password" placeholder="Password" v-model="password"/>
 
-      <input class="form-control" type="submit" value="Login"/>
+      <input class="form-control w-25" type="submit" value="Login"/>
 
       <span class="error text-danger">{{ error }}</span>
     </form>
