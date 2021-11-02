@@ -1,18 +1,21 @@
 <template>
+<div class="container">
   <div class="contain">
     <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5>Login</h5>
       <div >
-        <input class="form-control form-control-lg mb-2 w-50" style="background: #729B98;" name="email" type="text" placeholder="Email Address" v-model="email"/>
+        <input class="form-control" name="email" type="text" placeholder="Email Address" v-model="email"/>
       </div>
 
-      <input class="form-control form-control-lg mb-2 w-50" name="password" type="password" placeholder="Password" v-model="password"/>
+      <input class="form-control" name="password" type="password" placeholder="Password" v-model="password"/>
 
-      <input class="form-control form-control-lg mb-2 " type="submit" value="Login"/>
+      <input class="form-control" type="submit" value="Login"/>
 
       <span class="error text-danger">{{ error }}</span>
     </form>
   </div>
+
+</div>
 </template>
 
 <script lang="ts">
