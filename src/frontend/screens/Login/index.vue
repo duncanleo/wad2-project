@@ -1,5 +1,4 @@
 <template>
-<div class="container">
   <div class="row justify-content-center">
     <div class="col box">
       <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
@@ -16,7 +15,6 @@
     </form>
     </div>
   </div>
-</div>
 </template>
 
 <script lang="ts">
