@@ -1,7 +1,5 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col box">
-      <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
+    <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5>Login</h5>
       <div >
         <input class="form-control" name="email" type="text" placeholder="Email Address" v-model="email"/>
@@ -13,8 +11,6 @@
 
       <span class="error text-danger">{{ error }}</span>
     </form>
-    </div>
-  </div>
 </template>
 
 <script lang="ts">
