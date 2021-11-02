@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div class="row">
-    <div class="col box">
+    <div class="col box justify-content-center">
       <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5>Login</h5>
       <div >
