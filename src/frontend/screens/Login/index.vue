@@ -1,5 +1,5 @@
 <template>
-    <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
+    <form class="form w-50" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5>Login</h5>
       <div >
         <input class="form-control" name="email" type="text" placeholder="Email Address" v-model="email"/>
