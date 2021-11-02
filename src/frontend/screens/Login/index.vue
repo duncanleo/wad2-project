@@ -1,12 +1,12 @@
 <template>
-<div class="row justify-content-center">
-  <form class="form w-50 h-75" method="POST" action="/login" v-on:submit="handleSubmit">
-      <h5 class="ms-3">Login</h5>
-      <input class="form-control ms-3" name="email" type="text" placeholder="Email Address" v-model="email"/>
+<div class="row justify-content-center h-75">
+  <form class="form w-50" method="POST" action="/login" v-on:submit="handleSubmit">
+      <h5 class="ms-2">Login</h5>
+      <input class="form-control ms-2" name="email" type="text" placeholder="Email Address" v-model="email"/>
 
-      <input class="form-control ms-3" name="password" type="password" placeholder="Password" v-model="password"/>
+      <input class="form-control ms-2" name="password" type="password" placeholder="Password" v-model="password"/>
 
-      <input class="form-control ms-3" type="submit" value="Login"/>
+      <input class="form-control ms-2" type="submit" value="Login"/>
 
       <span class="error text-danger">{{ error }}</span>
     </form>
