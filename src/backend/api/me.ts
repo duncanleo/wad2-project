@@ -40,6 +40,7 @@ export default async function me(req: Request, res: Response) {
       id: user.id,
       email: user.email,
       display_name: user.display_name,
+      bio: user.bio,
       type: user.type,
       memberships,
       gameAccounts,
