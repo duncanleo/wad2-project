@@ -6,8 +6,13 @@
     <div class="row">
       <div class="col-8">
         <h1 class="text-white fw-bold">{{ me.display_name }}</h1>
-        <span class="text-white">{{ me.bio || 'No bio' }}</span>
-        <button>Edit Profile</button>
+        <span class="text-white d-block mb-3">{{
+          me.bio ||
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }}</span>
+        <button class="btn btn-dark text-white" v-on:click="editBio">
+          Edit Profile
+        </button>
       </div>
       <div class="col-4">
         <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" />
@@ -163,6 +168,7 @@ const Profile = Vue.extend({
 
   beforeMount() {
     this.fetchMyTeams();
+    this.apiMe();
   },
 
   methods: {
@@ -176,6 +182,18 @@ const Profile = Vue.extend({
 
     linkGame() {
       this.linkedGame = true;
+    },
+    async apiMe() {
+      const response = await axios.get('/api/me', {});
+
+      console.log(response.data);
+      console.log(
+        'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+      );
+    },
+
+    editBio() {
+      console.log('edit bio');
     },
   },
 
