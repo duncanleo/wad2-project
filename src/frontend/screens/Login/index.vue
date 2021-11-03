@@ -1,6 +1,11 @@
 <template>
-<div class="row justify-content-center">
-  <form class="form w-50" method="POST" action="/login" v-on:submit="handleSubmit">
+<div class="row justify-content-center h-75">
+  <div class="">
+
+  </div>
+    
+    <form class="form w-50" method="POST" action="/login" v-on:submit="handleSubmit">
+    
       <h5 class="ms-1">Login</h5>
       <input class="form-control ms-1 me-1" name="email" type="text" placeholder="Email Address" v-model="email"/>
 
