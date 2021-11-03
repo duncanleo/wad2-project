@@ -1,6 +1,6 @@
 <template>
-<div class="row justify-content-center" style="background-color: #96B8B5;">
-  <div class="col-8">
+<div class="row justify-content-center">
+  <div class="col-8 h-75" style="background-color: #96B8B5;">
     <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5 class="ms-1">Login</h5>
       <input class="form-control mb-1 ms-1 me-1" style="background: #729B98;" name="email" type="text" placeholder="Email Address" v-model="email"/>
