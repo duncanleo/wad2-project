@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h1>Teams</h1>
+    <h1 class="text-white">Teams</h1>
     <input
       type="text"
+      style="width:100%; height:50px; background-color:#729B98; "
+      class="border border-1 form-control"
       name=""
-      value=""
-      id=""
       v-model="searchTerm"
-      placeholder="Search"
+      v-on:input="handleInput"
+      placeholder="Search..."
     />
     <div class="teams-list">
       <router-link
