@@ -17,6 +17,7 @@
         v-bind:to="playerLink(player.id)"
         v-for="player in players"
         v-bind:key="player.id"
+        class= "fs-5 text-white"
       >
         <span>{{ player.display_name }}</span>
       </router-link>
@@ -45,6 +46,7 @@
     >
       <h4 class="text-white">No results</h4>
     </div>
+    <br>
 
     <div 
     style="background-color: #729B98;"
@@ -59,7 +61,7 @@
           <!-- col should be based on tournamentArr.length-->
             <img class="card-img-top" src="" alt="Card image cap">
             <div class="card-body">
-              <h5 class="card-title">tournamentName</h5>
+              <h5 class="card-title">{{tournaments}}</h5>
               <p class="card-text">tournamentStartDate</p>
               <p class="card-text">tournamentEndDate</p>
               <p class="card-text">tournamentPricePool</p>
@@ -84,11 +86,15 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import Vue from 'vue';
 
+
 interface SearchResponse extends App.API.ResponseBase {
   players: App.API.User[];
   teams: App.API.Team[];
   tournaments: App.API.Tournament[];
 }
+
+// var url = '../../../../../../backend/initdata/tournaments.json';
+
 
 const Dashboard = Vue.extend({
   data() {
@@ -100,6 +106,16 @@ const Dashboard = Vue.extend({
     };
   },
 
+  // created: function(){
+  //   axios.get(url)
+  //     .then(response=> {
+  //       console.log(response.data)
+  //       this.tournaments = response.data;
+  //   })
+  //     .catch(error=>{
+  //       console.log(error.message)
+  //   })
+  // },
   computed: {
     user() {
       const state = this.$store.state as App.Frontend.Store.RootState;
