@@ -40,6 +40,7 @@ export default async function me(req: Request, res: Response) {
       id: user.id,
       email: user.email,
       display_name: user.display_name,
+      bio: user.bio,
       type: user.type,
       memberships,
       gameAccounts,
@@ -51,11 +52,13 @@ export default async function me(req: Request, res: Response) {
 interface MeUpdatePayload {
   display_name: string | undefined;
   email: string | undefined;
+  bio: string | undefined;
 }
 
 const MeUpdatePayloadSchema = Joi.object<MeUpdatePayload>({
   display_name: Joi.string().optional(),
   email: Joi.string().email().optional(),
+  bio: Joi.string().optional(),
 });
 
 export async function meUpdate(req: Request, res: Response) {
@@ -72,11 +75,13 @@ export async function meUpdate(req: Request, res: Response) {
     throw new ErrorBadRequest(validationResult.error.message);
   }
 
-  const { display_name, email } = validationResult.value as MeUpdatePayload;
+  const { display_name, email, bio } =
+    validationResult.value as MeUpdatePayload;
 
   await user.update({
     display_name,
     email,
+    bio,
   });
 
   res.status(204).end();
