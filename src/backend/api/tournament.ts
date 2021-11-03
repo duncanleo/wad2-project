@@ -10,6 +10,14 @@ import {
 import { Game, Tournament, User } from '../model';
 import getRequestContext from '../util/getRequestContext';
 
+interface TournamentsListParams {
+  game_id?: number;
+}
+
+const TournamentsListParamsSchema = Joi.object<TournamentsListParams>({
+  game_id: Joi.number().optional(),
+});
+
 export async function tournamentsList(req: Request, res: Response) {
   const context = await getRequestContext(req);
   const { user } = context;
@@ -18,24 +26,58 @@ export async function tournamentsList(req: Request, res: Response) {
     throw new ErrorUnauthorized();
   }
 
-  const tournaments = await Tournament.findAll({
-    attributes: [
-      'id',
-      'name',
-      'region',
-      'prize_pool',
-      'start_at',
-      'end_at',
-      'game_id',
-    ],
-    include: [
-      {
-        model: User,
-        as: 'owner',
-        attributes: ['id', 'display_name', 'bio'],
+  const validationResult = TournamentsListParamsSchema.validate(req.query);
+
+  if (validationResult.error) {
+    throw new ErrorBadRequest(validationResult.error.message);
+  }
+
+  const { game_id } = validationResult.value as TournamentsListParams;
+
+  let tournaments;
+
+  if (game_id != null) {
+    tournaments = await Tournament.findAll({
+      attributes: [
+        'id',
+        'name',
+        'region',
+        'prize_pool',
+        'start_at',
+        'end_at',
+        'game_id',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'display_name', 'bio'],
+        },
+      ],
+      where: {
+        game_id,
       },
-    ],
-  });
+    });
+  } else {
+    tournaments = await Tournament.findAll({
+      attributes: [
+        'id',
+        'name',
+        'region',
+        'prize_pool',
+        'start_at',
+        'end_at',
+        'game_id',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'display_name', 'bio'],
+        },
+      ],
+    });
+  }
 
   res
     .status(200)
