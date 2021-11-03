@@ -1,5 +1,5 @@
 <template>
-<div class="d-block justify-content-center h-75">
+<div class="row justify-content-center">
     <form class="form w-50" method="POST" action="/login" v-on:submit="handleSubmit">
     
       <h5 class="ms-1">Login</h5>
