@@ -54,6 +54,7 @@
     >
       <h4 class="text-white">No results</h4>
     </div>
+    <br />
 
     <div style="background-color: #729b98" class="p-4 row">
       <h1 class="text-white">UPCOMING</h1>
@@ -69,7 +70,7 @@
           <!-- col should be based on tournamentArr.length-->
           <img class="card-img-top" src="" alt="Card image cap" />
           <div class="card-body">
-            <h5 class="card-title">tournamentName</h5>
+            <h5 class="card-title">{{ tournaments }}</h5>
             <p class="card-text">tournamentStartDate</p>
             <p class="card-text">tournamentEndDate</p>
             <p class="card-text">tournamentPricePool</p>
@@ -96,6 +97,8 @@ interface SearchResponse extends App.API.ResponseBase {
   tournaments: App.API.Tournament[];
 }
 
+// var url = '../../../../../../backend/initdata/tournaments.json';
+
 const Dashboard = Vue.extend({
   data() {
     return {
@@ -107,6 +110,16 @@ const Dashboard = Vue.extend({
     };
   },
 
+  // created: function(){
+  //   axios.get(url)
+  //     .then(response=> {
+  //       console.log(response.data)
+  //       this.tournaments = response.data;
+  //   })
+  //     .catch(error=>{
+  //       console.log(error.message)
+  //   })
+  // },
   computed: {
     tournamentFilter() {
       var upcomingTournament = [];
