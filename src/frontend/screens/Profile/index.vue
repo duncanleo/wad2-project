@@ -183,6 +183,18 @@ const Profile = Vue.extend({
     linkGame() {
       this.linkedGame = true;
     },
+    async apiMe() {
+      const response = await axios.get('/api/me', {});
+
+      console.log(response.data);
+      console.log(
+        'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
+      );
+    },
+
+    editBio() {
+      console.log('edit bio');
+    },
   },
 
   computed: {
