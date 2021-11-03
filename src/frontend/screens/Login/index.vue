@@ -1,68 +1,75 @@
 
 
 <template>
-
   <div class="d-block justify-content-center w-100 h-50 bg-danger p-3">
-    
-
-
     <!--login box-->
-    <div id = "loginDetails" class="mb-3 col-12  mx-auto p-5 rounded" style="background-color: #96B8B5;" >
-        <span class="error text-danger">{{ error }}</span>
+    <div
+      id="loginDetails"
+      class="mb-3 col-12 mx-auto p-5 rounded"
+      style="background-color: #96b8b5"
+    >
+      <span class="error text-danger">{{ error }}</span>
 
-    <!--Game logo-->
-        <div id = "gameLogo" class="text-danger col-8 mx-auto mb-5" style="border-style:solid; text-align:centre">
-          <img style="height:100%; width:100%" v-bind:src="gamelogo" alt = "waiting">
-        </div>
+      <!--Game logo-->
+      <div
+        id="gameLogo"
+        class="text-danger col-8 mx-auto mb-5"
+        style="border-style: solid; text-align: centre"
+      >
+        <img
+          style="height: 100%; width: 100%"
+          v-bind:src="gamelogo"
+          alt="waiting"
+        />
+      </div>
 
-        
-   
-        <div class="mb-2">
-          <span class="h5"><b>Login</b></span>
-        </div>
-        
+      <!--Login word-->
+      <span class="h5"><b>Login</b></span>
 
-        
-        <form class = "col-12 mx-auto"  method="POST" action="/login" v-on:submit="handleSubmit" >
-        
-        
-        
-          <input 
-            style="background-color:#729B98; border-color:#729B98"
-            class="form-control mb-1"
-            name="email"
-            type="text"
-            placeholder="Email"
-            v-model="email"
-            
-          />
-          <input
-            style="background-color:#729B98; border-color:#729B98"
-            class="form-control mb-2"
-            name="password"
-            type="password"
-            placeholder="Password"
-            v-model="password"
-          />
+      <form
+        class="col-12 mx-auto mt-2"
+        method="POST"
+        action="/login"
+        v-on:submit="handleSubmit"
+      >
+        <!--email-->
+        <input
+          style="background-color: #729b98; border-color: #729b98"
+          class="form-control mb-1"
+          name="email"
+          type="text"
+          placeholder="Email"
+          v-model="email"
+        />
+        <!--password-->
+        <input
+          style="background-color: #729b98; border-color: #729b98"
+          class="form-control mb-2"
+          name="password"
+          type="password"
+          placeholder="Password"
+          v-model="password"
+        />
 
-          <!-- <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"> -->
-          <!-- <label for="vehicle1"><b>Remember Me</b></label><br> -->
+        <!-- <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"> -->
+        <!-- <label for="vehicle1"><b>Remember Me</b></label><br> -->
 
-          <input id ="loginButton" style="background-color:#729B98; color:white; border-color:#729B98" class="form-control mt-4 mx-auto mb-3" type="submit" value="Login" />
-          <a class="text-danger" href="../Signup">Dont have an account? Sign up here</a>
-        </form>
-        
-        
+        <input
+          id="loginButton"
+          style="background-color: #729b98; color: white; border-color: #729b98"
+          class="form-control mt-4 mx-auto mb-3"
+          type="submit"
+          value="Login"
+        />
+        <a class="text-danger" href="../Signup"
+          >Dont have an account? Sign up here</a
+        >
+      </form>
     </div>
   </div>
-  
-  
 </template>
 
 <style scoped lang="scss">
-
-
-
 </style>
 
 
@@ -70,7 +77,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import axios from 'axios';
-import "./styles.scss";
+import './styles.scss';
 
 const Login = Vue.extend({
   data: function () {
@@ -78,10 +85,8 @@ const Login = Vue.extend({
       email: '',
       password: '',
       error: '',
-      gamelogo: require("../../../assets/images/gamelogo.jpg"), 
-      alt:"loll"
-      
-      
+      gamelogo: require('../../../assets/images/gamelogo.jpg'),
+      alt: 'loll',
     };
   },
   methods: {
