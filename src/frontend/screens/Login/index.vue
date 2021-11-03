@@ -1,15 +1,17 @@
 <template>
-<div class="row justify-content-center w-50 h-75" style="background-color: #96B8B5;">
+<div class="row justify-content-center" style="background-color: #96B8B5;">
+  <div class="col-8">
     <form class="form" method="POST" action="/login" v-on:submit="handleSubmit">
       <h5 class="ms-1">Login</h5>
-      <input class="form-control ms-1 me-1" name="email" type="text" placeholder="Email Address" v-model="email"/>
+      <input class="form-control mb-1 ms-1 me-1" style="background: #729B98;" name="email" type="text" placeholder="Email Address" v-model="email"/>
 
-      <input class="form-control ms-1 me-1" name="password" type="password" placeholder="Password" v-model="password"/>
+      <input class="form-control mb-1 ms-1 me-1" style="background: #729B98;" name="password" type="password" placeholder="Password" v-model="password"/>
 
-      <input class="form-control ms-1 me-1" type="submit" value="Login"/>
+      <input class="form-control mb-1 ms-1 me-1" style="background: #729B98;" type="submit" value="Login"/>
 
       <span class="error text-danger">{{ error }}</span>
     </form>
+  </div>
 </div>
 </template>
 
