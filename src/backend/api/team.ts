@@ -79,6 +79,39 @@ export async function teamsList(req: Request, res: Response) {
           Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
           'memberships_count',
         ],
+        [
+          Sequelize.literal(
+            `
+            (
+              SELECT
+              CASE WHEN EXISTS
+              (
+                SELECT id
+                FROM memberships
+                WHERE team_id = "Team"."id"
+                AND user_id = :user_id
+              )
+              THEN 1
+              ELSE 0
+              END
+            )
+            `
+          ),
+          'is_member',
+        ],
+        [
+          Sequelize.literal(
+            `
+            (
+              SELECT status
+              FROM team_join_requests
+              WHERE team_id = "Team"."id"
+              AND user_id = :user_id
+            )
+            `
+          ),
+          'join_request_status',
+        ],
       ],
       include: [
         {
@@ -88,14 +121,25 @@ export async function teamsList(req: Request, res: Response) {
         },
       ],
       group: ['Team.id'],
+      replacements: {
+        user_id: user.id,
+      },
     });
   }
+
+  const teamsPatched = teams.map((team) => {
+    const teamData = team.toJSON() as Record<string, any>;
+    return {
+      ...teamData,
+      is_member: teamData.is_member === 1,
+    };
+  });
 
   res
     .status(200)
     .json({
       status: true,
-      teams,
+      teams: teamsPatched,
     })
     .end();
 }
