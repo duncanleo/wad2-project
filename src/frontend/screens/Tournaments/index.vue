@@ -156,6 +156,27 @@ const Tournaments = Vue.extend({
   beforeMount() {
     this.fetchGames();
     this.fetchTournaments();
+
+  },
+
+  computed: {
+    selectedGame() {
+      return this.games.find(game => game.id === this.selectedGameId);
+    },
+
+    tournamentDetails(){
+      var tournamentData = this.results();
+      for (let tournament of tournamentData) {
+        let startDate = tournament.start_at
+        let endDate = tournament.end_at
+        let date = startDate.split('T')[0]
+        let edate = endDate.split('T')[0]
+        tournament.start_at = date
+        tournament.end_at = edate
+    }
+      return tournamentData;
+
+  }
   },
 
   computed: {
@@ -194,8 +215,8 @@ const Tournaments = Vue.extend({
       }
 
       return this.tournaments.filter(
-        (tournament) => tournament.game_id === this.selectedGameId
-      );
+        (tournament) => tournament.game_id === this.selectedGameId)
+      ;
     },
 
     setSelectedGameId(id: number) {
