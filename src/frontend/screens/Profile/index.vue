@@ -137,7 +137,9 @@
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
       </div> -->
-
+      {{ userSelectedGame }}
+      {{ linkAccountPlatform }}
+      {{ linkAccountUserName }}
       {{ games }}
       {{ gamesList }}
       {{ user }}
@@ -165,7 +167,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="dropdown">
+            <div class="dropdown mb-3">
               <button
                 class="btn btn-secondary dropdown-toggle"
                 type="button"
@@ -195,22 +197,52 @@
                   v-for="game in games"
                   v-bind:value="game.name"
                   v-bind:key="game.id"
-                  v-on:click="setSelectedGameId(game.id)"
+                  v-on:click="setSelectedGameId(game)"
                 >
                   <a href="#" class="dropdown-item">{{ game.name }}</a>
                 </li>
               </ul>
             </div>
+            <!--end of dropdown-->
+
+            <div class="input-group mb-3" v-if="userSelectedGame != ''">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                v-model="linkAccountUserName"
+              />
+            </div>
+
+            <div class="input-group mb-3" v-if="secondParam == true">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Platform</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                v-model="linkAccountPlatform"
+              />
+            </div>
           </div>
+          <!--end of modal body-->
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              v-on:click="linkGame"
             >
               Close
             </button>
+
             <button type="button" class="btn btn-primary" v-on:click="linkGame">
               Link
             </button>
@@ -284,6 +316,9 @@ const Profile = Vue.extend({
       games: [],
       userSelectedGame: '',
       user: '',
+      linkAccountUserName: '',
+      linkAccountPlatform: '',
+      secondParam: false,
     };
   },
 
@@ -322,8 +357,8 @@ const Profile = Vue.extend({
       console.log('edit bio');
     },
 
-    setSelectedGameId(gameId) {
-      this.userSelectedGame = gameId;
+    setSelectedGameId(game) {
+      this.userSelectedGame = game;
     },
   },
 
@@ -342,8 +377,21 @@ const Profile = Vue.extend({
         });
     },
 
+    //selected name dropdown and also check if game is apex or callofduty for showing of platform
     selectedGame() {
-      return this.games.find((game) => game.id === this.userSelectedGame);
+      let game = this.games.find(
+        (game) => game.id === this.userSelectedGame.id
+      );
+      // change number of input boxes depending on game
+      if (game != null) {
+        if (game.id == 1 || game.id == 3) {
+          this.secondParam = true;
+          console.log(game.id);
+        } else {
+          this.secondParam = false;
+        }
+      }
+      return this.games.find((game) => game.id === this.userSelectedGame.id);
     },
   },
 
