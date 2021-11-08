@@ -137,12 +137,14 @@
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
       </div> -->
-      {{ userSelectedGame }}
+      {{test}}
       {{ linkAccountPlatform }}
       {{ linkAccountUserName }}
+      {{ userSelectedGame }}
       {{ games }}
-      {{ gamesList }}
+     
       {{ user }}
+       {{ gamesList }}
 
       here
     </div>
@@ -336,21 +338,73 @@ const Profile = Vue.extend({
 
     generateAvatar,
 
+
+    //when user clicks on linkGame
     linkGame() {
       if (this.linkedGame == false) {
         this.linkedGame = true;
       } else {
         this.linkedGame = false;
       }
+
+
+      if(this.userSelectedGame!=""){
+
+        let url = `http://localhost:5000/api/games/${this.userSelectedGame.id}/account`
+        if (this.linkAccountPlatform==""){
+          const response =  axios.post(`/api/games/${this.userSelectedGame.id}/account`,{
+          gamertag: this.linkAccountUserName,
+        })
+
+        .then(response => {
+          console.log( response.data )
+        })
+
+        .catch(error => {
+          console.log( error.message )
+          })
+        }else{
+          const response =  axios.post(`/api/games/${this.userSelectedGame.id}/account`,{
+          gamertag: this.linkAccountUserName,
+          platform: this.linkAccountPlatform
+        })
+
+        .then(response => {
+          console.log( response.data )
+        })
+
+        .catch(error => {
+          console.log( error.message )
+          })
+        }
+        
+
+      }
+      
+
+
+
+
+
+
+
+
+
     },
     // <<<<<<< HEAD
 
     // =======
     // >>>>>>> 192084ce0bed65175837f5524507c151f58524f6
+
+    //96160282
+
     async apiMe() {
       const response = await axios.get('/api/me', {});
 
       this.user = response.data;
+      console.log(response.data.gameAccounts[0].game_id)
+
+      console.log("^^^^^")
     },
 
     editBio() {
@@ -393,7 +447,33 @@ const Profile = Vue.extend({
       }
       return this.games.find((game) => game.id === this.userSelectedGame.id);
     },
+
+    test(){
+      var url ='https://api.opendota.com/api/players/96160282'
+    axios.get(url, {
+      params: {},
+      headers: {
+        
+    }
+    })
+      .then(
+        resp => {
+          console.log(resp.data)
+
+        }
+      )
+
+      .catch(
+        function (error) {
+          console.log(error.message);
+        }
+      )
+
+    }
+
   },
+
+    
 
   head: {
     title: {
