@@ -1,21 +1,31 @@
 <template>
   <div>
     <h1 class="text-white">Tournaments</h1>
-    <div class="dropdown">
+    <div class="dropdown mb-5">
       <button
         class="btn btn-secondary dropdown-toggle"
         type="button"
         id="game-dropdown-button"
-        style="width:100%; height:50px; background-color:#729B98; font-size:25px; text-align:start;"
+        style="
+          width: 100%;
+          height: 50px;
+          background-color: #729b98;
+          font-size: 25px;
+          text-align: start;
+        "
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {{ selectedGame }}
+        {{ (selectedGame != null && selectedGame.name) || 'Select a game' }}
       </button>
-      <ul class="dropdown-menu" aria-labelledby="game-dropdown-button" style="width:100%;" v-model="selectedGame">
-        <!-- url = logo -->
+
+      <ul
+        class="dropdown-menu"
+        aria-labelledby="game-dropdown-button"
+        style="width: 100%"
+      >
         <li
-          style="height: 50px; font-size:25px; background-image:url();"
+          style="height: 50px; font-size: 25px; background-image: url()"
           v-for="game in games"
           v-bind:value="game.name"
           v-bind:key="game.id"
@@ -29,6 +39,7 @@
       New Tournament
     </router-link>
     <ul>
+    <!-- <ul>
       <li v-for="tournament in results()" v-bind:key="tournament.id">
         <span>Name: {{ tournament.name }}</span>
         <span>Prize: {{ tournament.prize_pool }}</span>
@@ -36,38 +47,47 @@
         <span>Ends at: {{ tournament.ends_at }}</span>
         <span>Organiser: {{ tournament.owner.display_name }}</span>
       </li>
-    </ul>
+    </ul> -->
+    <br />
 
-  <div 
-    style="background-color: #729B98;"
-    class="p-4 row" v-if="selectedGame !== 'Select a game'">
-    <!-- tournament box -->
+    <div
+      style="background-color: #729b98"
+      class="p-4 row mt-4"
+      v-if="selectedGame !== 'Select a game'"
+    >
+      <!-- tournament box -->
       <h1 class="text-white">UPCOMING</h1>
-      <hr>
-
+      <hr />
 
       <div class="row justify-content-center">
         <!-- row -->
-        <div class="col-4 card m-4 text-white" style="width: 18rem; background-color:black;" v-for="n in 6">
-          <!-- col should be based on tournamentArr.length-->
-            <img class="card-img-top" src="" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">tournamentName</h5>
-              <p class="card-text">tournamentStartDate</p>
-              <p class="card-text">tournamentEndDate</p>
-              <p class="card-text">tournamentPricePool</p>
-              <p class="card-text">tournamentOrganizer</p>
-              <a href="#" class="btn btn-outline-success">More Details</a>
-              <!-- # = tournament.link -->
-            </div>
-            <!-- col -->
+        <div
+          class="col-4 card m-4 text-white"
+          style="width: 18rem; background-color: black"
+          v-for="tournament of tournamentDetails"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ tournament.name }}</h5>
+            <p class="card-text">{{ tournament.start_at }}</p>
+            <p class="card-text">{{ tournament.end_at }}</p>
+            <p class="card-text">USD {{ tournament.prize_pool }}</p>
+            <p class="card-text">{{ tournament.owner.display_name }}</p>
+            <a
+              :href="
+                'https://www.google.com.sg/' + 'search?q=' + tournament.name
+              "
+              class="btn btn-success"
+              >More Details</a
+            >
+          </div>
+          <!-- col -->
         </div>
         <!-- row -->
+        <div v-if="results().length < 1">
+          <h2 class="text-white">No upcoming tournaments available</h2>
+        </div>
       </div>
-      <!-- tournament box -->
-
-
-      </div>
+    </div>
   </div>
 </template>
 
@@ -89,13 +109,32 @@ const Tournaments = Vue.extend({
       games: [] as App.API.Game[],
       tournaments: [] as App.API.Tournament[],
       selectedGameId: null as number | null,
-      selectedGame: "Select a game" 
+      tournamentData: [],
     };
   },
 
   beforeMount() {
     this.fetchGames();
     this.fetchTournaments();
+  },
+
+  computed: {
+    selectedGame() {
+      return this.games.find((game) => game.id === this.selectedGameId);
+    },
+
+    tournamentDetails() {
+      var tournamentData = this.results();
+      for (let tournament of tournamentData) {
+        let startDate = tournament.start_at;
+        let endDate = tournament.end_at;
+        let date = startDate.split('T')[0];
+        let edate = endDate.split('T')[0];
+        tournament.start_at = date;
+        tournament.end_at = edate;
+      }
+      return tournamentData;
+    },
   },
 
   computed: {

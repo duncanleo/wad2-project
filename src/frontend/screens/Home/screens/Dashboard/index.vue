@@ -61,26 +61,27 @@
       <hr />
 
       <div class="row justify-content-center">
-        <!-- row -->
         <div
           class="col-4 card m-4 text-white"
           style="width: 18rem; background-color: black"
-          v-for="n in 6"
+          v-for="tournament of tournamentFilter"
         >
-          <!-- col should be based on tournamentArr.length-->
-          <img class="card-img-top" src="" alt="Card image cap" />
           <div class="card-body">
-            <h5 class="card-title">{{ tournaments }}</h5>
-            <p class="card-text">tournamentStartDate</p>
-            <p class="card-text">tournamentEndDate</p>
-            <p class="card-text">tournamentPricePool</p>
-            <p class="card-text">tournamentOrganizer</p>
-            <a href="#" class="btn btn-outline-success">More Details</a>
-            <!-- # = tournament.link -->
+            <img v-bind:src="image" alt="" />
+            <h5 class="card-title">{{ tournament.name }}</h5>
+            <p class="card-text">{{ tournament.start_at }}</p>
+            <p class="card-text">{{ tournament.end_at }}</p>
+            <p class="card-text">USD {{ tournament.prize_pool }}</p>
+            <p class="card-text">{{ tournament.owner.display_name }}</p>
+            <a
+              :href="
+                'https://www.google.com.sg/' + 'search?q=' + tournament.name
+              "
+              class="btn btn-success"
+              >More Details</a
+            >
           </div>
-          <!-- col -->
         </div>
-        <!-- row -->
       </div>
     </div>
   </div>
@@ -97,8 +98,6 @@ interface SearchResponse extends App.API.ResponseBase {
   tournaments: App.API.Tournament[];
 }
 
-// var url = '../../../../../../backend/initdata/tournaments.json';
-
 const Dashboard = Vue.extend({
   data() {
     return {
@@ -110,16 +109,6 @@ const Dashboard = Vue.extend({
     };
   },
 
-  // created: function(){
-  //   axios.get(url)
-  //     .then(response=> {
-  //       console.log(response.data)
-  //       this.tournaments = response.data;
-  //   })
-  //     .catch(error=>{
-  //       console.log(error.message)
-  //   })
-  // },
   computed: {
     tournamentFilter() {
       var upcomingTournament = [];
