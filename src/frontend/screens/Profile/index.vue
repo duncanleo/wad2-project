@@ -52,10 +52,13 @@
 
         <button
           v-on:click="linkGame"
-          class="btn btn-dark"
           v-if="linkedGame == false"
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
         >
-          Link an account
+          Launch demo modal
         </button>
       </div>
 
@@ -69,7 +72,7 @@
     </div>
 
     <div class="row">
-      <div v-if="linkedGame == true" class="bg-dark">
+      <!-- <div v-if="linkedGame == true" class="bg-dark">
         <form>
           <div class="form-group">
             <div class="d-flex pe-2">
@@ -104,7 +107,7 @@
                     <a class="dropdown-item" href="#" v-bind:value="game[index+1]">{{ game[index+1]}}</a>
                   </li>
                 </ul>
-              </div> -->
+              </div> 
             </div>
           </div>
           <div class="form-group pt-2">
@@ -127,13 +130,91 @@
 
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
-      </div>
+      </div> -->
+      {{ games }}
       {{ gamesList }}
-      {{ gameDropdown }}
-      {{ userSelectedGame }}
+      <!-- {{ gameDropdown }}
+      {{ userSelectedGame }} -->
       here
     </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="game-dropdown-button"
+                style="
+                  width: 100%;
+                  height: 50px;
+                  background-color: #729b98;
+                  font-size: 25px;
+                  text-align: start;
+                "
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{
+                  (userSelectedGame != null && userSelectedGame.name) ||
+                  'Select a game'
+                }}
+              </button>
+
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="game-dropdown-button"
+                style="width: 100%"
+              >
+                <li
+                  style="height: 50px; font-size: 25px; background-image: url()"
+                  v-for="game in games"
+                  v-bind:value="game.name"
+                  v-bind:key="game.id"
+                  v-on:click="selectedGame(game.id)"
+                >
+                  <a href="#" class="dropdown-item">{{ game.name }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              v-on:click="linkGame"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" v-on:click="linkGame">
+              Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!--modal-->
 </template>
 
 <script lang="ts">
@@ -160,7 +241,7 @@ const Profile = Vue.extend({
       teams: [] as App.API.Team[],
       linkedGame: false,
       inGameName: '',
-      gameDropdown: [],
+      games: [],
       userSelectedGame: '',
       test: [],
     };
@@ -181,8 +262,16 @@ const Profile = Vue.extend({
     generateAvatar,
 
     linkGame() {
-      this.linkedGame = true;
+      if (this.linkedGame == false) {
+        this.linkedGame = true;
+      } else {
+        this.linkedGame = false;
+      }
     },
+    // <<<<<<< HEAD
+
+    // =======
+    // >>>>>>> 192084ce0bed65175837f5524507c151f58524f6
     async apiMe() {
       const response = await axios.get('/api/me', {});
 
@@ -205,12 +294,17 @@ const Profile = Vue.extend({
 
         .then((response) => {
           console.log(response.data.games);
+          console.log('here');
           for (let i in response.data.games) {
-            let obj = {};
-            obj[response.data.games[i].id] = response.data.games[i].name;
-            this.gameDropdown.push(obj);
+            this.games.push(response.data.games[i]);
           }
         });
+    },
+
+    selectedGame() {
+      return this.gamesList.find(
+        (gamesList) => gameList.id === this.selectedGameId
+      );
     },
   },
 
