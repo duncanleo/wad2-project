@@ -75,6 +75,9 @@
           v-bind:gameAccount="gameAccount"
         />
       </ul>
+
+
+
     </div>
 
     <div class="row">
@@ -137,7 +140,7 @@
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
       </div> -->
-      {{test}}
+      <!-- {{test}} -->
       {{ linkAccountPlatform }}
       {{ linkAccountUserName }}
       {{ userSelectedGame }}
@@ -254,6 +257,11 @@
     </div>
     <!-- end of modal 1-->
 
+
+
+
+
+
     <div
       class="modal fade"
       id="bioModal"
@@ -289,6 +297,14 @@
   </div>
 
   <!--modal-->
+
+
+
+
+
+
+
+
 </template>
 
 <script lang="ts">
@@ -402,7 +418,21 @@ const Profile = Vue.extend({
       const response = await axios.get('/api/me', {});
 
       this.user = response.data;
-      console.log(response.data.gameAccounts[0].game_id)
+      for (let indvGame in response.data.gameAccounts){
+
+        //apex
+         //console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName) bronze 4 apex
+        //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
+        //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
+
+        //dota2 rank mmr
+          console.log(response.data.gameAccounts[indvGame].data.competitive_rank)
+        //dota2 rank percentile
+          console.log(response.data.gameAccounts[indvGame].data.rank_tier)
+          console.log(response.data.gameAccounts[indvGame].data)
+      }
+     
+      
 
       console.log("^^^^^")
     },
@@ -448,28 +478,28 @@ const Profile = Vue.extend({
       return this.games.find((game) => game.id === this.userSelectedGame.id);
     },
 
-    test(){
-      var url ='https://api.opendota.com/api/players/96160282'
-    axios.get(url, {
-      params: {},
-      headers: {
+    // test(){
+    //   var url ='https://api.opendota.com/api/players/96160282'
+    // axios.get(url, {
+    //   params: {},
+    //   headers: {
         
-    }
-    })
-      .then(
-        resp => {
-          console.log(resp.data)
+    // }
+    // })
+    //   .then(
+    //     resp => {
+    //       console.log(resp.data)
 
-        }
-      )
+    //     }
+    //   )
 
-      .catch(
-        function (error) {
-          console.log(error.message);
-        }
-      )
+    //   .catch(
+    //     function (error) {
+    //       console.log(error.message);
+    //     }
+    //   )
 
-    }
+    // }
 
   },
 
