@@ -10,7 +10,13 @@
           me.bio ||
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         }}</span>
-        <button class="btn btn-dark text-white" v-on:click="editBio">
+        <button
+          class="btn btn-dark text-white"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#bioModal"
+          v-on:click="editBio"
+        >
           Edit Profile
         </button>
       </div>
@@ -58,7 +64,7 @@
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
-          Launch demo modal
+          Link a game
         </button>
       </div>
 
@@ -131,10 +137,11 @@
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
       </div> -->
+
       {{ games }}
       {{ gamesList }}
-      <!-- {{ gameDropdown }}
-      {{ userSelectedGame }} -->
+      {{ user }}
+
       here
     </div>
 
@@ -174,8 +181,7 @@
                 aria-expanded="false"
               >
                 {{
-                  (userSelectedGame != null && userSelectedGame.name) ||
-                  'Select a game'
+                  (selectedGame != null && selectedGame.name) || 'Select a game'
                 }}
               </button>
 
@@ -189,7 +195,7 @@
                   v-for="game in games"
                   v-bind:value="game.name"
                   v-bind:key="game.id"
-                  v-on:click="selectedGame(game.id)"
+                  v-on:click="setSelectedGameId(game.id)"
                 >
                   <a href="#" class="dropdown-item">{{ game.name }}</a>
                 </li>
@@ -208,6 +214,40 @@
             <button type="button" class="btn btn-primary" v-on:click="linkGame">
               Link
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of modal 1-->
+
+    <div
+      class="modal fade"
+      id="bioModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">This is the modal body</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Link</button>
           </div>
         </div>
       </div>
@@ -243,7 +283,7 @@ const Profile = Vue.extend({
       inGameName: '',
       games: [],
       userSelectedGame: '',
-      test: [],
+      user: '',
     };
   },
 
@@ -275,14 +315,15 @@ const Profile = Vue.extend({
     async apiMe() {
       const response = await axios.get('/api/me', {});
 
-      console.log(response.data);
-      console.log(
-        'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT'
-      );
+      this.user = response.data;
     },
 
     editBio() {
       console.log('edit bio');
+    },
+
+    setSelectedGameId(gameId) {
+      this.userSelectedGame = gameId;
     },
   },
 
@@ -302,9 +343,7 @@ const Profile = Vue.extend({
     },
 
     selectedGame() {
-      return this.gamesList.find(
-        (gamesList) => gameList.id === this.selectedGameId
-      );
+      return this.games.find((game) => game.id === this.userSelectedGame);
     },
   },
 
