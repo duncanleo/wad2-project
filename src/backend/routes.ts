@@ -2,7 +2,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 
 import auth from './api/auth';
 import { gamesList } from './api/game';
-import { gameAccountLink } from './api/gameaccount';
+import { gameAccountDelete, gameAccountLink } from './api/gameaccount';
 import { healthz } from './api/healthz';
 import { login } from './api/login';
 import { logout } from './api/logout';
@@ -66,6 +66,7 @@ const routes = (app: Application) => {
 
   app.get('/api/games', asyncWrapper(gamesList));
   app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));
+  app.delete('/api/games/:id/account', asyncWrapper(gameAccountDelete));
 
   app.get('/api/tournaments', asyncWrapper(tournamentsList));
   app.post('/api/tournaments', asyncWrapper(tournamentCreate));
