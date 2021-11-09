@@ -398,6 +398,10 @@ const Profile = Vue.extend({
       linkAccountPlatform: '', //user input account when linking game
       secondParam: false, //check if game requires 2nd input for API
       meGames: [], // number of game me has
+      display:[],
+      // //{   caption : 'Dracula', path: 'img/Dracula.jpg',
+      //                           info: "Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. It introduced the character of Count Dracula and established many conventions of subsequent vampire fantasy.[1] The novel tells the story of Dracula's attempt to move from Transylvania to England so that he may find new blood and spread the undead curse, and of the battle between Dracula and a small group of people led by Professor Abraham Van Helsing."
+      //                       },
     };
   },
 
@@ -489,28 +493,62 @@ const Profile = Vue.extend({
         let x = this.games.find((game) => game.id === parseInt(id));
 
         this.meGames.push(x); // all the games me currently has
-        console.log(this.meGames);
       }
 
+
+      console.log(response.data.gameAccounts[0].data)
+      console.log(response.data.gameAccounts[0].game_id)
+      console.log("^^^")
       for (let indvGame in response.data.gameAccounts) {
+        let gameObj = {}
+        // console.log(response.data.gameAccounts[indvGame])
+
+
+        if(response.data.gameAccounts[indvGame].game_id==1){
+          console.log("yes")
+
+        }else if(response.data.gameAccounts[indvGame].game_id==2){
+          // console.log(response.data.gameAccounts[indvGame].data.lifetime.all.all.kdr)
+          gameObj['stat1'] = response.data.gameAccounts[indvGame].data.lifetime.all.all.kdr.toString()+" Kdr "
+          gameObj['stat2'] =response.data.gameAccounts[indvGame].data.lifetime.all.all.kills.toString()+" Kills "
+
+
+        }else if(response.data.gameAccounts[indvGame].game_id==3){
+          // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName)// bronze 4 apex
+          gameObj['stat1'] = "Rank: " + response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName.toString() //push rank into obj
+          // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
+          // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
+          gameObj['stat2'] = "Level: "+ response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue.toString() //push level into obj
+
+        }else if(response.data.gameAccounts[indvGame].game_id==4){
+          // console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
+          gameObj['stat1'] = response.data.gameAccounts[indvGame].data.competitive_rank.toString() + " MMR" //dota 2 rank into gameObj
+          //dota2 rank percentile .toString()+"%"
+          // console.log(response.data.gameAccounts[indvGame].data.rank_tier);
+          gameObj['stat2'] = response.data.gameAccounts[indvGame].data.rank_tier.toString()+"%" //dota2 percentile
+          // console.log(response.data.gameAccounts[indvGame].data);
+
+        }
         //apex
-        //console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName) bronze 4 apex
+        // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName)// bronze 4 apex
         //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
         //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
-        //dota2 rank mmr
-        //console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
-        //dota2 rank percentile
-        //console.log(response.data.gameAccounts[indvGame].data.rank_tier);
-        //console.log(response.data.gameAccounts[indvGame].data);
+
+       // dota2 rank mmr
+        // console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
+        // //dota2 rank percentile
+        // console.log(response.data.gameAccounts[indvGame].data.rank_tier);
+        // console.log(response.data.gameAccounts[indvGame].data);
+        this.display.push(gameObj)
       }
+      console.log(this.display)
     },
-    gamesList: function () {
+
+    gamesList: function () { //before mount to get the list of games
       axios
         .get('http://localhost:5000/api/games')
 
         .then((response) => {
-          console.log(response.data.games);
-          console.log('here');
           for (let i in response.data.games) {
             this.games.push(response.data.games[i]);
           }
@@ -538,7 +576,6 @@ const Profile = Vue.extend({
       if (game != null) {
         if (game.id == 1 || game.id == 3) {
           this.secondParam = true;
-          console.log(game.id);
         } else {
           this.secondParam = false;
         }
