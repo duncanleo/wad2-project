@@ -75,9 +75,6 @@
           v-bind:gameAccount="gameAccount"
         />
       </ul>
-
-
-
     </div>
 
     <div class="row">
@@ -145,9 +142,9 @@
       {{ linkAccountUserName }}
       {{ userSelectedGame }}
       {{ games }}
-     
+
       {{ user }}
-       {{ gamesList }}
+      {{ gamesList }}
 
       here
     </div>
@@ -257,11 +254,6 @@
     </div>
     <!-- end of modal 1-->
 
-
-
-
-
-
     <div
       class="modal fade"
       id="bioModal"
@@ -297,14 +289,6 @@
   </div>
 
   <!--modal-->
-
-
-
-
-
-
-
-
 </template>
 
 <script lang="ts">
@@ -354,7 +338,6 @@ const Profile = Vue.extend({
 
     generateAvatar,
 
-
     //when user clicks on linkGame
     linkGame() {
       if (this.linkedGame == false) {
@@ -363,49 +346,37 @@ const Profile = Vue.extend({
         this.linkedGame = false;
       }
 
+      if (this.userSelectedGame != '') {
+        let url = `http://localhost:5000/api/games/${this.userSelectedGame.id}/account`;
+        if (this.linkAccountPlatform == '') {
+          const response = axios
+            .post(`/api/games/${this.userSelectedGame.id}/account`, {
+              gamertag: this.linkAccountUserName,
+            })
 
-      if(this.userSelectedGame!=""){
+            .then((response) => {
+              console.log(response.data);
+            })
 
-        let url = `http://localhost:5000/api/games/${this.userSelectedGame.id}/account`
-        if (this.linkAccountPlatform==""){
-          const response =  axios.post(`/api/games/${this.userSelectedGame.id}/account`,{
-          gamertag: this.linkAccountUserName,
-        })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        } else {
+          const response = axios
+            .post(`/api/games/${this.userSelectedGame.id}/account`, {
+              gamertag: this.linkAccountUserName,
+              platform: this.linkAccountPlatform,
+            })
 
-        .then(response => {
-          console.log( response.data )
-        })
+            .then((response) => {
+              console.log(response.data);
+            })
 
-        .catch(error => {
-          console.log( error.message )
-          })
-        }else{
-          const response =  axios.post(`/api/games/${this.userSelectedGame.id}/account`,{
-          gamertag: this.linkAccountUserName,
-          platform: this.linkAccountPlatform
-        })
-
-        .then(response => {
-          console.log( response.data )
-        })
-
-        .catch(error => {
-          console.log( error.message )
-          })
+            .catch((error) => {
+              console.log(error.message);
+            });
         }
-        
-
       }
-      
-
-
-
-
-
-
-
-
-
     },
     // <<<<<<< HEAD
 
@@ -418,23 +389,20 @@ const Profile = Vue.extend({
       const response = await axios.get('/api/me', {});
 
       this.user = response.data;
-      for (let indvGame in response.data.gameAccounts){
-
+      for (let indvGame in response.data.gameAccounts) {
         //apex
-         //console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName) bronze 4 apex
+        //console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName) bronze 4 apex
         //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
         //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
 
         //dota2 rank mmr
-          console.log(response.data.gameAccounts[indvGame].data.competitive_rank)
+        console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
         //dota2 rank percentile
-          console.log(response.data.gameAccounts[indvGame].data.rank_tier)
-          console.log(response.data.gameAccounts[indvGame].data)
+        console.log(response.data.gameAccounts[indvGame].data.rank_tier);
+        console.log(response.data.gameAccounts[indvGame].data);
       }
-     
-      
 
-      console.log("^^^^^")
+      console.log('^^^^^');
     },
 
     editBio() {
@@ -483,7 +451,7 @@ const Profile = Vue.extend({
     // axios.get(url, {
     //   params: {},
     //   headers: {
-        
+
     // }
     // })
     //   .then(
@@ -500,10 +468,7 @@ const Profile = Vue.extend({
     //   )
 
     // }
-
   },
-
-    
 
   head: {
     title: {
