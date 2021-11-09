@@ -6,8 +6,11 @@ interface Response {
   data: any;
 }
 
-export default async function apexLegends(gamertag: string) {
-  const url = `https://public-api.tracker.gg/v2/apex/standard/profile/origin/${gamertag}`;
+export default async function apexLegends(
+  gamertag: string,
+  platform: 'origin' | 'xbl' | 'psn' = 'origin'
+) {
+  const url = `https://public-api.tracker.gg/v2/apex/standard/profile/${platform}/${gamertag}`;
 
   const response = await axios.get<Response>(url, {
     params: {},

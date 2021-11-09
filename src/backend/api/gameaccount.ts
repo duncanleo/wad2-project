@@ -23,6 +23,7 @@ type GameAccountLinkPayload =
   | {
       type: SUPPORTED_GAMES.APEX_LEGENDS;
       gamertag: string;
+      platform: 'psn' | 'origin' | 'xbl';
     }
   | {
       type: SUPPORTED_GAMES.DOTA2;
@@ -44,6 +45,7 @@ const GameAccountLinkPayloadSchema = Joi.alternatives().try(
   Joi.object<GameAccountLinkPayload>({
     type: Joi.valid(SUPPORTED_GAMES.APEX_LEGENDS),
     gamertag: Joi.string().required(),
+    platform: Joi.string().valid('psn', 'origin', 'xbl').required(),
   }),
   Joi.object<GameAccountLinkPayload>({
     type: Joi.valid(SUPPORTED_GAMES.DOTA2),
@@ -108,8 +110,9 @@ export async function gameAccountLink(req: Request, res: Response) {
       break;
     }
     case SUPPORTED_GAMES.APEX_LEGENDS: {
-      const { gamertag } = payload;
-      data = await apexLegends(gamertag);
+      const { gamertag, platform } = payload;
+
+      data = await apexLegends(gamertag, platform);
       break;
     }
     case SUPPORTED_GAMES.DOTA2: {

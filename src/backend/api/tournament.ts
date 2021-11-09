@@ -55,6 +55,7 @@ interface TournamentCreatePayload {
   game_id: number;
   start_at: Date;
   end_at: Date;
+  url: string | null;
 }
 
 const TournamentCreatePayloadSchema = Joi.object<TournamentCreatePayload>({
@@ -66,6 +67,7 @@ const TournamentCreatePayloadSchema = Joi.object<TournamentCreatePayload>({
   game_id: Joi.number().required(),
   start_at: Joi.date().required(),
   end_at: Joi.date().min(Joi.ref('start_at')).required(),
+  url: Joi.string().optional().default(null),
 });
 
 export async function tournamentCreate(req: Request, res: Response) {
@@ -93,6 +95,7 @@ export async function tournamentCreate(req: Request, res: Response) {
     game_id,
     start_at,
     end_at,
+    url,
   } = validationResult.value as TournamentCreatePayload;
 
   // Check for game's existence
@@ -116,6 +119,7 @@ export async function tournamentCreate(req: Request, res: Response) {
     start_at: start_at,
     end_at: end_at,
     owner_id: user.id,
+    url,
   });
 
   res

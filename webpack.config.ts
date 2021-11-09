@@ -58,6 +58,10 @@ const frontend: webpack.Configuration = {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [

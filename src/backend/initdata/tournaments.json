@@ -1,0 +1,147 @@
+{
+  "warzone": [
+    {
+      "name": "The Last Dance in Verdansk",
+      "prize_pool": 150000,
+      "start_date": "2021-10-28",
+      "end_date": "2021-11-02",
+      "organizer": "BoomTV",
+      "region": "NA",
+      "banner_image": null,
+      "banner_image_license": null,
+      "link": "https://www.dexerto.com/call-of-duty/the-last-dance-in-verdansk-warzone-invitational-1674955/"
+    },
+    {
+      "name": "SenseiSwishem Tipoff",
+      "prize_pool": 10000,
+      "start_date": "2021-10-22",
+      "end_date": "2021-10-22",
+      "organizer": "SenseiSwishem",
+      "region": "NA",
+      "link": "https://twitter.com/subliners/status/1448368367656603648"
+    },
+    {
+      "name": "NA + EU 2V2 WEEKEND KICKOFF",
+      "prize_pool": 1000,
+      "start_date": "2021-10-23",
+      "end_date": "2021-10-23",
+      "organizer": "GameBattles",
+      "region": "Global",
+      "link": "https://gamebattles.majorleaguegaming.com/x-play/call-of-duty-warzone/tournament/na--eu--1000--free-entry2v2/info"
+    },
+    {
+      "name": "NA + EU 1V1 WEEKEND KICKOFF",
+      "prize_pool": 500,
+      "start_date": "2021-10-25",
+      "end_date": "2021-10-25",
+      "organizer": "GameBattles",
+      "region": "Global",
+      "link": "https://gamebattles.majorleaguegaming.com/x-play/call-of-duty-warzone/tournament/na--eu--500--free-entry1v1/info"
+    }
+  ],
+  "fortnite": [
+    {
+      "name": "Fortnite Champion Series",
+      "prize_pool": -1,
+      "start_date": "2021-10-14",
+      "end_date": "2021-10-29",
+      "organizer": "Epicgames",
+      "region": "Global",
+      "link": "https://www.epicgames.com/fortnite/competitive/en-US/news/fortnite-champion-series-chapter-2-season-8-official-rules"
+    },
+    {
+      "name": "Fortnite Cash Cup",
+      "prize_pool": -1,
+      "start_date": "2021-10-3",
+      "end_date": "2021-12-1",
+      "organizer": "Epicgames",
+      "region": "Global",
+      "link": "https://www.epicgames.com/fortnite/competitive/en-US/news/chapter-2-season-8-fortnite-cash-cup-hype-cup-official-rules"
+    },
+    {
+      "name": "Fortnite Hype Cup",
+      "prize_pool": -1,
+      "start_date": "2021-10-4",
+      "end_date": "2021-11-3",
+      "organizer": "Epicgames",
+      "region": "Global",
+      "link": "https://www.epicgames.com/fortnite/competitive/en-US/news/chapter-2-season-8-fortnite-cash-cup-hype-cup-official-rules"
+    }
+  ],
+  "apex": [
+    {
+      "name": "ALGS: 2021 Split 1 Pro League - APAC North",
+      "prize_pool": 125000,
+      "start_date": "2021-10-17",
+      "end_date": "2021-12-05",
+      "organizer": "EA",
+      "region": "APAC",
+      "link": "https://www.ea.com/games/apex-legends/compete"
+    },
+    {
+      "name": "ALGS: 2021 Split 1 Pro League - EMEA",
+      "prize_pool": 125000,
+      "start_date": "2021-10-16",
+      "end_date": "2021-12-05",
+      "organizer": "EA",
+      "region": "EMEA",
+      "link": "https://www.ea.com/games/apex-legends/compete"
+    },
+    {
+      "name": "Douyu Apex League",
+      "prize_pool": 12430,
+      "start_date": "2021-10-26",
+      "end_date": "2021-10-29",
+      "organizer": "Douyu",
+      "region": "China",
+      "link": "https://yuba.douyu.com/group/newall/5121224"
+    },
+    {
+      "name": "Box Fight Championship Apex Cup #9",
+      "prize_pool": 3000,
+      "start_date": "2021-10-24",
+      "end_date": "2021-10-24",
+      "organizer": "BoxFightChamp",
+      "region": "Global",
+      "link": "https://boxfightchamp.com/"
+    }
+  ],
+  "dota2": [
+    {
+      "name": "ALGS: 2021 Split 1 Pro League - APAC North",
+      "prize_pool": 125000,
+      "start_date": "2021-10-17",
+      "end_date": "2021-12-05",
+      "organizer": "EA",
+      "region": "APAC",
+      "link": "https://www.ea.com/games/apex-legends/compete"
+    },
+    {
+      "name": "ALGS: 2021 Split 1 Pro League - EMEA",
+      "prize_pool": 125000,
+      "start_date": "2021-10-16",
+      "end_date": "2021-12-05",
+      "organizer": "EA",
+      "region": "EMEA",
+      "link": "https://www.ea.com/games/apex-legends/compete"
+    },
+    {
+      "name": "Douyu Apex League",
+      "prize_pool": 12430,
+      "start_date": "2021-10-26",
+      "end_date": "2021-10-29",
+      "organizer": "Douyu",
+      "region": "China",
+      "link": "https://yuba.douyu.com/group/newall/5121224"
+    },
+    {
+      "name": "Box Fight Championship Apex Cup #9",
+      "prize_pool": 3000,
+      "start_date": "2021-10-24",
+      "end_date": "2021-10-24",
+      "organizer": "BoxFightChamp",
+      "region": "Global",
+      "link": "https://boxfightchamp.com/"
+    }
+  ]
+}

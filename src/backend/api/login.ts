@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import Joi from 'joi';
 
-import { ErrorUnauthorized } from '../errors';
+import { ErrorBadRequest, ErrorUnauthorized } from '../errors';
 import { User } from '../model';
 
 interface LoginPayload {
@@ -19,7 +19,7 @@ export async function login(req: Request, res: Response) {
   const validationResult = LoginPayloadSchema.validate(req.body);
 
   if (validationResult.error) {
-    throw validationResult.error;
+    throw new ErrorBadRequest(validationResult.error.message);
   }
 
   const { email, password } = validationResult.value as LoginPayload;
