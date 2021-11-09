@@ -139,3 +139,39 @@ export async function gameAccountLink(req: Request, res: Response) {
     })
     .end();
 }
+
+export async function gameAccountDelete(req: Request, res: Response) {
+  const context = await getRequestContext(req);
+  const { user } = context;
+
+  if (user == null) {
+    throw new ErrorUnauthorized();
+  }
+
+  const { id } = req.params;
+
+  const game = await Game.findOne({
+    where: {
+      id,
+    },
+  });
+
+  if (game == null) {
+    throw new ErrorNotFound();
+  }
+
+  const gameAccount = await GameAccount.findOne({
+    where: {
+      user_id: user.id,
+      game_id: game.id,
+    },
+  });
+
+  if (gameAccount == null) {
+    throw new ErrorBadRequest('game account does not exist');
+  }
+
+  await gameAccount.destroy();
+
+  res.status(204).end();
+}
