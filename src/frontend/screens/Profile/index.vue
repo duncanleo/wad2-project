@@ -402,6 +402,7 @@ const Profile = Vue.extend({
   },
 
   beforeMount() {
+    this.gamesList();
     this.fetchMyTeams();
     this.apiMe();
   },
@@ -503,18 +504,6 @@ const Profile = Vue.extend({
         //console.log(response.data.gameAccounts[indvGame].data);
       }
     },
-
-    editBio() {
-      console.log('edit bio');
-    },
-
-    setSelectedGameId(game) {
-      this.userSelectedGame = game;
-    },
-  },
-
-  computed: {
-    //gameList function to return all games supported on our website.
     gamesList: function () {
       axios
         .get('http://localhost:5000/api/games')
@@ -527,6 +516,18 @@ const Profile = Vue.extend({
           }
         });
     },
+
+    editBio() {
+      console.log('edit bio');
+    },
+
+    setSelectedGameId(game) {
+      this.userSelectedGame = game;
+    },
+  },
+
+  computed: {
+    //gameList function to return all games supported on our website.
 
     //selected name dropdown and also check if game is apex or callofduty for showing of platform
     selectedGame() {
