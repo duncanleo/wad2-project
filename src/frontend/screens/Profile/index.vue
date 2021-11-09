@@ -66,6 +66,15 @@
         >
           Link a game
         </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#unLink"
+        >
+          Unlink a game
+        </button>
       </div>
 
       <ul>
@@ -138,12 +147,11 @@
         </form>
       </div> -->
       <!-- {{test}} -->
-      {{ linkAccountPlatform }}
-      {{ linkAccountUserName }}
-      {{ userSelectedGame }}
+
+      {{ meGames }}
+
       {{ games }}
 
-      {{ user }}
       {{ gamesList }}
 
       here
@@ -286,9 +294,79 @@
         </div>
       </div>
     </div>
-  </div>
+    <!--modal2-->
 
-  <!--modal-->
+    <div
+      class="modal fade"
+      id="unLink"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="dropdown mb-3">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="game-dropdown-button"
+                style="
+                  width: 100%;
+                  height: 50px;
+                  background-color: #729b98;
+                  font-size: 25px;
+                  text-align: start;
+                "
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{
+                  (selectedGame != null && selectedGame.name) || 'Select a game'
+                }}
+              </button>
+
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="game-dropdown-button"
+                style="width: 100%"
+              >
+                <li
+                  style="height: 50px; font-size: 25px; background-image: url()"
+                  v-for="game in meGames"
+                  v-bind:value="game.name"
+                  v-bind:key="game.id"
+                  v-on:click="setSelectedGameId(game)"
+                >
+                  <a href="#" class="dropdown-item">{{ game.name }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--modal3 unlink-->
+  </div>
 </template>
 
 <script lang="ts">
@@ -314,13 +392,12 @@ const Profile = Vue.extend({
       me: this.$store.state.user as App.API.CurrentUser,
       teams: [] as App.API.Team[],
       linkedGame: false,
-      inGameName: '',
-      games: [],
-      userSelectedGame: '',
-      user: '',
-      linkAccountUserName: '',
-      linkAccountPlatform: '',
-      secondParam: false,
+      games: [], //list of all games
+      userSelectedGame: '', //v-model for dropdown list
+      linkAccountUserName: '', // userInpt when linking game
+      linkAccountPlatform: '', //user input account when linking game
+      secondParam: false, //check if game requires 2nd input for API
+      meGames: [], // number of game me has
     };
   },
 
@@ -347,7 +424,6 @@ const Profile = Vue.extend({
       }
 
       if (this.userSelectedGame != '') {
-        let url = `http://localhost:5000/api/games/${this.userSelectedGame.id}/account`;
         if (this.linkAccountPlatform == '') {
           const response = axios
             .post(`/api/games/${this.userSelectedGame.id}/account`, {
@@ -379,23 +455,22 @@ const Profile = Vue.extend({
       }
     },
 
-    unlinkGame(){
-      let url = `http://localhost:5000/api/games/${this.userSelectedGame.id}/account`;
+    unlinkGame() {
       const response = axios
-            .post(`/api/games/${this.userSelectedGame.id}/account`, {
-              gamertag: this.linkAccountUserName,
-            })
+        .post(`DELETE/api/games/${this.userSelectedGame.id}/account`, {
+          gamertag: this.linkAccountUserName,
+        })
 
-            .then((response) => {
-              console.log(response.data);
-            })
+        .then((response) => {
+          console.log(response.data);
+        })
 
-            .catch((error) => {
-              console.log(error.message);
-            });
+        .catch((error) => {
+          console.log(error.message);
+        });
 
-     // DELETE /api/games/:id/account
-    }
+      // DELETE /api/games/:id/account
+    },
     // <<<<<<< HEAD
 
     // =======
@@ -406,21 +481,27 @@ const Profile = Vue.extend({
     async apiMe() {
       const response = await axios.get('/api/me', {});
 
-      this.user = response.data;
+      for (let i in response.data.gameAccounts) {
+        let id = response.data.gameAccounts[i].game_id;
+        console.log(); //adding your linkedGames into an array (id)
+
+        let x = this.games.find((game) => game.id === parseInt(id));
+
+        this.meGames.push(x); // all the games me currently has
+        console.log(this.meGames);
+      }
+
       for (let indvGame in response.data.gameAccounts) {
         //apex
         //console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName) bronze 4 apex
         //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
         //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
-
         //dota2 rank mmr
-        console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
+        //console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
         //dota2 rank percentile
-        console.log(response.data.gameAccounts[indvGame].data.rank_tier);
-        console.log(response.data.gameAccounts[indvGame].data);
+        //console.log(response.data.gameAccounts[indvGame].data.rank_tier);
+        //console.log(response.data.gameAccounts[indvGame].data);
       }
-
-      console.log('^^^^^');
     },
 
     editBio() {
@@ -461,6 +542,7 @@ const Profile = Vue.extend({
           this.secondParam = false;
         }
       }
+
       return this.games.find((game) => game.id === this.userSelectedGame.id);
     },
 
