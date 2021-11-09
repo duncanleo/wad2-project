@@ -378,6 +378,24 @@ const Profile = Vue.extend({
         }
       }
     },
+
+    unlinkGame(){
+      let url = `http://localhost:5000/api/games/${this.userSelectedGame.id}/account`;
+      const response = axios
+            .post(`/api/games/${this.userSelectedGame.id}/account`, {
+              gamertag: this.linkAccountUserName,
+            })
+
+            .then((response) => {
+              console.log(response.data);
+            })
+
+            .catch((error) => {
+              console.log(error.message);
+            });
+
+     // DELETE /api/games/:id/account
+    }
     // <<<<<<< HEAD
 
     // =======
