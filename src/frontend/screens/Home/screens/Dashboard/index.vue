@@ -286,7 +286,6 @@ const Dashboard = Vue.extend({
       return `/teams/${id}`;
     },
   },
-
 });
 
 export default Dashboard;
