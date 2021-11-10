@@ -25,6 +25,10 @@
         >
           <img src="" alt="" />
           <span class="mx-auto d-block">
+            <img
+              class="rounded-circle"
+              src="src/frontend/assets/images/avatar.png"
+            />
             {{ player.display_name }}
           </span>
         </div>
@@ -67,19 +71,15 @@
           v-for="tournament of tournamentFilter"
         >
           <div class="card-body">
-            <img v-bind:src="image" alt="" />
+            <h4>
+              {{ gameName(tournament.game_id) }}
+            </h4>
             <h5 class="card-title">{{ tournament.name }}</h5>
             <p class="card-text">{{ tournament.start_at }}</p>
             <p class="card-text">{{ tournament.end_at }}</p>
             <p class="card-text">USD {{ tournament.prize_pool }}</p>
             <p class="card-text">{{ tournament.owner.display_name }}</p>
-            <a
-              :href="
-                'https://www.google.com.sg/' + 'search?q=' + tournament.name
-              "
-              class="btn btn-success"
-              >More Details</a
-            >
+            <a :href="tournament.url" class="btn btn-success">More Details</a>
           </div>
         </div>
       </div>
@@ -96,6 +96,7 @@ interface SearchResponse extends App.API.ResponseBase {
   players: App.API.User[];
   teams: App.API.Team[];
   tournaments: App.API.Tournament[];
+  games: App.API.Game[];
 }
 
 const Dashboard = Vue.extend({
@@ -105,6 +106,7 @@ const Dashboard = Vue.extend({
       players: [] as App.API.User[],
       teams: [] as App.API.Team[],
       tournaments: [] as App.API.Tournament[],
+      games: [] as App.API.Game[],
       tournamentData: [],
     };
   },
@@ -114,6 +116,7 @@ const Dashboard = Vue.extend({
       var upcomingTournament = [];
       // var today = new Date()
       var tournamentData = this.tournamentData;
+
       for (let tournament of tournamentData) {
         let startDate = tournament.start_at;
         let endDate = tournament.end_at;
@@ -148,6 +151,7 @@ const Dashboard = Vue.extend({
 
   beforeMount() {
     this.apiTournament();
+    this.apiGames();
   },
 
   methods: {
@@ -156,6 +160,13 @@ const Dashboard = Vue.extend({
 
       this.tournamentData = response.data.tournaments;
     },
+
+    async apiGames() {
+      const response = await axios.get('/api/games', {});
+
+      this.games = response.data.games;
+    },
+
     async search() {
       const response = await axios.post<SearchResponse>('/api/search', {
         term: this.searchTerm,
@@ -169,6 +180,16 @@ const Dashboard = Vue.extend({
     handleInput: debounce(function () {
       this.search();
     }, 500),
+
+    gameName(game_id) {
+      let games = this.games;
+
+      for (let gameDetails of games) {
+        if (game_id == gameDetails.id) {
+          return gameDetails.name;
+        }
+      }
+    },
 
     playerLink(id: number) {
       return `/players/${id}`;
