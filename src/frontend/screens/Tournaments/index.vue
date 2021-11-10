@@ -165,6 +165,7 @@ const Tournaments = Vue.extend({
 
     tournamentDetails() {
       var tournamentData = this.results();
+
       for (let tournament of tournamentData) {
         let startDate = tournament.start_at;
         let endDate = tournament.end_at;
