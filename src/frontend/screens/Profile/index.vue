@@ -77,13 +77,13 @@
         </button>
       </div>
 
-      <ul>
+      <!-- <ul>
         <game-account
           v-for="gameAccount in me.gameAccounts"
           v-bind:key="gameAccount.id"
           v-bind:gameAccount="gameAccount"
         />
-      </ul>
+      </ul> -->
     </div>
 
     <div class="row">
@@ -489,10 +489,7 @@ const Profile = Vue.extend({
 
       for (let i in response.data.gameAccounts) {
         let id = response.data.gameAccounts[i].game_id;
-        console.log(); //adding your linkedGames into an array (id)
-
         let x = this.games.find((game) => game.id === parseInt(id));
-
         this.meGames.push(x); // all the games me currently has
       }
 
@@ -501,10 +498,21 @@ const Profile = Vue.extend({
       console.log('^^^');
       for (let indvGame in response.data.gameAccounts) {
         let gameObj = {};
+        gameObj['name'] = response.data.gameAccounts[indvGame].game.name;
+        gameObj['id'] = response.data.gameAccounts[indvGame].game.id;
         // console.log(response.data.gameAccounts[indvGame])
 
         if (response.data.gameAccounts[indvGame].game_id == 1) {
-          console.log('yes');
+          gameObj['stat1'] =
+            'KDR: ' +
+            response.data.gameAccounts[indvGame].data.br_all.kdRatio.toString(); //kd ratio
+          gameObj['stat2'] =
+            'Games played: ' +
+            response.data.gameAccounts[
+              indvGame
+            ].data.br_all.gamesPlayed.toString(); //number of games played
+
+          console.log('^^^^ here');
         } else if (response.data.gameAccounts[indvGame].game_id == 2) {
           // console.log(response.data.gameAccounts[indvGame].data.lifetime.all.all.kdr)
           gameObj['stat1'] =
