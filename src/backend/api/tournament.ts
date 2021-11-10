@@ -46,6 +46,7 @@ export async function tournamentsList(req: Request, res: Response) {
         'start_at',
         'end_at',
         'game_id',
+        'url',
       ],
       include: [
         {
@@ -68,6 +69,7 @@ export async function tournamentsList(req: Request, res: Response) {
         'start_at',
         'end_at',
         'game_id',
+        'url',
       ],
       include: [
         {
