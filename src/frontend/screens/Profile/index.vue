@@ -31,7 +31,8 @@
         <h4 class="text-white fw-bold">My Teams</h4>
       </div>
       <div class="bg-secondary col-4">
-        <button class="btn btn-primary">Create Team</button>
+        <button class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#createTeamModal">Create Team</button>
       </div>
       <div v-for="team in teams" v-bind:key="team.id">
         <span>{{ team.name }}</span>
@@ -367,6 +368,69 @@
       </div>
     </div>
     <!--modal3 unlink-->
+
+    <!--link team modal-->
+    <div
+      class="modal fade"
+      id="createTeamModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create a team!</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Team Name</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                v-model ="teamName"/>
+            </div>
+
+
+            <div class="form-group mb-3">
+              <label for="exampleFormControlTextarea2">Team Description</label>
+              <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" v-model="teamDescription"></textarea>
+            </div>
+
+
+
+            <label for="img">Select image:</label>
+            <input type="file" id="img" name="img" accept="image/*">
+ 
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" v-on:click="createTeam">Create</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
   </div>
 </template>
 
@@ -400,6 +464,12 @@ const Profile = Vue.extend({
       secondParam: false, //check if game requires 2nd input for API
       meGames: [], // number of game me has
       display: [],
+      teamName:"",
+      teamDescription:"",
+      modalItems:[
+        
+
+      ],
       // //{   caption : 'Dracula', path: 'img/Dracula.jpg',
       //                           info: "Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. It introduced the character of Count Dracula and established many conventions of subsequent vampire fantasy.[1] The novel tells the story of Dracula's attempt to move from Transylvania to England so that he may find new blood and spread the undead curse, and of the battle between Dracula and a small group of people led by Professor Abraham Van Helsing."
       //                       },
@@ -477,12 +547,39 @@ const Profile = Vue.extend({
 
       // DELETE /api/games/:id/account
     },
-    // <<<<<<< HEAD
+    createTeam(){
+      console.log("working")
+      console.log(this.teamName)
+      console.log(this.teamDescription)
+      
 
-    // =======
-    // >>>>>>> 192084ce0bed65175837f5524507c151f58524f6
+      const response = axios
+            .post(`/api/teams`, {
+              name:this.teamName,
+            })
 
-    //96160282
+            .then((response) => {
+              console.log(response.data);
+            })
+
+            .catch((error) => {
+              console.log(error.message);
+            });
+    },
+    //http://localhost:5000/api/teams
+    // http://localhost:5000/api/teams?self=true
+    // const response = axios
+    //         .get(`/api/teams?self=true`, {
+          
+    //         })
+
+    //         .then((response) => {
+    //           console.log(response.data);
+    //         })
+
+    //         .catch((error) => {
+    //           console.log(error.message);
+    //         });
 
     async apiMe() {
       const response = await axios.get('/api/me', {});
