@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="d-block justify-content-center w-100 h-50 bg-danger p-3">
+  <div class="d-block justify-content-center w-100 h-50 p-3">
     <!--login box-->
     <div
       id="loginDetails"
