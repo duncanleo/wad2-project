@@ -18,7 +18,7 @@
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#bioModal"
-          v-on:click="editBio"
+          
         >
           Edit Profile
         </button>
@@ -62,9 +62,19 @@
         </ul>
     </div> -->
 
-        <button
+
+<!-- <button
           v-on:click="linkGame"
           v-if="linkedGame == false"
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          Link a game
+        </button> -->
+        <button
+          v-on:click="linkGame"
           type="button"
           class="btn btn-primary"
           data-bs-toggle="modal"
@@ -154,6 +164,7 @@
       </div> -->
       <!-- {{test}} -->
 
+      {{ editProfileName }}
       {{ meGames }}
 
       {{ games }}
@@ -164,7 +175,7 @@
       {{ linkAccountPlatform }}
     </div>
 
-    <!-- Modal -->
+    <!-- Link game Modal -->
     <div
       class="modal fade"
       id="exampleModal"
@@ -269,6 +280,7 @@
     </div>
     <!-- end of modal 1-->
 
+    <!-- Edit profile modal-->
     <div
       class="modal fade"
       id="bioModal"
@@ -279,7 +291,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
             <button
               type="button"
               class="btn-close"
@@ -287,7 +299,35 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">This is the modal body</div>
+          <div class="modal-body">
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Username</span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                v-model="editProfileName"
+                
+              />
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="exampleFormControlTextarea2"></label>
+              <textarea
+                class="form-control rounded-0"
+                id="exampleFormControlTextarea2"
+                rows="3"
+                v-model="editProfileBio"
+              ></textarea>
+            </div>
+
+
+          </div>
           <div class="modal-footer">
             <button
               type="button"
@@ -296,13 +336,15 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Link</button>
+            <button type="button" class="btn btn-primary" v-on:click="editBio">Edit</button>
           </div>
         </div>
       </div>
     </div>
-    <!--modal2-->
+  
 
+
+    <!--unlink game modal -->
     <div
       class="modal fade"
       id="unLink"
@@ -367,14 +409,14 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Link</button>
+            <button type="button" class="btn btn-primary" v-on:click="unlinkGame">unLink</button>
           </div>
         </div>
       </div>
     </div>
     <!--modal3 unlink-->
 
-    <!--link team modal-->
+    <!--Create team modal-->
     <div
       class="modal fade"
       id="createTeamModal"
@@ -468,6 +510,8 @@ const Profile = Vue.extend({
       me: this.$store.state.user as App.API.CurrentUser,
       teams: [] as App.API.Team[],
       linkedGame: false,
+      editProfileName:"",
+      editProfileBio:"",
       games: [], //list of all games
       userSelectedGame: '', //v-model for dropdown list
       linkAccountUserName: '', // userInpt when linking game
@@ -501,11 +545,11 @@ const Profile = Vue.extend({
 
     //when user clicks on linkGame
     linkGame() {
-      if (this.linkedGame == false) {
-        this.linkedGame = true;
-      } else {
-        this.linkedGame = false;
-      }
+      // if (this.linkedGame == false) {
+      //   this.linkedGame = true;
+      // } else {
+      //   this.linkedGame = false;
+      // }
 
       if (this.userSelectedGame != '') {
         if (this.linkAccountPlatform == '') {
@@ -540,9 +584,10 @@ const Profile = Vue.extend({
     },
 
     unlinkGame() {
+      console.log(this.userSelectedGame.id)
       const response = axios
-        .post(`DELETE/api/games/${this.userSelectedGame.id}/account`, {
-          gamertag: this.linkAccountUserName,
+        .delete(`/api/games/${this.userSelectedGame.id}/account`, {
+      
         })
 
         .then((response) => {
@@ -591,6 +636,8 @@ const Profile = Vue.extend({
     async apiMe() {
       const response = await axios.get('/api/me', {});
       console.log(response.data);
+      this.editProfileName = response.data.display_name
+      this.editProfileBio = response.data.bio
 
       // all the games me currently has
       for (let i in response.data.gameAccounts) {
@@ -663,8 +710,22 @@ const Profile = Vue.extend({
     },
 
     editBio() {
-      console.log('edit bio');
+     
+      const response = axios
+        .patch(`/api/me`, {
+          display_name:this.editProfileName,
+          bio:this.editProfileBio
+        })
+
+        .then((response) => {
+          console.log(response.data);
+        })
+
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
+
 
     setSelectedGameId(game) {
       this.userSelectedGame = game;
@@ -691,28 +752,7 @@ const Profile = Vue.extend({
       return this.games.find((game) => game.id === this.userSelectedGame.id);
     },
 
-    // test(){
-    //   var url ='https://api.opendota.com/api/players/96160282'
-    // axios.get(url, {
-    //   params: {},
-    //   headers: {
-
-    // }
-    // })
-    //   .then(
-    //     resp => {
-    //       console.log(resp.data)
-
-    //     }
-    //   )
-
-    //   .catch(
-    //     function (error) {
-    //       console.log(error.message);
-    //     }
-    //   )
-
-    // }
+ 
   },
 
   head: {
