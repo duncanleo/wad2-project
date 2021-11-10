@@ -700,7 +700,7 @@ const Profile = Vue.extend({
     gamesList: function () {
       //before mount to get the list of games
       axios
-        .get('http://localhost:5000/api/games')
+        .get('/api/games')
 
         .then((response) => {
           for (let i in response.data.games) {
