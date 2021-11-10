@@ -39,15 +39,7 @@
       New Tournament
     </router-link>
     <ul>
-    <!-- <ul>
-      <li v-for="tournament in results()" v-bind:key="tournament.id">
-        <span>Name: {{ tournament.name }}</span>
-        <span>Prize: {{ tournament.prize_pool }}</span>
-        <span>Starts at: {{ tournament.start_at }}</span>
-        <span>Ends at: {{ tournament.ends_at }}</span>
-        <span>Organiser: {{ tournament.owner.display_name }}</span>
-      </li>
-    </ul> -->
+
     <br />
 
     <div
@@ -55,12 +47,10 @@
       class="p-4 row mt-4"
       v-if="selectedGame !== 'Select a game'"
     >
-      <!-- tournament box -->
       <h1 class="text-white">UPCOMING</h1>
       <hr />
 
       <div class="row justify-content-center">
-        <!-- row -->
         <div
           class="col-4 card m-4 text-white"
           style="width: 18rem; background-color: black"
@@ -72,17 +62,10 @@
             <p class="card-text">{{ tournament.end_at }}</p>
             <p class="card-text">USD {{ tournament.prize_pool }}</p>
             <p class="card-text">{{ tournament.owner.display_name }}</p>
-            <a
-              :href="
-                'https://www.google.com.sg/' + 'search?q=' + tournament.name
-              "
-              class="btn btn-success"
-              >More Details</a
-            >
+            <a :href="tournament.url" class="btn btn-success">More Details</a>
           </div>
-          <!-- col -->
         </div>
-        <!-- row -->
+
         <div v-if="results().length < 1">
           <h2 class="text-white">No upcoming tournaments available</h2>
         </div>
@@ -125,6 +108,7 @@ const Tournaments = Vue.extend({
 
     tournamentDetails() {
       var tournamentData = this.results();
+
       for (let tournament of tournamentData) {
         let startDate = tournament.start_at;
         let endDate = tournament.end_at;
