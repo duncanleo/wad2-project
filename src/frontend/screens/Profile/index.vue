@@ -4,7 +4,10 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-8">
+      <div class="col-lg-4 col-md-8 col-sm-12 bg-danger mx-auto">
+        <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" />
+      </div>
+      <div class="col-lg-8 col-md-12 col-sm-12">
         <h1 class="text-white fw-bold">{{ me.display_name }}</h1>
         <span class="text-white d-block mb-3">{{
           me.bio ||
@@ -20,9 +23,6 @@
           Edit Profile
         </button>
       </div>
-      <div class="col-4">
-        <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" />
-      </div>
     </div>
 
     <!-- Teams row to show what teams you are in and to create teams -->
@@ -31,8 +31,13 @@
         <h4 class="text-white fw-bold">My Teams</h4>
       </div>
       <div class="bg-secondary col-4">
-        <button class="btn btn-primary" data-bs-toggle="modal"
-          data-bs-target="#createTeamModal">Create Team</button>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#createTeamModal"
+        >
+          Create Team
+        </button>
       </div>
       <div v-for="team in teams" v-bind:key="team.id">
         <span>{{ team.name }}</span>
@@ -391,7 +396,9 @@
           <div class="modal-body">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Team Name</span>
+                <span class="input-group-text" id="basic-addon1"
+                  >Team Name</span
+                >
               </div>
               <input
                 type="text"
@@ -399,20 +406,22 @@
                 placeholder="Username"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                v-model ="teamName"/>
+                v-model="teamName"
+              />
             </div>
-
 
             <div class="form-group mb-3">
               <label for="exampleFormControlTextarea2">Team Description</label>
-              <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" v-model="teamDescription"></textarea>
+              <textarea
+                class="form-control rounded-0"
+                id="exampleFormControlTextarea2"
+                rows="3"
+                v-model="teamDescription"
+              ></textarea>
             </div>
 
-
-
             <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" accept="image/*">
- 
+            <input type="file" id="img" name="img" accept="image/*" />
           </div>
           <div class="modal-footer">
             <button
@@ -422,15 +431,17 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click="createTeam">Create</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-on:click="createTeam"
+            >
+              Create
+            </button>
           </div>
         </div>
       </div>
     </div>
-
-
-
-
   </div>
 </template>
 
@@ -464,12 +475,9 @@ const Profile = Vue.extend({
       secondParam: false, //check if game requires 2nd input for API
       meGames: [], // number of game me has
       display: [],
-      teamName:"",
-      teamDescription:"",
-      modalItems:[
-        
-
-      ],
+      teamName: '',
+      teamDescription: '',
+      modalItems: [],
       // //{   caption : 'Dracula', path: 'img/Dracula.jpg',
       //                           info: "Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. It introduced the character of Count Dracula and established many conventions of subsequent vampire fantasy.[1] The novel tells the story of Dracula's attempt to move from Transylvania to England so that he may find new blood and spread the undead curse, and of the battle between Dracula and a small group of people led by Professor Abraham Van Helsing."
       //                       },
@@ -547,30 +555,29 @@ const Profile = Vue.extend({
 
       // DELETE /api/games/:id/account
     },
-    createTeam(){
-      console.log("working")
-      console.log(this.teamName)
-      console.log(this.teamDescription)
-      
+    createTeam() {
+      console.log('working');
+      console.log(this.teamName);
+      console.log(this.teamDescription);
 
       const response = axios
-            .post(`/api/teams`, {
-              name:this.teamName,
-            })
+        .post(`/api/teams`, {
+          name: this.teamName,
+        })
 
-            .then((response) => {
-              console.log(response.data);
-            })
+        .then((response) => {
+          console.log(response.data);
+        })
 
-            .catch((error) => {
-              console.log(error.message);
-            });
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
     //http://localhost:5000/api/teams
     // http://localhost:5000/api/teams?self=true
     // const response = axios
     //         .get(`/api/teams?self=true`, {
-          
+
     //         })
 
     //         .then((response) => {
@@ -583,21 +590,19 @@ const Profile = Vue.extend({
 
     async apiMe() {
       const response = await axios.get('/api/me', {});
+      console.log(response.data);
 
+      // all the games me currently has
       for (let i in response.data.gameAccounts) {
         let id = response.data.gameAccounts[i].game_id;
         let x = this.games.find((game) => game.id === parseInt(id));
-        this.meGames.push(x); // all the games me currently has
+        this.meGames.push(x);
       }
 
-      console.log(response.data.gameAccounts[0].data);
-      console.log(response.data.gameAccounts[0].game_id);
-      console.log('^^^');
       for (let indvGame in response.data.gameAccounts) {
         let gameObj = {};
         gameObj['name'] = response.data.gameAccounts[indvGame].game.name;
         gameObj['id'] = response.data.gameAccounts[indvGame].game.id;
-        // console.log(response.data.gameAccounts[indvGame])
 
         if (response.data.gameAccounts[indvGame].game_id == 1) {
           gameObj['stat1'] =
@@ -611,7 +616,6 @@ const Profile = Vue.extend({
 
           console.log('^^^^ here');
         } else if (response.data.gameAccounts[indvGame].game_id == 2) {
-          // console.log(response.data.gameAccounts[indvGame].data.lifetime.all.all.kdr)
           gameObj['stat1'] =
             response.data.gameAccounts[
               indvGame
@@ -621,42 +625,26 @@ const Profile = Vue.extend({
               indvGame
             ].data.lifetime.all.all.kills.toString() + ' Kills ';
         } else if (response.data.gameAccounts[indvGame].game_id == 3) {
-          // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName)// bronze 4 apex
           gameObj['stat1'] =
             'Rank: ' +
             response.data.gameAccounts[
               indvGame
             ].data.segments[0].stats.rankScore.metadata.rankName.toString(); //push rank into obj
-          // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
-          // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
           gameObj['stat2'] =
             'Level: ' +
             response.data.gameAccounts[
               indvGame
             ].data.segments[0].stats.level.displayValue.toString(); //push level into obj
         } else if (response.data.gameAccounts[indvGame].game_id == 4) {
-          // console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
           gameObj['stat1'] =
             response.data.gameAccounts[
               indvGame
             ].data.competitive_rank.toString() + ' MMR'; //dota 2 rank into gameObj
-          //dota2 rank percentile .toString()+"%"
-          // console.log(response.data.gameAccounts[indvGame].data.rank_tier);
           gameObj['stat2'] =
             response.data.gameAccounts[indvGame].data.rank_tier.toString() +
             '%'; //dota2 percentile
-          // console.log(response.data.gameAccounts[indvGame].data);
         }
-        //apex
-        // console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.rankScore.metadata.rankName)// bronze 4 apex
-        //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayName) //word level
-        //  console.log(response.data.gameAccounts[indvGame].data.segments[0].stats.level.displayValue) //level 792
 
-        // dota2 rank mmr
-        // console.log(response.data.gameAccounts[indvGame].data.competitive_rank);
-        // //dota2 rank percentile
-        // console.log(response.data.gameAccounts[indvGame].data.rank_tier);
-        // console.log(response.data.gameAccounts[indvGame].data);
         this.display.push(gameObj);
       }
       console.log(this.display);
