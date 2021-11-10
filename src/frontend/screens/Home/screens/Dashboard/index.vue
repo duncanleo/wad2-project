@@ -27,7 +27,7 @@
           <span class="mx-auto d-block">
             <img
               class="rounded-circle"
-              src="src/frontend/assets/images/avatar.png"
+              src="src/frontend/assets/images/test.png"
             />
             {{ player.display_name }}
           </span>

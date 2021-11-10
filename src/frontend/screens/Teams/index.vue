@@ -3,7 +3,7 @@
     <h1 class="text-white">Teams</h1>
     <input
       type="text"
-      style="width:100%; height:50px; background-color:#729B98; "
+      style="width: 100%; height: 50px; background-color: #729b98"
       class="border border-1 form-control"
       name=""
       v-model="searchTerm"
@@ -52,13 +52,20 @@ const Teams = Vue.extend({
       const { data } = await axios.get<Response>('/api/teams');
 
       this.teams = data.teams;
+      console.log(this.teams);
     },
 
     results() {
       if (this.searchTerm === '') {
+        console.log(this.teams);
         return this.teams;
       }
 
+      console.log(
+        this.teams.filter((team) =>
+          team.name.toLowerCase().includes(this.searchTerm)
+        )
+      );
       return this.teams.filter((team) =>
         team.name.toLowerCase().includes(this.searchTerm)
       );
