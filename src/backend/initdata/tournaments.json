@@ -108,40 +108,31 @@
   ],
   "dota2": [
     {
-      "name": "ALGS: 2021 Split 1 Pro League - APAC North",
-      "prize_pool": 125000,
-      "start_date": "2021-10-17",
-      "end_date": "2021-12-05",
-      "organizer": "EA",
-      "region": "APAC",
-      "link": "https://www.ea.com/games/apex-legends/compete"
-    },
-    {
-      "name": "ALGS: 2021 Split 1 Pro League - EMEA",
-      "prize_pool": 125000,
-      "start_date": "2021-10-16",
-      "end_date": "2021-12-05",
-      "organizer": "EA",
-      "region": "EMEA",
-      "link": "https://www.ea.com/games/apex-legends/compete"
-    },
-    {
-      "name": "Douyu Apex League",
-      "prize_pool": 12430,
-      "start_date": "2021-10-26",
-      "end_date": "2021-10-29",
-      "organizer": "Douyu",
-      "region": "China",
-      "link": "https://yuba.douyu.com/group/newall/5121224"
-    },
-    {
-      "name": "Box Fight Championship Apex Cup #9",
-      "prize_pool": 3000,
-      "start_date": "2021-10-24",
-      "end_date": "2021-10-24",
-      "organizer": "BoxFightChamp",
+      "name": "IESF World Championship 2021",
+      "prize_pool": 0,
+      "start_date": "2021-11-14",
+      "end_date": "2021-11-19",
+      "organizer": "IESF",
       "region": "Global",
-      "link": "https://boxfightchamp.com/"
+      "link": "https://iesfwc.com/"
+    },
+    {
+      "name": "EGL One Dota 2 Season 2",
+      "prize_pool": 3385,
+      "start_date": "2021-10-10",
+      "end_date": "2021-12-5",
+      "organizer": "Evesports",
+      "region": "Africa",
+      "link": "https://battlefy.com/evesports/dota-2-egl-one-seaon-2/611a0ee2efcbe81dc150c773/info?infoTab=details"
+    },
+    {
+      "name": "Legion Ukrainian Championship 2021",
+      "prize_pool": 11384,
+      "start_date": "2021-10-14",
+      "end_date": "2021-11-27",
+      "organizer": "Ukrainian Professional Esports Association",
+      "region": "EU",
+      "link": "https://upea.com.ua/competitions/legion-chempionat-ukraini-2021/?discipline=DOTA2"
     }
   ]
 }
