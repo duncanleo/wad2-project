@@ -100,6 +100,9 @@
           v-bind:gameAccount="gameAccount"
         />
       </ul> -->
+      
+      <game-stats v-for="item in display" v-bind:name="item.name" v-bind:stat1="item.stat1" v-bind:stat2="item.stat2"></game-stats>
+      
     </div>
 
     <div class="row">
@@ -492,6 +495,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import GameAccount from '../../components/GameAccount/index.vue';
 import generateAvatar from '../../util/generateAvatar';
+import GameStats from '../../components/GameStats.vue';
 
 //glennhamrocks@gmail.com
 //Test123!
@@ -503,6 +507,7 @@ interface TeamsResponse extends App.API.ResponseBase {
 const Profile = Vue.extend({
   components: {
     GameAccount,
+    GameStats,
   },
 
   data() {
@@ -650,6 +655,10 @@ const Profile = Vue.extend({
         let gameObj = {};
         gameObj['name'] = response.data.gameAccounts[indvGame].game.name;
         gameObj['id'] = response.data.gameAccounts[indvGame].game.id;
+        gameObj['internalId'] =     
+            response.data.gameAccounts[
+              indvGame
+            ].game.internal_id;
 
         if (response.data.gameAccounts[indvGame].game_id == 1) {
           gameObj['stat1'] =
@@ -660,6 +669,8 @@ const Profile = Vue.extend({
             response.data.gameAccounts[
               indvGame
             ].data.br_all.gamesPlayed.toString(); //number of games played
+             //game internal ID
+            
 
           console.log('^^^^ here');
         } else if (response.data.gameAccounts[indvGame].game_id == 2) {
@@ -671,6 +682,7 @@ const Profile = Vue.extend({
             response.data.gameAccounts[
               indvGame
             ].data.lifetime.all.all.kills.toString() + ' Kills ';
+            
         } else if (response.data.gameAccounts[indvGame].game_id == 3) {
           gameObj['stat1'] =
             'Rank: ' +
@@ -762,6 +774,14 @@ const Profile = Vue.extend({
   },
 });
 
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
 export default Profile;
 </script>
 
