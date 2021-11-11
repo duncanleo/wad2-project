@@ -18,7 +18,6 @@
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#bioModal"
-          
         >
           Edit Profile
         </button>
@@ -62,8 +61,7 @@
         </ul>
     </div> -->
 
-
-<!-- <button
+        <!-- <button
           v-on:click="linkGame"
           v-if="linkedGame == false"
           type="button"
@@ -100,9 +98,13 @@
           v-bind:gameAccount="gameAccount"
         />
       </ul> -->
-      
-      <game-stats v-for="item in display" v-bind:name="item.name" v-bind:stat1="item.stat1" v-bind:stat2="item.stat2"></game-stats>
-      
+
+      <game-stats
+        v-for="item in display"
+        v-bind:name="item.name"
+        v-bind:stat1="item.stat1"
+        v-bind:stat2="item.stat2"
+      ></game-stats>
     </div>
 
     <div class="row">
@@ -303,7 +305,6 @@
             ></button>
           </div>
           <div class="modal-body">
-
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Username</span>
@@ -315,7 +316,6 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 v-model="editProfileName"
-                
               />
             </div>
 
@@ -328,8 +328,6 @@
                 v-model="editProfileBio"
               ></textarea>
             </div>
-
-
           </div>
           <div class="modal-footer">
             <button
@@ -339,13 +337,13 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click="editBio">Edit</button>
+            <button type="button" class="btn btn-primary" v-on:click="editBio">
+              Edit
+            </button>
           </div>
         </div>
       </div>
     </div>
-  
-
 
     <!--unlink game modal -->
     <div
@@ -412,7 +410,13 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click="unlinkGame">unLink</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-on:click="unlinkGame"
+            >
+              unLink
+            </button>
           </div>
         </div>
       </div>
@@ -515,8 +519,8 @@ const Profile = Vue.extend({
       me: this.$store.state.user as App.API.CurrentUser,
       teams: [] as App.API.Team[],
       linkedGame: false,
-      editProfileName:"",
-      editProfileBio:"",
+      editProfileName: '',
+      editProfileBio: '',
       games: [], //list of all games
       userSelectedGame: '', //v-model for dropdown list
       linkAccountUserName: '', // userInpt when linking game
@@ -589,11 +593,9 @@ const Profile = Vue.extend({
     },
 
     unlinkGame() {
-      console.log(this.userSelectedGame.id)
+      console.log(this.userSelectedGame.id);
       const response = axios
-        .delete(`/api/games/${this.userSelectedGame.id}/account`, {
-      
-        })
+        .delete(`/api/games/${this.userSelectedGame.id}/account`, {})
 
         .then((response) => {
           console.log(response.data);
@@ -641,8 +643,8 @@ const Profile = Vue.extend({
     async apiMe() {
       const response = await axios.get('/api/me', {});
       console.log(response.data);
-      this.editProfileName = response.data.display_name
-      this.editProfileBio = response.data.bio
+      this.editProfileName = response.data.display_name;
+      this.editProfileBio = response.data.bio;
 
       // all the games me currently has
       for (let i in response.data.gameAccounts) {
@@ -655,10 +657,8 @@ const Profile = Vue.extend({
         let gameObj = {};
         gameObj['name'] = response.data.gameAccounts[indvGame].game.name;
         gameObj['id'] = response.data.gameAccounts[indvGame].game.id;
-        gameObj['internalId'] =     
-            response.data.gameAccounts[
-              indvGame
-            ].game.internal_id;
+        gameObj['internalId'] =
+          response.data.gameAccounts[indvGame].game.internal_id;
 
         if (response.data.gameAccounts[indvGame].game_id == 1) {
           gameObj['stat1'] =
@@ -669,8 +669,7 @@ const Profile = Vue.extend({
             response.data.gameAccounts[
               indvGame
             ].data.br_all.gamesPlayed.toString(); //number of games played
-             //game internal ID
-            
+          //game internal ID
 
           console.log('^^^^ here');
         } else if (response.data.gameAccounts[indvGame].game_id == 2) {
@@ -682,7 +681,6 @@ const Profile = Vue.extend({
             response.data.gameAccounts[
               indvGame
             ].data.lifetime.all.all.kills.toString() + ' Kills ';
-            
         } else if (response.data.gameAccounts[indvGame].game_id == 3) {
           gameObj['stat1'] =
             'Rank: ' +
@@ -722,11 +720,10 @@ const Profile = Vue.extend({
     },
 
     editBio() {
-     
       const response = axios
         .patch(`/api/me`, {
-          display_name:this.editProfileName,
-          bio:this.editProfileBio
+          display_name: this.editProfileName,
+          bio: this.editProfileBio,
         })
 
         .then((response) => {
@@ -737,7 +734,6 @@ const Profile = Vue.extend({
           console.log(error.message);
         });
     },
-
 
     setSelectedGameId(game) {
       this.userSelectedGame = game;
@@ -763,8 +759,6 @@ const Profile = Vue.extend({
 
       return this.games.find((game) => game.id === this.userSelectedGame.id);
     },
-
- 
   },
 
   head: {
@@ -777,11 +771,12 @@ const Profile = Vue.extend({
 Vue.component('button-counter', {
   data: function () {
     return {
-      count: 0
-    }
+      count: 0,
+    };
   },
-  template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-})
+  template:
+    '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
+});
 export default Profile;
 </script>
 
