@@ -114,9 +114,9 @@ const Tournaments = Vue.extend({
         let startDate = new Date(tournament.start_at);
         let endDate = new Date(tournament.end_at);
         tournament.start_at =
-          startDate.toDateString() + ' ' + startDate.toLocaleTimeString();
+          startDate.toDateString() + ' ' + startDate.toTimeString();
         tournament.end_at =
-          endDate.toDateString() + ' ' + endDate.toLocaleTimeString();
+          endDate.toDateString() + ' ' + endDate.toTimeString();
       }
       return tournamentData;
     },
