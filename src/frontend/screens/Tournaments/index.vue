@@ -159,43 +159,10 @@ const Tournaments = Vue.extend({
   },
 
   computed: {
-    selectedGame() {
-      return this.games.find((game) => game.id === this.selectedGameId);
-    },
+    isOrganiser() {
+      const state = this.$store.state as App.Frontend.Store.RootState;
 
-    tournamentDetails() {
-      var tournamentData = this.results();
-
-      for (let tournament of tournamentData) {
-        let startDate = tournament.start_at;
-        let endDate = tournament.end_at;
-        let date = startDate.split('T')[0];
-        let edate = endDate.split('T')[0];
-        tournament.start_at = date;
-        tournament.end_at = edate;
-      }
-      return tournamentData;
-    },
-  },
-
-  computed: {
-    selectedGame() {
-      return this.games.find((game) => game.id === this.selectedGameId);
-    },
-
-    tournamentDetails() {
-      var tournamentData = this.results();
-
-      for (let tournament of tournamentData) {
-        const now = new Date();
-        let startDate = new Date(tournament.start_at);
-        let endDate = new Date(tournament.end_at);
-        tournament.start_at =
-          startDate.toDateString() + ' ' + startDate.toTimeString();
-        tournament.end_at =
-          endDate.toDateString() + ' ' + endDate.toTimeString();
-      }
-      return tournamentData;
+      return state.user?.type === 'organiser';
     },
   },
 
