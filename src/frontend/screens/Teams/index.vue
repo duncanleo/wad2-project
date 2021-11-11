@@ -10,6 +10,7 @@
       v-on:input="handleInput"
       placeholder="Search..."
     />
+
     <div class="teams-list">
       <router-link
         class="team"
@@ -23,6 +24,70 @@
         </span>
         <button>Join</button>
       </router-link>
+    </div>
+
+    <div
+      class="modal fade"
+      id="createTeamModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create a team!</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"
+                  >Team Name</span
+                >
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                v-model="teamName"
+              />
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="exampleFormControlTextarea2">Team Description</label>
+              <textarea
+                class="form-control rounded-0"
+                id="exampleFormControlTextarea2"
+                rows="3"
+                v-model="teamDescription"
+              ></textarea>
+            </div>
+
+            <label for="img">Select image:</label>
+            <input type="file" id="img" name="img" accept="image/*" />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" @click="createTeam">
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +105,8 @@ const Teams = Vue.extend({
     return {
       searchTerm: '',
       teams: [] as App.API.Team[],
+      teamName: '',
+      teamDescription: '',
     };
   },
 
@@ -53,6 +120,25 @@ const Teams = Vue.extend({
 
       this.teams = data.teams;
       console.log(this.teams);
+    },
+
+    createTeam() {
+      console.log('working');
+      console.log(this.teamName);
+      console.log(this.teamDescription);
+
+      const response = axios
+        .post('/api/teams', {
+          name: this.teamName,
+        })
+
+        .then((response) => {
+          console.log(response.data);
+        })
+
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
 
     results() {
