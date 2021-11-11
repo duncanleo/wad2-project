@@ -67,7 +67,7 @@ const TournamentCreatePayloadSchema = Joi.object<TournamentCreatePayload>({
   game_id: Joi.number().required(),
   start_at: Joi.date().required(),
   end_at: Joi.date().min(Joi.ref('start_at')).required(),
-  url: Joi.string().optional().default(null),
+  url: Joi.string().optional().allow(null).default(null),
 });
 
 export async function tournamentCreate(req: Request, res: Response) {
