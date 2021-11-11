@@ -110,12 +110,13 @@ const Tournaments = Vue.extend({
       var tournamentData = this.results();
 
       for (let tournament of tournamentData) {
-        let startDate = tournament.start_at;
-        let endDate = tournament.end_at;
-        let date = startDate.split('T')[0];
-        let edate = endDate.split('T')[0];
-        tournament.start_at = date;
-        tournament.end_at = edate;
+        const now = new Date();
+        let startDate = new Date(tournament.start_at);
+        let endDate = new Date(tournament.end_at);
+        tournament.start_at =
+          startDate.toDateString() + ' ' + startDate.toLocaleTimeString();
+        tournament.end_at =
+          endDate.toDateString() + ' ' + endDate.toLocaleTimeString();
       }
       return tournamentData;
     },

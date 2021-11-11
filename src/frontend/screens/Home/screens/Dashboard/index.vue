@@ -118,22 +118,11 @@ const Dashboard = Vue.extend({
       var tournamentData = this.tournamentData;
 
       for (let tournament of tournamentData) {
-        let startDate = tournament.start_at;
-        let endDate = tournament.end_at;
-        let date = startDate.split('T')[0];
-        let edate = endDate.split('T')[0];
-        tournament.start_at = date;
-        tournament.end_at = edate;
-        let dateValues = date.split('-');
-
-        if (Number(dateValues[0]) >= 2021) {
-          if (Number(dateValues[1]) >= 10) {
-            if (Number(dateValues[2]) >= 15) {
-              upcomingTournament.push(tournament);
-            }
-          } else {
-            continue;
-          }
+        const now = new Date();
+        let startDate = new Date(tournament.start_at);
+        let endDate = new Date(tournament.end_at);
+        if (startDate.valueOf() > now.valueOf()) {
+          upcomingTournament.push(tournament);
         } else {
           continue;
         }
