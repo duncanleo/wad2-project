@@ -45,6 +45,7 @@ declare namespace App.API {
 
   interface CurrentUser extends User {
     memberships: Membership[];
+    type: 'gamer' | 'organiser';
   }
 
   interface Membership {

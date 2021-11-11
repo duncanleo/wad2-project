@@ -21,6 +21,9 @@
         </li>
       </ul>
     </div>
+    <router-link to="/tournaments/new" v-if="isOrganiser">
+      New Tournament
+    </router-link>
     <ul>
       <li v-for="tournament in results()" v-bind:key="tournament.id">
         <span>Name: {{ tournament.name }}</span>
@@ -57,6 +60,14 @@ const Tournaments = Vue.extend({
   beforeMount() {
     this.fetchGames();
     this.fetchTournaments();
+  },
+
+  computed: {
+    isOrganiser() {
+      const state = this.$store.state as App.Frontend.Store.RootState;
+
+      return state.user?.type === 'organiser';
+    },
   },
 
   methods: {
