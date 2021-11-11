@@ -2,6 +2,7 @@
 
 
 <template>
+
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-8 col-sm-12 bg-danger mx-auto">
@@ -44,7 +45,7 @@
     </div>
 
     <!-- Games row  to display games you have and to link games -->
-    <div class="row bg-danger">
+    <div class="row">
       <div class="bg-secondary col-8">
         <h4 class="text-white fw-bold">My Games</h4>
       </div>
@@ -98,78 +99,20 @@
           v-bind:gameAccount="gameAccount"
         />
       </ul> -->
-
-      <game-stats
+      
+      
+    </div>
+    <div class="row">
+        <game-stats
         v-for="item in display"
         v-bind:name="item.name"
         v-bind:stat1="item.stat1"
         v-bind:stat2="item.stat2"
-      ></game-stats>
-    </div>
+      v-bind:image="item.backgroundImage"></game-stats>
+      </div>
 
-    <div class="row">
-      <!-- <div v-if="linkedGame == true" class="bg-dark">
-        <form>
-          <div class="form-group">
-            <div class="d-flex pe-2">
-              <label
-                for="game"
-                class="text-white text-center pe-3"
-                style="padding-top: 6px"
-                ><h4 class="fw-bold">Game you want to link:</h4></label
-              >
-
-              <select v-model="userSelectedGame">
-                <option
-                  v-for="(game, index) in gameDropdown"
-                  v-bind:value="game[index + 1]"
-                >
-                  {{ game[index + 1] }}
-                </option>
-              </select>
-
-              <!-- <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Games
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"  v-model="userSelectedGame">
-                  <li v-for="(game,index) in gameDropdown">
-                    <a class="dropdown-item" href="#" v-bind:value="game[index+1]">{{ game[index+1]}}</a>
-                  </li>
-                </ul>
-              </div> 
-            </div>
-          </div>
-          <div class="form-group pt-2">
-            <label for="gameName" class="text-white">In Game Name</label>
-            <input
-              type="text"
-              class="form-control w-50"
-              id="inGameName"
-              placeholder="IGN"
-            />
-
-            <label for="gameName" class="text-white">In Game Name</label>
-            <input
-              type="text"
-              class="form-control w-50"
-              id="inGameName"
-              placeholder="IGN"
-            />
-          </div>
-
-          <button type="submit" class="btn btn-primary mt-3">Submit</button>
-        </form>
-      </div> -->
-      <!-- {{test}} -->
-
-      {{ editProfileName }}
+ 
+      <!-- {{ editProfileName }}
       {{ meGames }}
 
       {{ games }}
@@ -177,116 +120,120 @@
       {{ gamesList }}
 
       here
-      {{ linkAccountPlatform }}
-    </div>
+      {{ linkAccountPlatform }} -->
+    
 
     <!-- Link game Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="dropdown mb-3">
+    <div class="row bg-danger">
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
               <button
-                class="btn btn-secondary dropdown-toggle"
                 type="button"
-                id="game-dropdown-button"
-                style="
-                  width: 100%;
-                  height: 50px;
-                  background-color: #729b98;
-                  font-size: 25px;
-                  text-align: start;
-                "
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="dropdown mb-3">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="game-dropdown-button"
+                  style="
+                    width: 100%;
+                    height: 50px;
+                    background-color: #729b98;
+                    font-size: 25px;
+                    text-align: start;
+                  "
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{
+                    (selectedGame != null && selectedGame.name) || 'Select a game'
+                  }}
+                </button>
+
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="game-dropdown-button"
+                  style="width: 100%"
+                >
+                  <li
+                    style="height: 50px; font-size: 25px; background-image: url()"
+                    v-for="game in games"
+                    v-bind:value="game.name"
+                    v-bind:key="game.id"
+                    v-on:click="setSelectedGameId(game)"
+                  >
+                    <a href="#" class="dropdown-item">{{ game.name }}</a>
+                  </li>
+                </ul>
+              </div>
+              <!--end of dropdown-->
+
+              <div class="input-group mb-3" v-if="userSelectedGame != ''">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Username</span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  v-model="linkAccountUserName"
+                />
+              </div>
+
+              <div class="input-group mb-3" v-if="secondParam == true">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Platform</span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  v-model="linkAccountPlatform"
+                />
+              </div>
+            </div>
+            <!--end of modal body-->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
               >
-                {{
-                  (selectedGame != null && selectedGame.name) || 'Select a game'
-                }}
+                Close
               </button>
 
-              <ul
-                class="dropdown-menu"
-                aria-labelledby="game-dropdown-button"
-                style="width: 100%"
-              >
-                <li
-                  style="height: 50px; font-size: 25px; background-image: url()"
-                  v-for="game in games"
-                  v-bind:value="game.name"
-                  v-bind:key="game.id"
-                  v-on:click="setSelectedGameId(game)"
-                >
-                  <a href="#" class="dropdown-item">{{ game.name }}</a>
-                </li>
-              </ul>
+              <button type="button" class="btn btn-primary" v-on:click="linkGame">
+                Link
+              </button>
             </div>
-            <!--end of dropdown-->
-
-            <div class="input-group mb-3" v-if="userSelectedGame != ''">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Username</span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                v-model="linkAccountUserName"
-              />
-            </div>
-
-            <div class="input-group mb-3" v-if="secondParam == true">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Platform</span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                v-model="linkAccountPlatform"
-              />
-            </div>
-          </div>
-          <!--end of modal body-->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-
-            <button type="button" class="btn btn-primary" v-on:click="linkGame">
-              Link
-            </button>
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    
     <!-- end of modal 1-->
 
     <!-- Edit profile modal-->
-    <div
+    <div class="row">
+<div
       class="modal fade"
       id="bioModal"
       tabindex="-1"
@@ -421,10 +368,13 @@
         </div>
       </div>
     </div>
+    </div>
+    
     <!--modal3 unlink-->
 
     <!--Create team modal-->
-    <div
+    <div class="row">
+      <div
       class="modal fade"
       id="createTeamModal"
       tabindex="-1"
@@ -491,6 +441,9 @@
         </div>
       </div>
     </div>
+    </div>
+    
+    
   </div>
 </template>
 
@@ -660,6 +613,8 @@ const Profile = Vue.extend({
         gameObj['internalId'] =
           response.data.gameAccounts[indvGame].game.internal_id;
 
+        gameObj['backgroundImage'] = this.games.find((game) => game.id ===response.data.gameAccounts[indvGame].game.id).banner_image
+
         if (response.data.gameAccounts[indvGame].game_id == 1) {
           gameObj['stat1'] =
             'KDR: ' +
@@ -669,6 +624,7 @@ const Profile = Vue.extend({
             response.data.gameAccounts[
               indvGame
             ].data.br_all.gamesPlayed.toString(); //number of games played
+      
           //game internal ID
 
           console.log('^^^^ here');
