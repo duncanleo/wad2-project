@@ -84,6 +84,7 @@
           <button
             class="btn border border-1 text-white fs-4"
             style="background-color: #729b98; float: right"
+            v-if="role == 'leader'"
           >
             Join
           </button>
@@ -177,6 +178,7 @@ const Teams = Vue.extend({
   data() {
     return {
       searchTerm: '',
+      role: null as App.API.Membership['role'] | null,
       teams: [] as App.API.Team[],
       teamName: '',
       teamDescription: '',
