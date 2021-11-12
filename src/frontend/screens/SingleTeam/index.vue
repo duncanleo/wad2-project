@@ -1,11 +1,13 @@
 <template>
   <div>
     <div v-if="team != null">
-      <div>
-        <h1>{{ team.name }}</h1>
+
+      <div class="row">
+        <h1>{{ team.name }}</h1> 
         <button v-if="role == null">Request to Join</button>
         <span v-if="role == 'leader'">You are a leader of this team.</span>
       </div>
+      <!-- //729B98 -->
       <span>Team Description:</span>
       <img src="team.avatar" alt="" />
       <p>{{ team.description }}</p>
@@ -51,6 +53,7 @@
           </li>
         </ul>
       </div>
+
     </div>
   </div>
 </template>
