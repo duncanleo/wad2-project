@@ -9,7 +9,7 @@
         <div class="col-8 d-flex align-items-center g-1">
           <!-- d-flex and align-items-center for testing and leader to be aligned -->
 
-          <div class="ms-3">
+          <div class="ms-3 text-white">
             <h1>{{ team.name }}</h1>
             <button v-if="role == null">Request to Join</button>
             <span v-if="role == 'leader'">You are a leader of this team.</span>
@@ -28,7 +28,7 @@
         </p>
         <h4 class="text-white">Roster</h4>
 
-        <div class="row p-3">
+        <div class="row">
           <div
             v-for="membership in team.memberships"
             v-bind:key="membership.id"
@@ -78,7 +78,7 @@
         </div>
 
         <div
-          class="row p-3"
+          class="row bg-dark border rounded text-white g-0"
           v-for="membership in team.memberships"
           v-bind:key="membership.id"
         >
