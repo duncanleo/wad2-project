@@ -104,6 +104,24 @@
       "organizer": "BoxFightChamp",
       "region": "Global",
       "link": "https://boxfightchamp.com/"
+    },
+    {
+      "name": "The Witness Series Championship - South America",
+      "prize_pool": 1000,
+      "start_date": "2021-11-23",
+      "end_date": "2021-11-30",
+      "organizer": "DoodLive",
+      "region": "South America",
+      "link": "https://twitter.com/DoodLive"
+    },
+    {
+      "name": "Box Fight Championship Apex Cup #11",
+      "prize_pool": 3000,
+      "start_date": "2021-11-25",
+      "end_date": "2021-11-25",
+      "organizer": "BoxFightChamp",
+      "region": "Global",
+      "link": "https://boxfightchamp.com/"
     }
   ],
   "dota2": [
@@ -133,6 +151,33 @@
       "organizer": "Ukrainian Professional Esports Association",
       "region": "EU",
       "link": "https://upea.com.ua/competitions/legion-chempionat-ukraini-2021/?discipline=DOTA2"
+    },
+    {
+      "name": "Dota 2 Champions League 2021 Season 5",
+      "prize_pool": 50000,
+      "start_date": "2021-11-8",
+      "end_date": "2021-11-22",
+      "organizer": "Russian Esports Federation",
+      "region": "Russia",
+      "link": "https://docs.google.com/document/d/1fiYZE9lU1LRFxBqlcXtEEKH5RKPF2hkd5fLoJH-Nrcw/edit"
+    },
+    {
+      "name": " ESL One DPC NA Winter: Closed Qualifier",
+      "prize_pool": 0,
+      "start_date": "2021-11-22",
+      "end_date": "2021-11-24",
+      "organizer": "ESL",
+      "region": "NA",
+      "link": "https://play.eslgaming.com/dota2/north-america/dota2/challenger/esl-one-dpc-na-2021-closed-qualifier/"
+    },
+    {
+      "name": "DreamLeague Season 16 DPC WEU: Closed Qualifier",
+      "prize_pool": 0,
+      "start_date": "2021-11-22",
+      "end_date": "2021-11-24",
+      "organizer": "ESL",
+      "region": "EU",
+      "link": "https://play.eslgaming.com/dota2/europe/dota2/major/dreamleague-season16-dpc-eu-closed-qualifier/"
     }
   ]
 }
