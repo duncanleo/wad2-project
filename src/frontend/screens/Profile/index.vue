@@ -220,7 +220,7 @@
                 Close
               </button>
 
-              <button type="button" class="btn btn-primary" v-on:click="linkGame">
+              <button type="button" class="btn btn-primary" v-on:click="linkGame" data-bs-dismiss="modal">
                 Link
               </button>
             </div>
@@ -284,7 +284,7 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" v-on:click="editBio">
+            <button type="button" class="btn btn-primary" v-on:click="editBio" data-bs-dismiss="modal">
               Edit
             </button>
           </div>
@@ -361,6 +361,7 @@
               type="button"
               class="btn btn-primary"
               v-on:click="unlinkGame"
+              data-bs-dismiss="modal"
             >
               unLink
             </button>
@@ -434,6 +435,7 @@
               type="button"
               class="btn btn-primary"
               v-on:click="createTeam"
+              data-bs-dismiss="modal"
             >
               Create
             </button>
@@ -536,6 +538,7 @@ const Profile = Vue.extend({
 
             .then((response) => {
               console.log(response.data);
+              window.location.reload()
             })
 
             .catch((error) => {
@@ -543,6 +546,7 @@ const Profile = Vue.extend({
             });
         }
       }
+      
     },
 
     unlinkGame() {
@@ -552,6 +556,7 @@ const Profile = Vue.extend({
 
         .then((response) => {
           console.log(response.data);
+          window.location.reload()
         })
 
         .catch((error) => {
@@ -572,6 +577,7 @@ const Profile = Vue.extend({
 
         .then((response) => {
           console.log(response.data);
+          window.location.reload()
         })
 
         .catch((error) => {
@@ -684,6 +690,7 @@ const Profile = Vue.extend({
 
         .then((response) => {
           console.log(response.data);
+          window.location.reload()
         })
 
         .catch((error) => {
