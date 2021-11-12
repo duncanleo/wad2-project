@@ -2,8 +2,8 @@
   
 
     
-   <div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="card bg-dark mt-3 mx-auto" style="width: 22rem;">
+   <div class="col-lg-4 col-md-6 col-sm-12 g-0">
+    <div class="card bg-dark mt-3 mx-auto" style="width: 19rem;">
           <img class="card-img-top" v-bind:src='image' alt="Card image cap" style=" height: 15vw;
         object-fit: cover;">
           <div class="card-body">
