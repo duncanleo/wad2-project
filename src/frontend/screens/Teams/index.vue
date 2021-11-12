@@ -196,17 +196,15 @@ const Teams = Vue.extend({
     },
 
     createTeam() {
-      console.log('working');
-      console.log(this.teamName);
-      console.log(this.teamDescription);
-
       const response = axios
         .post('/api/teams', {
           name: this.teamName,
+          description: this.teamDescription,
         })
 
         .then((response) => {
           console.log(response.data);
+          window.location.reload();
         })
 
         .catch((error) => {
