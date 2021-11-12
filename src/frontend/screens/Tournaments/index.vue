@@ -94,7 +94,7 @@
       <div class="row justify-content-center">
         <div
           class="col-4 card m-4 text-white"
-          style="width: 18rem; background-color: black"
+          style="width: 18rem; background-color: #31625f"
           v-for="tournament of tournamentDetails"
         >
           <div class="card-body">
@@ -104,7 +104,7 @@
                 width="20"
                 height="20"
                 fill="currentColor"
-                class="bi bi-dpad-fill mb-2"
+                class="bi bi-dpad-fill mb-2 me-1"
                 viewBox="0 0 16 16"
               >
                 <path
@@ -118,7 +118,12 @@
             <p class="card-text">{{ tournament.end_at }}</p>
             <p class="card-text">USD {{ tournament.prize_pool }}</p>
             <p class="card-text">{{ tournament.owner.display_name }}</p>
-            <a :href="tournament.url" class="btn btn-success">More Details</a>
+            <a
+              :href="tournament.url"
+              class="btn border border-1 text-white"
+              style="background-color: #729b98"
+              >More Details</a
+            >
           </div>
         </div>
 
@@ -161,23 +166,19 @@ const Tournaments = Vue.extend({
     selectedGame() {
       return this.games.find((game) => game.id === this.selectedGameId);
     },
-
     tournamentDetails() {
       var tournamentData = this.results();
-
       for (let tournament of tournamentData) {
-        let startDate = tournament.start_at;
-        let endDate = tournament.end_at;
-        let date = startDate.split('T')[0];
-        let edate = endDate.split('T')[0];
-        tournament.start_at = date;
-        tournament.end_at = edate;
+        const now = new Date();
+        let startDate = new Date(tournament.start_at);
+        let endDate = new Date(tournament.end_at);
+        tournament.start_at =
+          startDate.toDateString() + ' ' + startDate.toTimeString();
+        tournament.end_at =
+          endDate.toDateString() + ' ' + endDate.toTimeString();
       }
       return tournamentData;
     },
-  },
-
-  computed: {
     isOrganiser() {
       const state = this.$store.state as App.Frontend.Store.RootState;
 

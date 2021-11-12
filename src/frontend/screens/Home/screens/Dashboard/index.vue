@@ -152,7 +152,7 @@
       <div class="row justify-content-center">
         <div
           class="col-4 card m-4 text-white"
-          style="width: 18rem; background-color: black"
+          style="width: 18rem; background-color: #31625f"
           v-for="tournament of tournamentFilter"
         >
           <div class="card-body">
@@ -177,7 +177,12 @@
             <p class="card-text">{{ tournament.end_at }}</p>
             <p class="card-text">USD {{ tournament.prize_pool }}</p>
             <p class="card-text">{{ tournament.owner.display_name }}</p>
-            <a :href="tournament.url" class="btn btn-success">More Details</a>
+            <a
+              :href="tournament.url"
+              class="btn border border-1 text-white"
+              style="background-color: #729b98"
+              >More Details</a
+            >
           </div>
         </div>
       </div>
@@ -220,6 +225,10 @@ const Dashboard = Vue.extend({
         let startDate = new Date(tournament.start_at);
         let endDate = new Date(tournament.end_at);
         if (startDate.valueOf() > now.valueOf()) {
+          tournament.start_at =
+            startDate.toDateString() + ' ' + startDate.toTimeString();
+          tournament.end_at =
+            endDate.toDateString() + ' ' + endDate.toTimeString();
           upcomingTournament.push(tournament);
         } else {
           continue;
