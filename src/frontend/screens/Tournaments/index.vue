@@ -205,7 +205,6 @@ const Tournaments = Vue.extend({
       const response = await axios.get<TournamentsResponse>('/api/tournaments');
 
       this.tournaments = response.data.tournaments;
-      console.log(this.tournaments);
     },
 
     results() {
