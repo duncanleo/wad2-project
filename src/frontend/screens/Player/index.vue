@@ -2,7 +2,9 @@
   <div class="container" v-if="player != null">
     <div class="row">
       <div class="col-8">
-        <h1 class="text-white fw-bold text-capitalize">{{ player.display_name }}</h1>
+        <h1 class="text-white fw-bold text-capitalize">
+          {{ player.display_name }}
+        </h1>
         <span class="text-white">{{ player.bio || 'No bio' }}</span>
       </div>
       <div class="col-4">
@@ -17,7 +19,12 @@
       <div class="bg-secondary rounded-top mt-5">
         <h4 class="text-white fw-bold pt-1">Teams</h4>
       </div>
-      <div class="rounded-bottom" style="background: #729B98;" v-for="membership in player.memberships" v-bind:key="membership.id">
+      <div
+        class="rounded-bottom"
+        style="background: #729b98"
+        v-for="membership in player.memberships"
+        v-bind:key="membership.id"
+      >
         <span>{{ membership.team.name }}</span>
       </div>
     </div>
@@ -25,10 +32,14 @@
       <div class="bg-secondary rounded-top mt-5">
         <h4 class="text-white fw-bold pt-1">Games</h4>
       </div>
-      <div class="rounded-bottom" style="background: #729B98;">
+      <div class="rounded-bottom" style="background: #729b98">
         <ul class="text-light fw-bold text-capitalize mt-2">
           <li>
-              <gameAccount v-for="gameAccount in player.gameAccounts" v-bind:key="gameAccount.id" v-bind:gameAccount="gameAccount" />
+            <gameAccount
+              v-for="gameAccount in player.gameAccounts"
+              v-bind:key="gameAccount.id"
+              v-bind:gameAccount="gameAccount"
+            />
           </li>
         </ul>
       </div>
@@ -63,7 +74,7 @@ const Player = Vue.extend({
     const id = this.$route.params.id;
 
     if (id === state.user?.id.toString()) {
-      this.$router.push('/profile');
+      this.$router.replace('/profile');
       return;
     }
 
