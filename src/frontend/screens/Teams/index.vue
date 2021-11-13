@@ -37,75 +37,7 @@
       </router-link>
     </div>
 
-    <div
-      class="modal fade"
-      id="createTeamModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Create a team!</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1"
-                  >Team Name</span
-                >
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                v-model="teamName"
-              />
-            </div>
-
-            <div class="form-group mb-3">
-              <label for="exampleFormControlTextarea2">Team Description</label>
-              <textarea
-                class="form-control rounded-0"
-                id="exampleFormControlTextarea2"
-                rows="3"
-                v-model="teamDescription"
-              ></textarea>
-            </div>
-
-            <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" accept="image/*" />
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              class="btn border border-1 text-white"
-              style="background-color: #729b98"
-              data-bs-dismiss="modal"
-              @click="createTeam"
-            >
-              Create
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <create-team-modal />
   </div>
 </template>
 
@@ -113,6 +45,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import Team from '../../components/Team.vue';
+import CreateTeamModal from '../../components/CreateTeamModal.vue';
 
 interface Response extends App.API.ResponseBase {
   teams: App.API.Team[];
@@ -121,6 +54,7 @@ interface Response extends App.API.ResponseBase {
 const Teams = Vue.extend({
   components: {
     Team,
+    CreateTeamModal,
   },
 
   data() {
@@ -144,24 +78,6 @@ const Teams = Vue.extend({
 
       this.teams = data.teams;
       console.log(this.teams);
-    },
-
-    createTeam() {
-      const response = axios
-        .post('/api/teams', {
-          name: this.teamName,
-          description: this.teamDescription,
-          avatar: this.avatar,
-        })
-
-        .then((response) => {
-          console.log(response.data);
-          window.location.reload();
-        })
-
-        .catch((error) => {
-          console.log(error.message);
-        });
     },
 
     results() {

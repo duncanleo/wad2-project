@@ -96,7 +96,7 @@ import generateAvatar from '../../util/generateAvatar';
 import GameStats from '../../components/GameStats/index.vue';
 import Team from '../../components/Team.vue';
 import EditProfileModal from './components/EditProfileModal.vue';
-import CreateTeamModal from './components/CreateTeamModal.vue';
+import CreateTeamModal from '../../components/CreateTeamModal.vue';
 import LinkGameAccountModal from './components/LinkGameAccountModal.vue';
 import UnlinkGameAccountModal from './components/UnlinkGameAccountModal.vue';
 
