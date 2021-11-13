@@ -16,6 +16,7 @@ import Player from './screens/Player/index.vue';
 import Profile from './screens/Profile/index.vue';
 import Signup from './screens/Signup/index.vue';
 import SingleTeam from './screens/SingleTeam/index.vue';
+import SingleTournament from './screens/SingleTournament/index.vue';
 import Teams from './screens/Teams/index.vue';
 import TournamentNew from './screens/TournamentNew/index.vue';
 import Tournaments from './screens/Tournaments/index.vue';
@@ -93,7 +94,7 @@ const routes: RouterOptions['routes'] = [
   },
   {
     path: '/tournaments/:id',
-    component: NotFound,
+    component: SingleTournament,
     meta: {
       requiresAuth: true,
     },

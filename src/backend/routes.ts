@@ -33,6 +33,7 @@ import {
 import {
   tournamentCreate,
   tournamentDelete,
+  tournamentGet,
   tournamentsList,
   tournamentUpdate,
 } from './api/tournament';
@@ -78,6 +79,7 @@ const routes = (app: Application) => {
   app.delete('/api/games/:id/account', asyncWrapper(gameAccountDelete));
 
   app.get('/api/tournaments', asyncWrapper(tournamentsList));
+  app.get('/api/tournaments/:id', asyncWrapper(tournamentGet));
   app.post('/api/tournaments', asyncWrapper(tournamentCreate));
   app.patch('/api/tournaments/:id', asyncWrapper(tournamentUpdate));
   app.delete('/api/tournaments/:id', asyncWrapper(tournamentDelete));

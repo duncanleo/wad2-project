@@ -84,5 +84,6 @@ declare namespace App.API {
   interface TournamentParticipation {
     id: number;
     tournament: Tournament;
+    team: Team;
   }
 }

@@ -72,8 +72,9 @@
       >
         <player v-bind:player="membership.user" />
       </router-link>
+    </div>
 
-      <!-- <div v-if="role == 'leader'">
+    <!-- <div v-if="role == 'leader'">
           <h1>Invitations</h1>
           <ul>
             <li v-for="invitation in invitations" v-bind:key="invitation.id">
@@ -84,54 +85,65 @@
             </li>
           </ul>
         </div> -->
-      <div class="row mt-4" v-if="role == 'leader'">
-        <h4 class="text-white fw-bold">Join Requests</h4>
-        <ul>
-          <li
-            class="
-              bg-secondary
-              d-flex
-              align-items-center
-              py-2
-              rounded
-              justify-content-between
-            "
-            v-for="join_request in notAcceptedJoinRequests"
-            v-bind:key="join_request.id"
+    <div class="row mt-4" v-if="role == 'leader'">
+      <h4 class="text-white fw-bold">Join Requests</h4>
+      <ul>
+        <li
+          class="
+            bg-secondary
+            d-flex
+            align-items-center
+            py-2
+            rounded
+            justify-content-between
+          "
+          v-for="join_request in notAcceptedJoinRequests"
+          v-bind:key="join_request.id"
+        >
+          <router-link
+            class="text-decoration-none"
+            v-bind:to="getPlayerLink(join_request.user.id)"
           >
-            <router-link
-              class="text-decoration-none"
-              v-bind:to="getPlayerLink(join_request.user.id)"
+            <player v-bind:player="join_request.user" />
+          </router-link>
+          <div class="d-flex me-4">
+            <button
+              class="btn btn-success text-white fw-bold me-2"
+              v-if="join_request.status === 'idle'"
+              v-on:click="updateJoinRequest(join_request, 'accepted')"
             >
-              <player v-bind:player="join_request.user" />
-            </router-link>
-            <div class="d-flex me-4">
-              <button
-                class="btn btn-success text-white fw-bold me-2"
-                v-if="join_request.status === 'idle'"
-                v-on:click="updateJoinRequest(join_request, 'accepted')"
-              >
-                Accept
-              </button>
-              <button
-                class="btn btn-danger text-white fw-bold"
-                v-if="join_request.status === 'idle'"
-                v-on:click="updateJoinRequest(join_request, 'rejected')"
-              >
-                Reject
-              </button>
-              <span
-                class="text-danger fw-bold"
-                v-if="join_request.status === 'rejected'"
-              >
-                Rejected
-              </span>
-            </div>
-          </li>
-        </ul>
-        <span class="text-tertiary" v-if="join_requests.length === 0">
-          There are no join requests.
-        </span>
+              Accept
+            </button>
+            <button
+              class="btn btn-danger text-white fw-bold"
+              v-if="join_request.status === 'idle'"
+              v-on:click="updateJoinRequest(join_request, 'rejected')"
+            >
+              Reject
+            </button>
+            <span
+              class="text-danger fw-bold"
+              v-if="join_request.status === 'rejected'"
+            >
+              Rejected
+            </span>
+          </div>
+        </li>
+      </ul>
+      <span class="text-tertiary" v-if="join_requests.length === 0">
+        There are no join requests.
+      </span>
+    </div>
+
+    <div class="row mt-4">
+      <h4 class="text-white fw-bold">Tournaments</h4>
+
+      <div
+        class="col-lg-4 col-md-6 col-12"
+        v-for="participation of team.participations"
+        v-bind:key="participation.id"
+      >
+        <tournament v-bind:tournament="participation.tournament" />
       </div>
     </div>
   </div>

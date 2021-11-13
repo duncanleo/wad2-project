@@ -96,7 +96,7 @@ TournamentParticipation.belongsTo(Tournament, {
 });
 
 TournamentParticipation.belongsTo(Team, {
-  as: 'teams',
+  as: 'team',
   foreignKey: 'team_id',
 });
 

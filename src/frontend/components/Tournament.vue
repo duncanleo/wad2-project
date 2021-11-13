@@ -48,13 +48,12 @@
           {{ tournament.prize_pool > 0 ? `$${tournament.prize_pool}` : '-' }}
         </p>
 
-        <a
-          :href="tournament.url"
+        <router-link
+          :to="tournamentLink"
           class="btn btn-primary text-white fw-bold"
-          target="_blank"
         >
-          More Details</a
-        >
+          More Details
+        </router-link>
       </div>
     </div>
   </div>
@@ -81,6 +80,10 @@ const Tournament = Vue.component('tournament', {
       const end = moment(this.tournament.end_at);
 
       return `${start.format('LL')} - ${end.format('LL')}`;
+    },
+
+    tournamentLink() {
+      return `/tournaments/${this.tournament.id}`;
     },
   },
 });
