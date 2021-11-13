@@ -42,6 +42,7 @@
         v-bind:to="getTeamLink(team.id)"
         v-for="team in teams"
         v-bind:key="team.id"
+        class="d-block mb-3"
       >
         <team v-bind:team="team" />
       </router-link>
