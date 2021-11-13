@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Joi from 'joi';
+import sampleSize from 'lodash/sampleSize';
 import { Sequelize } from 'sequelize';
 
 import {
@@ -21,10 +22,12 @@ import getRequestContext from '../util/getRequestContext';
 
 interface TeamsListParams {
   self: boolean;
+  explore: boolean;
 }
 
 const TeamsListParamsSchema = Joi.object({
   self: Joi.boolean().default(false),
+  explore: Joi.boolean().default(false),
 });
 
 export async function teamsList(req: Request, res: Response) {
@@ -40,7 +43,7 @@ export async function teamsList(req: Request, res: Response) {
     throw new ErrorBadRequest(validationResult.error.message);
   }
 
-  const { self } = validationResult.value as TeamsListParams;
+  const { self, explore } = validationResult.value as TeamsListParams;
 
   let teams;
 
@@ -125,6 +128,10 @@ export async function teamsList(req: Request, res: Response) {
         user_id: user.id,
       },
     });
+  }
+
+  if (explore) {
+    teams = sampleSize(teams, 3);
   }
 
   const teamsPatched = teams.map((team) => {
