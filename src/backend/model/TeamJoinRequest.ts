@@ -8,7 +8,7 @@ interface TeamJoinRequestAttributes {
   user_id: number;
   approver_id: number;
   message: string | null;
-  status: 'approved' | 'rejected' | 'idle';
+  status: 'accepted' | 'rejected' | 'idle';
 }
 
 type TeamJoinRequestCreationAttributes = Optional<
@@ -26,7 +26,7 @@ export default function setupTeamJoinRequest(sequelize: Sequelize) {
     public user_id!: number;
     public approver_id!: number;
     public message!: string | null;
-    public status!: 'approved' | 'rejected' | 'idle';
+    public status!: 'accepted' | 'rejected' | 'idle';
 
     public readonly user?: InstanceType<typeof User>;
     public readonly approver?: InstanceType<typeof User>;
@@ -75,7 +75,7 @@ export default function setupTeamJoinRequest(sequelize: Sequelize) {
         allowNull: true,
       },
       status: {
-        type: DataTypes.ENUM('approved', 'rejected', 'idle'),
+        type: DataTypes.ENUM('accepted', 'rejected', 'idle'),
         allowNull: false,
         defaultValue: 'idle',
       },

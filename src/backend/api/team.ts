@@ -155,7 +155,45 @@ export async function teamSingle(req: Request, res: Response) {
   const { id } = req.params;
 
   const team = await Team.findOne({
-    attributes: ['id', 'name', 'avatar', 'created_at'],
+    attributes: [
+      'id',
+      'name',
+      'avatar',
+      'created_at',
+      [
+        Sequelize.literal(
+          `
+            (
+              SELECT
+              CASE WHEN EXISTS
+              (
+                SELECT id
+                FROM memberships
+                WHERE team_id = "Team"."id"
+                AND user_id = :user_id
+              )
+              THEN 1
+              ELSE 0
+              END
+            )
+            `
+        ),
+        'is_member',
+      ],
+      [
+        Sequelize.literal(
+          `
+            (
+              SELECT status
+              FROM team_join_requests
+              WHERE team_id = "Team"."id"
+              AND user_id = :user_id
+            )
+            `
+        ),
+        'join_request_status',
+      ],
+    ],
     where: {
       id,
     },
@@ -187,6 +225,9 @@ export async function teamSingle(req: Request, res: Response) {
         ],
       },
     ],
+    replacements: {
+      user_id: user.id,
+    },
   });
 
   if (team == null) {
