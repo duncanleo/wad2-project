@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Joi from 'joi';
+import { Sequelize } from 'sequelize';
 
 import {
   ErrorBadRequest,
@@ -7,7 +8,13 @@ import {
   ErrorNotFound,
   ErrorUnauthorized,
 } from '../errors';
-import { Game, Tournament, User } from '../model';
+import {
+  Game,
+  Team,
+  Tournament,
+  TournamentParticipation,
+  User,
+} from '../model';
 import getRequestContext from '../util/getRequestContext';
 
 interface TournamentsListParams {
@@ -86,6 +93,7 @@ export async function tournamentsList(req: Request, res: Response) {
             'developer',
             'banner_image',
             'banner_image_license',
+            'release_year',
           ],
         },
       ],
@@ -97,6 +105,89 @@ export async function tournamentsList(req: Request, res: Response) {
     .json({
       status: true,
       tournaments,
+    })
+    .end();
+}
+
+export async function tournamentGet(req: Request, res: Response) {
+  const context = await getRequestContext(req);
+  const { user } = context;
+
+  if (user == null) {
+    throw new ErrorUnauthorized();
+  }
+
+  const { id } = req.params;
+
+  const tournament = await Tournament.findOne({
+    where: {
+      id,
+    },
+    attributes: [
+      'id',
+      'name',
+      'region',
+      'prize_pool',
+      'start_at',
+      'end_at',
+      'game_id',
+      'url',
+    ],
+    include: [
+      {
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'display_name', 'bio'],
+      },
+      {
+        model: Game,
+        as: 'game',
+        attributes: [
+          'id',
+          'name',
+          'developer',
+          'banner_image',
+          'banner_image_license',
+          'release_year',
+        ],
+      },
+      {
+        model: TournamentParticipation,
+        as: 'participations',
+        include: [
+          {
+            model: Team,
+            as: 'team',
+            attributes: [
+              'id',
+              'name',
+              'avatar',
+              'created_at',
+              [
+                Sequelize.literal(
+                  `
+            (
+              SELECT
+              COUNT(id)
+              FROM memberships
+              WHERE team_id = "participations->team"."id"
+            )
+            `
+                ),
+                'memberships_count',
+              ],
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  res
+    .status(200)
+    .json({
+      status: true,
+      tournament,
     })
     .end();
 }
