@@ -102,6 +102,11 @@ export async function search(req: Request, res: Response) {
           'background_image_license',
         ],
       },
+      {
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'display_name'],
+      },
     ],
   });
 
