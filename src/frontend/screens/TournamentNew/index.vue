@@ -150,6 +150,13 @@ const TournamentNew = Vue.extend({
   },
 
   beforeMount() {
+    const state = this.$store.state as App.Frontend.Store.RootState;
+
+    if (state.user?.type !== 'organiser') {
+      this.$router.replace('/');
+      return;
+    }
+
     this.fetchGames();
   },
 
