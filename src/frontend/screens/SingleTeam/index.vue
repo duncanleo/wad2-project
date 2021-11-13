@@ -3,7 +3,7 @@
     <div class="row">
       <div
         class="
-          col-1
+          col-md-2 col-3
           d-flex
           align-items-center
           justify-content-center
@@ -27,7 +27,7 @@
         </svg>
       </div>
 
-      <div class="col-8 d-flex align-items-center g-1">
+      <div class="col-md-8 col-7 d-flex align-items-center g-1">
         <div class="ms-3 text-white">
           <h1 class="fw-bold">{{ team.name }}</h1>
           <p class="text-tertiary">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="col-3" v-if="!team.is_member">
+      <div class="col-md-3 col-12" v-if="!team.is_member">
         <button
           class="btn btn-primary fw-bold text-white"
           v-if="team.join_request_status == null"
@@ -64,7 +64,7 @@
     <div class="row mt-4">
       <h4 class="text-white fw-bold">Roster</h4>
 
-      <div class="row">
+      <div>
         <router-link
           class="text-decoration-none mb-3"
           v-bind:to="getPlayerLink(membership.user.id)"
