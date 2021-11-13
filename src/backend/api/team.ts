@@ -16,6 +16,8 @@ import {
   Team,
   TeamInvitation,
   TeamJoinRequest,
+  Tournament,
+  TournamentParticipation,
   User,
 } from '../model';
 import getRequestContext from '../util/getRequestContext';
@@ -47,44 +49,28 @@ export async function teamsList(req: Request, res: Response) {
 
   let teams;
 
-  if (self) {
-    teams = await Team.findAll({
-      attributes: [
-        'id',
-        'name',
-        'avatar',
-        'created_at',
-        [
-          Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
-          'memberships_count',
-        ],
-      ],
-      include: [
-        {
-          model: Membership,
-          as: 'memberships',
-          attributes: [],
-          where: {
-            user_id: user.id,
-          },
-        },
-      ],
-      group: ['Team.id'],
-    });
-  } else {
-    teams = await Team.findAll({
-      attributes: [
-        'id',
-        'name',
-        'avatar',
-        'created_at',
-        [
-          Sequelize.fn('COUNT', Sequelize.col('memberships.id')),
-          'memberships_count',
-        ],
-        [
-          Sequelize.literal(
+  teams = await Team.findAll({
+    attributes: [
+      'id',
+      'name',
+      'avatar',
+      'created_at',
+      [
+        Sequelize.literal(
+          `
+            (
+              SELECT
+              COUNT(id)
+              FROM memberships
+              WHERE team_id = "Team"."id"
+            )
             `
+        ),
+        'memberships_count',
+      ],
+      [
+        Sequelize.literal(
+          `
             (
               SELECT
               CASE WHEN EXISTS
@@ -99,12 +85,12 @@ export async function teamsList(req: Request, res: Response) {
               END
             )
             `
-          ),
-          'is_member',
-        ],
-        [
-          Sequelize.literal(
-            `
+        ),
+        'is_member',
+      ],
+      [
+        Sequelize.literal(
+          `
             (
               SELECT status
               FROM team_join_requests
@@ -112,25 +98,49 @@ export async function teamsList(req: Request, res: Response) {
               AND user_id = :user_id
             )
             `
-          ),
-          'join_request_status',
+        ),
+        'join_request_status',
+      ],
+    ],
+    include: [
+      {
+        model: TournamentParticipation,
+        as: 'participations',
+        attributes: ['id'],
+        include: [
+          {
+            model: Tournament,
+            as: 'tournament',
+            attributes: [
+              'id',
+              'name',
+              'region',
+              'prize_pool',
+              'start_at',
+              'end_at',
+              'game_id',
+              'url',
+            ],
+            include: [
+              {
+                model: User,
+                as: 'owner',
+                attributes: ['id', 'display_name', 'bio'],
+              },
+            ],
+          },
         ],
-      ],
-      include: [
-        {
-          model: Membership,
-          as: 'memberships',
-          attributes: [],
-        },
-      ],
-      group: ['Team.id'],
-      replacements: {
-        user_id: user.id,
       },
-    });
-  }
+    ],
+    replacements: {
+      user_id: user.id,
+    },
+  });
 
-  if (explore) {
+  if (self) {
+    //@ts-ignore
+    teams = teams.filter((team) => team.toJSON().is_member === 1);
+  } else if (explore) {
     teams = sampleSize(teams, 3);
   }
 
@@ -226,6 +236,34 @@ export async function teamSingle(req: Request, res: Response) {
                     attributes: ['id', 'name', 'developer', 'release_year'],
                   },
                 ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        model: TournamentParticipation,
+        as: 'participations',
+        attributes: ['id'],
+        include: [
+          {
+            model: Tournament,
+            as: 'tournament',
+            attributes: [
+              'id',
+              'name',
+              'region',
+              'prize_pool',
+              'start_at',
+              'end_at',
+              'game_id',
+              'url',
+            ],
+            include: [
+              {
+                model: User,
+                as: 'owner',
+                attributes: ['id', 'display_name', 'bio'],
               },
             ],
           },

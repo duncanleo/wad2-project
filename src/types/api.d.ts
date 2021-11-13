@@ -66,6 +66,7 @@ declare namespace App.API {
     memberships?: Membership[];
     is_member?: boolean;
     join_request_status?: 'idle' | 'approved' | 'rejected' | null;
+    participations: TournamentParticipation[];
   }
 
   interface TeamInvitation {
@@ -78,5 +79,10 @@ declare namespace App.API {
     id: number;
     message: string | null;
     status: 'idle' | 'approved' | 'rejected';
+  }
+
+  interface TournamentParticipation {
+    id: number;
+    tournament: Tournament;
   }
 }
