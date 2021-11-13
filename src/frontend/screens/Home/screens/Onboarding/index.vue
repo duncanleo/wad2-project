@@ -1,5 +1,5 @@
 <template>
-  <div class="row d-flex flex-lg-row flex-column-reverse">
+  <div class="row min-vh-100 d-flex flex-lg-row flex-column-reverse">
     <div class="col-lg-4 col-md-12 col-12">
       <logo />
       <h3 class="text-white text-uppercase fw-bold">Start playing today</h3>
