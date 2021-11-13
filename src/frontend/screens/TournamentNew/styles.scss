@@ -1,4 +1,5 @@
-.form-control, .form-select {
-  background-color: #729b98;
-  border-color: #729b98
+@import "../../styles//variables";
+.form-control,
+.form-select {
+    background-color: $primary-800;
 }
