@@ -7,7 +7,7 @@ import { healthz } from './api/healthz';
 import { login } from './api/login';
 import { logout } from './api/logout';
 import me, { meUpdate } from './api/me';
-import { playerGet } from './api/players';
+import { playerGet, playersList } from './api/players';
 import { search } from './api/search';
 import { signup } from './api/signup';
 import {
@@ -78,6 +78,7 @@ const routes = (app: Application) => {
   app.patch('/api/tournaments/:id', asyncWrapper(tournamentUpdate));
   app.delete('/api/tournaments/:id', asyncWrapper(tournamentDelete));
 
+  app.get('/api/players', asyncWrapper(playersList));
   app.get('/api/players/:id', asyncWrapper(playerGet));
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
