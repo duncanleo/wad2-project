@@ -41,6 +41,7 @@ const GameAccountLinkPayloadSchema = Joi.alternatives().try(
   Joi.object<GameAccountLinkPayload>({
     type: Joi.valid(SUPPORTED_GAMES.FORTNITE),
     gamertag: Joi.string().required(),
+    platform: Joi.allow(null).optional(),
   }),
   Joi.object<GameAccountLinkPayload>({
     type: Joi.valid(SUPPORTED_GAMES.APEX_LEGENDS),
