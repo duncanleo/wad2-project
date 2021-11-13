@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="bg-secondary rounded-top mt-5">
+      <div class="rounded-top mt-5">
         <h4 class="text-white fw-bold pt-1">Teams</h4>
       </div>
       <div
@@ -27,22 +27,22 @@
       >
         <span>{{ membership.team.name }}</span>
       </div>
+      <span class="text-tertiary" v-if="player.memberships.length === 0">
+        Not in any teams
+      </span>
     </div>
     <div class="row mb-4">
-      <div class="bg-secondary rounded-top mt-5">
+      <div class="rounded-top mt-5">
         <h4 class="text-white fw-bold pt-1">Games</h4>
       </div>
-      <div class="rounded-bottom" style="background: #729b98">
-        <ul class="text-light fw-bold text-capitalize mt-2">
-          <li>
-            <gameAccount
-              v-for="gameAccount in player.gameAccounts"
-              v-bind:key="gameAccount.id"
-              v-bind:gameAccount="gameAccount"
-            />
-          </li>
-        </ul>
-      </div>
+      <span class="text-tertiary" v-if="player.gameAccounts.length === 0">
+        No games found
+      </span>
+      <game-stats
+        v-for="gameAccount in player.gameAccounts"
+        v-bind:key="gameAccount.id"
+        v-bind:gameAccount="gameAccount"
+      />
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@
 <script lang="ts">
 import axios from 'axios';
 import Vue from 'vue';
-import GameAccount from '../../components/GameAccount/index.vue';
+import GameStats from '../../components/GameStats/index.vue';
 import generateAvatar from '../../util/generateAvatar';
 
 interface Response extends App.API.ResponseBase {
@@ -59,7 +59,7 @@ interface Response extends App.API.ResponseBase {
 
 const Player = Vue.extend({
   components: {
-    GameAccount,
+    GameStats,
   },
 
   data() {
