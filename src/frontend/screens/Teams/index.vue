@@ -1,31 +1,30 @@
 <template>
   <div class="container">
-    <div style="width: 100%" class="row">
-      <div class="col">
-        <h1 class="text-white me-3">Teams</h1>
-      </div>
-      <div class="col">
+    <div style="width: 100%" class="row mb-5">
+      <div
+        class="col-lg-8 col-md-6 col-12 d-flex align-items-center mb-sm-0 mb-3"
+      >
+        <h3 class="text-white d-inline-block fw-bold mb-0">Teams</h3>
         <button
-          class="btn fs-4 float-right text-white border border-1"
-          style="float: right; background-color: #729b98"
+          class="btn btn-primary fs-6 text-white border-0 fw-bold ms-3"
           data-bs-toggle="modal"
           data-bs-target="#createTeamModal"
         >
-          Create Team
+          Create
         </button>
       </div>
+      <div class="col-lg-4 col-md-6 col-12">
+        <input
+          type="text"
+          class="border border-0 form-control fw-bold"
+          name=""
+          v-model="searchTerm"
+          v-on:input="handleInput"
+          placeholder="Search"
+        />
+      </div>
     </div>
-    <input
-      type="text"
-      style="width: 100%; height: 50px; background-color: #729b98"
-      class="border border-1 form-control"
-      name=""
-      v-model="searchTerm"
-      v-on:input="handleInput"
-      placeholder="Search..."
-    />
 
-    <hr style="color: white; height: 5px; width: 100%" />
     <div class="teams-list">
       <router-link
         v-for="team in results()"

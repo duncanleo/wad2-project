@@ -1,24 +1,24 @@
 @import "styles/custom";
 @import "styles/variables";
 @import "styles/user-dropdown";
-
+@import "styles/button";
 * {
-  box-sizing: border-box;
-  font-family: Dosis, sans-serif;
+    box-sizing: border-box;
+    font-family: Dosis, sans-serif;
 }
 
 html {
-  width: 100%;
-  min-height: 100%;
-  background-color: $primary-900;
+    width: 100%;
+    min-height: 100%;
+    background-color: $primary-900;
 }
 
 body {
-  display: flex;
-  min-height: 100vh;
-  background-color: transparent;
+    display: flex;
+    min-height: 100vh;
+    background-color: transparent;
 }
 
 .navbar-bg {
-  background-color: $primary-800;
+    background-color: $primary-800;
 }

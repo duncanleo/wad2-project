@@ -1,0 +1,7 @@
+.btn-primary {
+    background-color: $accent-600;
+    &:hover,
+    &:focus {
+        background-color: $accent-400;
+    }
+}
