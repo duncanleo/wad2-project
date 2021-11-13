@@ -17,7 +17,14 @@
         v-for="player in players"
         v-bind:key="player.id"
         style="text-decoration: none"
-        class="fs-5 text-white mb-4 text-center col-lg-4 col-md-6 col-12"
+        class="
+          fs-5
+          text-white
+          mb-4
+          text-center
+          col-lg-4 col-md-6 col-12
+          text-decoration-none
+        "
       >
         <player v-bind:player="player" />
       </router-link>
@@ -82,11 +89,29 @@
         v-bind:key="team.id"
         v-bind:to="teamLink(team.id)"
       >
-          <team v-bind:team="team" />
+        <team v-bind:team="team" />
       </router-link>
     </div>
-        </div>
-      </div>
+
+    <div class="mb-5 row" v-if="searchTerm.length === 0">
+      <h3 class="text-white fw-bold">Explore Players</h3>
+      <hr />
+
+      <router-link
+        v-for="player of playersExplore"
+        v-bind:key="player.id"
+        class="
+          fs-5
+          text-white
+          mb-4
+          text-center
+          col-lg-4 col-md-6 col-12
+          text-decoration-none
+        "
+        v-bind:to="playerLink(player.id)"
+      >
+        <player v-bind:player="player" />
+      </router-link>
     </div>
 
     <div class="mb-5 row" v-if="searchTerm.length === 0">
@@ -136,6 +161,7 @@ const Dashboard = Vue.extend({
       players: [] as App.API.User[],
       teams: [] as App.API.Team[],
       teamsExplore: [] as App.API.Team[],
+      playersExplore: [] as App.API.User[],
       tournaments: [] as App.API.Tournament[],
       games: [] as App.API.Game[],
       tournamentData: [],
@@ -177,6 +203,7 @@ const Dashboard = Vue.extend({
   beforeMount() {
     this.apiTournament();
     this.apiTeamsExplore();
+    this.apiPlayersExplore();
     this.apiGames();
   },
 
@@ -197,6 +224,12 @@ const Dashboard = Vue.extend({
       const response = await axios.get('/api/teams?explore=true', {});
 
       this.teamsExplore = response.data.teams;
+    },
+
+    async apiPlayersExplore() {
+      const response = await axios.get('/api/players?explore=true', {});
+
+      this.playersExplore = response.data.players;
     },
 
     async search() {
