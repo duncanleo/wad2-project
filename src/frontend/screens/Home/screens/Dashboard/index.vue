@@ -118,14 +118,12 @@
       <h3 class="text-white fw-bold">Upcoming Tournaments</h3>
       <hr />
 
-      <div class="row justify-content-center" style="row-gap: 1rem">
-        <div
-          class="col-lg-4 col-md-6 col-12"
-          v-for="tournament of tournamentFilter"
-          v-bind:key="tournament.id"
-        >
-          <tournament v-bind:tournament="tournament" />
-        </div>
+      <div
+        class="col-lg-4 col-md-6 col-12"
+        v-for="tournament of tournamentFilter"
+        v-bind:key="tournament.id"
+      >
+        <tournament v-bind:tournament="tournament" />
       </div>
     </div>
   </div>
