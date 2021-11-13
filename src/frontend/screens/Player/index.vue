@@ -21,11 +21,16 @@
       </div>
       <div
         class="rounded-bottom"
-        style="background: #729b98"
         v-for="membership in player.memberships"
         v-bind:key="membership.id"
       >
-        <span>{{ membership.team.name }}</span>
+        <router-link
+          v-bind:to="teamLink(membership.team.id)"
+          style="text-decoration: none"
+          class="fs-5 text-white col-12 mb-3 mx-2 text-decoration-none"
+        >
+          <team v-bind:team="membership.team" />
+        </router-link>
       </div>
       <span class="text-tertiary" v-if="player.memberships.length === 0">
         Not in any teams
@@ -52,6 +57,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import GameStats from '../../components/GameStats/index.vue';
 import generateAvatar from '../../util/generateAvatar';
+import Team from '../../components/Team.vue';
 
 interface Response extends App.API.ResponseBase {
   player: App.API.User;
@@ -60,6 +66,7 @@ interface Response extends App.API.ResponseBase {
 const Player = Vue.extend({
   components: {
     GameStats,
+    Team,
   },
 
   data() {
@@ -91,6 +98,10 @@ const Player = Vue.extend({
     },
 
     generateAvatar,
+
+    teamLink(id: number) {
+      return `/teams/${id}`;
+    },
   },
 
   head: {
