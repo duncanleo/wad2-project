@@ -34,6 +34,8 @@ export async function playerGet(req: Request, res: Response) {
               'developer',
               'release_year',
               'internal_id',
+              'banner_image',
+              'banner_image_license',
             ],
           },
         ],
