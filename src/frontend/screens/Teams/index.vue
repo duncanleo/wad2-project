@@ -182,6 +182,7 @@ const Teams = Vue.extend({
       teams: [] as App.API.Team[],
       teamName: '',
       teamDescription: '',
+      avatar: '',
     };
   },
 
@@ -202,6 +203,7 @@ const Teams = Vue.extend({
         .post('/api/teams', {
           name: this.teamName,
           description: this.teamDescription,
+          avatar: this.avatar,
         })
 
         .then((response) => {
