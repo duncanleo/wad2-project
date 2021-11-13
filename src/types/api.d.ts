@@ -64,6 +64,8 @@ declare namespace App.API {
     memberships_count: number;
     created_at: string;
     memberships?: Membership[];
+    is_member?: boolean;
+    join_request_status?: 'idle' | 'approved' | 'rejected' | null;
   }
 
   interface TeamInvitation {
