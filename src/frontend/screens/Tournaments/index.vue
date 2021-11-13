@@ -63,6 +63,14 @@
             aria-labelledby="game-dropdown-button"
             style="width: 100%"
           >
+            <li>
+              <a
+                href="#"
+                class="dropdown-item text-tertiary"
+                v-on:click="setSelectedGameId(null)"
+                >Select a game</a
+              >
+            </li>
             <li
               v-for="game in games"
               v-bind:value="game.name"
@@ -94,13 +102,13 @@
         <div class="row justify-content-center" style="row-gap: 1rem">
           <div
             class="col-lg-4 col-md-6 col-12"
-            v-for="tournament of tournaments"
+            v-for="tournament of results"
             v-bind:key="tournament.id"
           >
             <tournament v-bind:tournament="tournament" />
           </div>
 
-          <div v-if="results().length < 1">
+          <div v-if="results.length < 1">
             <h2 class="text-white">No upcoming tournaments available</h2>
           </div>
         </div>
@@ -146,7 +154,7 @@ const Tournaments = Vue.extend({
       return this.games.find((game) => game.id === this.selectedGameId);
     },
     tournamentDetails() {
-      var tournamentData = this.results();
+      var tournamentData = this.results;
       for (let tournament of tournamentData) {
         const now = new Date();
         let startDate = new Date(tournament.start_at);
@@ -163,6 +171,16 @@ const Tournaments = Vue.extend({
 
       return state.user?.type === 'organiser';
     },
+
+    results() {
+      if (this.selectedGameId == null) {
+        return this.tournaments;
+      }
+
+      return this.tournaments.filter(
+        (tournament) => tournament.game_id === this.selectedGameId
+      );
+    },
   },
 
   methods: {
@@ -178,17 +196,7 @@ const Tournaments = Vue.extend({
       this.tournaments = response.data.tournaments;
     },
 
-    results() {
-      if (this.selectedGameId == null) {
-        return this.tournaments;
-      }
-
-      return this.tournaments.filter(
-        (tournament) => tournament.game_id === this.selectedGameId
-      );
-    },
-
-    setSelectedGameId(id: number) {
+    setSelectedGameId(id: number | null) {
       this.selectedGameId = id;
     },
   },
