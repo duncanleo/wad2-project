@@ -25,7 +25,11 @@ import {
   teamInvitationsList,
   teamInvitationsUpdate,
 } from './api/teamInvitations';
-import { joinRequestsList, teamJoinRequestsList } from './api/teamJoinRequests';
+import {
+  joinRequestsList,
+  joinRequestUpdate,
+  teamJoinRequestsList,
+} from './api/teamJoinRequests';
 import {
   tournamentCreate,
   tournamentDelete,
@@ -63,6 +67,7 @@ const routes = (app: Application) => {
   app.delete('/api/team_invitations/:id', asyncWrapper(teamInvitationsDelete));
 
   app.get('/api/join_requests', asyncWrapper(joinRequestsList));
+  app.patch('/api/join_requests/:id', asyncWrapper(joinRequestUpdate));
 
   app.get('/api/games', asyncWrapper(gamesList));
   app.post('/api/games/:id/account', asyncWrapper(gameAccountLink));

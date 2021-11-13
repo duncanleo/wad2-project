@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
+import Joi from 'joi';
 
-import { ErrorForbidden, ErrorNotFound, ErrorUnauthorized } from '../errors';
+import {
+  ErrorBadRequest,
+  ErrorForbidden,
+  ErrorNotFound,
+  ErrorUnauthorized,
+} from '../errors';
 import { Membership, Team, TeamJoinRequest, User } from '../model';
 import getRequestContext from '../util/getRequestContext';
 
@@ -24,6 +30,7 @@ export async function teamJoinRequestsList(req: Request, res: Response) {
         model: TeamJoinRequest,
         as: 'join_requests',
         attributes: ['id', 'message', 'status'],
+
         include: [
           {
             model: User,
@@ -91,4 +98,80 @@ export async function joinRequestsList(req: Request, res: Response) {
     status: true,
     join_requests,
   });
+}
+
+interface TeamJoinRequestUpdatePayload {
+  status: 'accepted' | 'rejected';
+}
+
+const TeamJoinRequestUpdatePayloadSchema =
+  Joi.object<TeamJoinRequestUpdatePayload>({
+    status: Joi.string().valid('accepted', 'rejected'),
+  });
+
+export async function joinRequestUpdate(req: Request, res: Response) {
+  const context = await getRequestContext(req);
+  const { user } = context;
+
+  if (user == null) {
+    throw new ErrorUnauthorized();
+  }
+
+  const { id } = req.params;
+
+  const joinRequest = await TeamJoinRequest.findOne({
+    where: {
+      id,
+    },
+  });
+
+  if (joinRequest == null) {
+    throw new ErrorNotFound();
+  }
+
+  const membership = await Membership.findOne({
+    where: {
+      team_id: joinRequest.team_id,
+      user_id: user.id,
+    },
+    attributes: ['id', 'role'],
+  });
+
+  if (membership == null || membership.role !== 'leader') {
+    throw new ErrorForbidden('insufficient permissions');
+  }
+
+  const validationResult = await TeamJoinRequestUpdatePayloadSchema.validate(
+    req.body
+  );
+
+  if (validationResult.error) {
+    throw new ErrorBadRequest(validationResult.error.message);
+  }
+
+  const { status } = validationResult.value as TeamJoinRequestUpdatePayload;
+
+  switch (status) {
+    case 'accepted': {
+      await joinRequest.update({
+        status,
+        approver_id: user.id,
+      });
+
+      await Membership.create({
+        team_id: joinRequest.team_id,
+        user_id: joinRequest.user_id,
+        role: 'member',
+      });
+      break;
+    }
+    case 'rejected': {
+      await joinRequest.update({
+        status,
+      });
+      break;
+    }
+  }
+
+  res.status(204).end();
 }
