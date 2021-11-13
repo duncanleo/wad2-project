@@ -83,26 +83,29 @@
         </div>
       </div>
       <div class="col-12 mt-4 mb-5" v-if="selectedGame !== 'Select a game'">
-        <div class="d-flex align-items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="var(--bs-light)"
-            class="bi bi-calendar-event-fill mb-2 me-2"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"
-            />
-          </svg>
-          <h4 class="text-light fw-bold">Upcoming</h4>
-        </div>
+        <h4 class="text-tertiary fw-bold mb-3">Upcoming</h4>
 
         <div class="row justify-content-center" style="row-gap: 1rem">
           <div
             class="col-lg-4 col-md-6 col-12"
-            v-for="tournament of results"
+            v-for="tournament of upcomingTournaments"
+            v-bind:key="tournament.id"
+          >
+            <tournament v-bind:tournament="tournament" />
+          </div>
+
+          <div v-if="results.length < 1">
+            <h2 class="text-white">No upcoming tournaments available</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 mb-5" v-if="selectedGame !== 'Select a game'">
+        <h4 class="text-tertiary fw-bold mb-3">Past</h4>
+
+        <div class="row justify-content-center" style="row-gap: 1rem">
+          <div
+            class="col-lg-4 col-md-6 col-12"
+            v-for="tournament of pastTournaments"
             v-bind:key="tournament.id"
           >
             <tournament v-bind:tournament="tournament" />
@@ -120,6 +123,7 @@
 <script lang="ts">
 import axios from 'axios';
 import Vue from 'vue';
+import moment from 'moment';
 import Tournament from '../../components/Tournament.vue';
 
 interface GamesResponse extends App.API.ResponseBase {
@@ -153,19 +157,7 @@ const Tournaments = Vue.extend({
     selectedGame() {
       return this.games.find((game) => game.id === this.selectedGameId);
     },
-    tournamentDetails() {
-      var tournamentData = this.results;
-      for (let tournament of tournamentData) {
-        const now = new Date();
-        let startDate = new Date(tournament.start_at);
-        let endDate = new Date(tournament.end_at);
-        tournament.start_at =
-          startDate.toDateString() + ' ' + startDate.toTimeString();
-        tournament.end_at =
-          endDate.toDateString() + ' ' + endDate.toTimeString();
-      }
-      return tournamentData;
-    },
+
     isOrganiser() {
       const state = this.$store.state as App.Frontend.Store.RootState;
 
@@ -180,6 +172,26 @@ const Tournaments = Vue.extend({
       return this.tournaments.filter(
         (tournament) => tournament.game_id === this.selectedGameId
       );
+    },
+
+    upcomingTournaments() {
+      const now = moment();
+
+      return this.results.filter((tournament) => {
+        const start = moment(tournament.start_at);
+
+        return start.isAfter(now);
+      });
+    },
+
+    pastTournaments() {
+      const now = moment();
+
+      return this.results.filter((tournament) => {
+        const start = moment(tournament.start_at);
+
+        return start.isSameOrBefore(now);
+      });
     },
   },
 
