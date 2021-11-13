@@ -38,9 +38,13 @@
           Create Team
         </button>
       </div>
-      <div v-for="team in teams" v-bind:key="team.id">
-        <span>{{ team.name }}</span>
-      </div>
+      <router-link
+        v-bind:to="getTeamLink(team.id)"
+        v-for="team in teams"
+        v-bind:key="team.id"
+      >
+        <team v-bind:team="team" />
+      </router-link>
     </div>
 
     <!-- Games row  to display games you have and to link games -->
@@ -479,6 +483,7 @@ import Vue from 'vue';
 import GameAccount from '../../components/GameAccount/index.vue';
 import generateAvatar from '../../util/generateAvatar';
 import GameStats from '../../components/GameStats.vue';
+import Team from '../../components/Team.vue';
 
 //glennhamrocks@gmail.com
 //Test123!
@@ -491,6 +496,7 @@ const Profile = Vue.extend({
   components: {
     GameAccount,
     GameStats,
+    Team,
   },
 
   data() {
@@ -735,6 +741,10 @@ const Profile = Vue.extend({
     setSelectedGameId(game) {
       this.userSelectedGame = game;
       console.log(this.userSelectedGame);
+    },
+
+    getTeamLink(id: number) {
+      return `/teams/${id}`;
     },
   },
 
