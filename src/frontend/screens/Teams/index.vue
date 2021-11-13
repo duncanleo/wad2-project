@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div style="width: 100%" class="row">
       <div class="col">
         <h1 class="text-white me-3">Teams</h1>

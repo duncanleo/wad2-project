@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid p-0">
     <onboarding v-if="!isLoggedIn" />
     <dashboard v-else />
   </div>

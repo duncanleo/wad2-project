@@ -1,14 +1,13 @@
 <template>
-  <div>
+  <div class="container-fluid p-0">
     <site-header />
-    <main class="container">
+    <main class="container-fluid p-0">
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import Vue from 'vue';
 import SiteHeader from './components/SiteHeader.vue';
 

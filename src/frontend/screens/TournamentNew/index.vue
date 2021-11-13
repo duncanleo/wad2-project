@@ -1,109 +1,115 @@
 <template>
-  <div class="row">
-    <h1 class="text-white">New Tournament</h1>
-    <p class="text-white-50">
-      As an organiser, you can create tournaments for players to join.
-    </p>
+  <div class="container">
+    <div class="row">
+      <h1 class="text-white">New Tournament</h1>
+      <p class="text-white-50">
+        As an organiser, you can create tournaments for players to join.
+      </p>
 
-    <div class="col-lg-6 col-md-8 col-12">
-      <label class="form-label text-white" for="name"> Name </label>
-      <input
-        class="form-control fw-bold"
-        type="text"
-        name="name"
-        id="name"
-        v-model="name"
-      />
-    </div>
+      <div class="col-lg-6 col-md-8 col-12">
+        <label class="form-label text-white" for="name"> Name </label>
+        <input
+          class="form-control fw-bold"
+          type="text"
+          name="name"
+          id="name"
+          v-model="name"
+        />
+      </div>
 
-    <div class="col-lg-2 col-md-4 col-12">
-      <label class="form-label text-white" for="prize_pool"> Prize Pool </label>
-      <input
-        class="form-control fw-bold"
-        type="number"
-        name="prize_pool"
-        id="prize_pool"
-        v-model.number="prize_pool"
-      />
-    </div>
+      <div class="col-lg-2 col-md-4 col-12">
+        <label class="form-label text-white" for="prize_pool">
+          Prize Pool
+        </label>
+        <input
+          class="form-control fw-bold"
+          type="number"
+          name="prize_pool"
+          id="prize_pool"
+          v-model.number="prize_pool"
+        />
+      </div>
 
-    <div class="col-lg-4 col-md-12 col-12">
-      <label class="form-label text-white" for="region"> Region </label>
-      <input
-        class="form-control fw-bold"
-        type="text"
-        name="region"
-        id="region"
-        v-model="region"
-      />
-    </div>
+      <div class="col-lg-4 col-md-12 col-12">
+        <label class="form-label text-white" for="region"> Region </label>
+        <input
+          class="form-control fw-bold"
+          type="text"
+          name="region"
+          id="region"
+          v-model="region"
+        />
+      </div>
 
-    <div class="col-lg-6 col-md-6 col-12">
-      <label class="form-label text-white" for="start_at"> Starts At </label>
-      <input
-        class="form-control fw-bold"
-        type="date"
-        name="start_at"
-        id="start_at"
-        v-model="start_at"
-      />
-    </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <label class="form-label text-white" for="start_at"> Starts At </label>
+        <input
+          class="form-control fw-bold"
+          type="date"
+          name="start_at"
+          id="start_at"
+          v-model="start_at"
+        />
+      </div>
 
-    <div class="col-lg-6 col-md-6 col-12">
-      <label class="form-label text-white" for="end_at"> Ends At </label>
-      <input
-        class="form-control fw-bold"
-        type="date"
-        name="end_at"
-        id="end_at"
-        v-model="end_at"
-      />
-    </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <label class="form-label text-white" for="end_at"> Ends At </label>
+        <input
+          class="form-control fw-bold"
+          type="date"
+          name="end_at"
+          id="end_at"
+          v-model="end_at"
+        />
+      </div>
 
-    <div class="col-12">
-      <label class="form-label text-white" for="url"> URL </label>
-      <input
-        class="form-control fw-bold"
-        type="url"
-        name="url"
-        id="url"
-        v-model="url"
-      />
-    </div>
+      <div class="col-12">
+        <label class="form-label text-white" for="url"> URL </label>
+        <input
+          class="form-control fw-bold"
+          type="url"
+          name="url"
+          id="url"
+          v-model="url"
+        />
+      </div>
 
-    <div class="col-12">
-      <label class="form-label text-white" for="game_id"> Game </label>
-      <select class="form-select fw-bold" v-model.number="game_id">
-        <option
-          v-for="game in games"
-          v-bind:key="game.id"
-          v-bind:value="game.id"
+      <div class="col-12">
+        <label class="form-label text-white" for="game_id"> Game </label>
+        <select class="form-select fw-bold" v-model.number="game_id">
+          <option
+            v-for="game in games"
+            v-bind:key="game.id"
+            v-bind:value="game.id"
+          >
+            {{ game.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12 mt-4">
+        <button
+          v-if="createdTournament == null"
+          class="btn btn-primary"
+          v-bind:disabled="!isValid"
+          v-on:click="submit"
         >
-          {{ game.name }}
-        </option>
-      </select>
-    </div>
+          Create Tournament
+        </button>
+      </div>
 
-    <div class="col-12 mt-4">
-      <button
-        v-if="createdTournament == null"
-        class="btn btn-primary"
-        v-bind:disabled="!isValid"
-        v-on:click="submit"
-      >
-        Create Tournament
-      </button>
-    </div>
+      <div class="col-12">
+        <span v-if="error != null" class="bg-white text-danger">{{
+          error
+        }}</span>
+      </div>
 
-    <div class="col-12">
-      <span v-if="error != null" class="bg-white text-danger">{{ error }}</span>
-    </div>
-
-    <div class="col-12">
-      <span v-if="createdTournament != null" class="bg-white text-success">
-        Tournament created!
-        <router-link v-bind:to="createdTournamentLink"> View </router-link>
-      </span>
+      <div class="col-12">
+        <span v-if="createdTournament != null" class="bg-white text-success">
+          Tournament created!
+          <router-link v-bind:to="createdTournamentLink"> View </router-link>
+        </span>
+      </div>
     </div>
   </div>
 </template>
