@@ -1,20 +1,14 @@
-
-
-
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-md-8 col-sm-12 bg-danger mx-auto">
+    <div class="row mb-4">
+      <div class="col-4 mx-auto">
         <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" />
       </div>
-      <div class="col-lg-8 col-md-12 col-sm-12">
+      <div class="col-8 mb-sm-0 mb-4">
         <h1 class="text-white fw-bold">{{ me.display_name }}</h1>
-        <span class="text-white d-block mb-3">{{
-          me.bio ||
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        }}</span>
+        <span class="text-white d-block mb-3">{{ me.bio || 'No bio' }}</span>
         <button
-          class="btn btn-dark text-white"
+          class="btn btn-primary text-white fw-bold fs-6"
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#bioModal"
@@ -25,87 +19,57 @@
     </div>
 
     <!-- Teams row to show what teams you are in and to create teams -->
-    <div class="row">
-      <div class="bg-secondary col-8">
-        <h4 class="text-white fw-bold">My Teams</h4>
-      </div>
-      <div class="bg-secondary col-4">
+    <div class="row mb-4">
+      <div class="col-12 d-flex align-items-center py-2 mb-2">
+        <h4 class="text-white fw-bold mb-0">My Teams</h4>
         <button
-          class="btn btn-primary"
+          class="btn btn-primary text-white fw-bold fs-6 ms-3"
           data-bs-toggle="modal"
           data-bs-target="#createTeamModal"
         >
-          Create Team
+          Create
         </button>
       </div>
-      <router-link
-        v-bind:to="getTeamLink(team.id)"
-        v-for="team in teams"
-        v-bind:key="team.id"
-        class="d-block mb-3"
-      >
-        <team v-bind:team="team" />
-      </router-link>
+      <div class="col-12 d-flex flex-column">
+        <router-link
+          v-bind:to="getTeamLink(team.id)"
+          v-for="team in teams"
+          v-bind:key="team.id"
+          class="d-block mb-3 text-decoration-none"
+        >
+          <team v-bind:team="team" />
+        </router-link>
+      </div>
     </div>
 
     <!-- Games row  to display games you have and to link games -->
     <div class="row">
-      <div class="bg-secondary col-8">
+      <div class="col-8 d-flex align-items-center py-2">
         <h4 class="text-white fw-bold">My Games</h4>
       </div>
-
-      <div class="bg-secondary col-4">
-        <!-- <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-    </div> -->
-
-        <!-- <button
-          v-on:click="linkGame"
-          v-if="linkedGame == false"
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Link a game
-        </button> -->
+      <div class="col-4 d-flex align-items-center justify-content-end py-2">
         <button
           v-on:click="linkGame"
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary fw-bold text-white me-3"
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         >
-          Link a game
+          Link account
         </button>
-
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary fw-bold text-white"
           data-bs-toggle="modal"
           data-bs-target="#unLink"
         >
-          Unlink a game
+          Unlink account
         </button>
       </div>
-
-      <!-- <ul>
-        <game-account
-          v-for="gameAccount in me.gameAccounts"
-          v-bind:key="gameAccount.id"
-          v-bind:gameAccount="gameAccount"
-        />
-      </ul> -->
     </div>
     <div class="row">
       <game-stats
+        v-bind:key="item.name"
         v-for="item in display"
         v-bind:name="item.name"
         v-bind:stat1="item.stat1"
@@ -113,16 +77,6 @@
         v-bind:image="item.backgroundImage"
       ></game-stats>
     </div>
-
-    <!-- {{ editProfileName }}
-      {{ meGames }}
-
-      {{ games }}
-
-      {{ gamesList }}
-
-      here
-      {{ linkAccountPlatform }} -->
 
     <!-- Link game Modal -->
     <div class="row bg-danger">
