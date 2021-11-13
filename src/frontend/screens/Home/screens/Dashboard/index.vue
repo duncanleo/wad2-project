@@ -11,7 +11,7 @@
     />
 
     <div class="row mt-4" v-if="players.length > 0">
-      <h1 class="text-white">Players</h1>
+      <h4 class="fw-bold text-white">Players</h4>
       <router-link
         v-bind:to="playerLink(player.id)"
         v-for="player in players"
@@ -23,7 +23,7 @@
       </router-link>
     </div>
     <div class="row" v-if="teams.length > 0">
-      <h1 class="text-white">Teams</h1>
+      <h4 class="fw-bold text-white">Teams</h4>
       <router-link
         v-bind:to="teamLink(team.id)"
         v-for="team in teams"
@@ -35,23 +35,26 @@
       </router-link>
     </div>
     <div class="row" v-if="tournaments.length > 0">
-      <h1 class="text-white">Tournaments</h1>
-      <tournament
+      <h4 class="fw-bold text-white">Tournaments</h4>
+      <div
+        class="col-lg-4 col-md-6 col-12 mb-5"
         v-bind:key="tournament.id"
         v-for="tournament in tournaments"
-        v-bind:tournament="tournament"
-      />
+      >
+        <tournament v-bind:tournament="tournament" />
+      </div>
     </div>
     <div
-      class="row mb-5"
+      class="row mb-5 py-4"
       v-if="
+        !loading &&
         searchTerm.length > 0 &&
         players.length === 0 &&
         teams.length === 0 &&
         tournaments.length === 0
       "
     >
-      <h4 class="text-white">
+      <h4 class="text-tertiary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -62,8 +65,9 @@
         >
           <path
             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-          /></svg
-        >No results
+          />
+        </svg>
+        No results
       </h4>
     </div>
     <br />
@@ -117,6 +121,7 @@ const Dashboard = Vue.extend({
       tournaments: [] as App.API.Tournament[],
       games: [] as App.API.Game[],
       tournamentData: [],
+      loading: false,
     };
   },
 
@@ -170,6 +175,7 @@ const Dashboard = Vue.extend({
     },
 
     async search() {
+      this.loading = true;
       const response = await axios.post<SearchResponse>('/api/search', {
         term: this.searchTerm,
       });
@@ -177,6 +183,7 @@ const Dashboard = Vue.extend({
       this.players = response.data.players;
       this.teams = response.data.teams;
       this.tournaments = response.data.tournaments;
+      this.loading = false;
     },
 
     handleInput: debounce(function () {
