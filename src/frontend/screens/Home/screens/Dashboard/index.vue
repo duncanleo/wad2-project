@@ -29,7 +29,7 @@
         v-for="team in teams"
         v-bind:key="team.id"
         style="text-decoration: none"
-        class="fs-5 text-white col-12 mb-4 mx-2 text-center"
+        class="fs-5 text-white col-12 mb-3 mx-2 text-decoration-none"
       >
         <team v-bind:team="team" />
       </router-link>
@@ -71,6 +71,23 @@
       </h4>
     </div>
     <br />
+
+    <div class="mb-5 row" v-if="searchTerm.length === 0">
+      <h3 class="text-white fw-bold">Explore Teams</h3>
+      <hr />
+
+      <router-link
+        class="fs-5 text-white col-12 mb-3 mx-2 text-decoration-none"
+        v-for="team of teamsExplore"
+        v-bind:key="team.id"
+        v-bind:to="teamLink(team.id)"
+      >
+          <team v-bind:team="team" />
+      </router-link>
+    </div>
+        </div>
+      </div>
+    </div>
 
     <div class="mb-5 row" v-if="searchTerm.length === 0">
       <h3 class="text-white fw-bold">Upcoming Tournaments</h3>
@@ -118,6 +135,7 @@ const Dashboard = Vue.extend({
       searchTerm: '',
       players: [] as App.API.User[],
       teams: [] as App.API.Team[],
+      teamsExplore: [] as App.API.Team[],
       tournaments: [] as App.API.Tournament[],
       games: [] as App.API.Game[],
       tournamentData: [],
@@ -158,6 +176,7 @@ const Dashboard = Vue.extend({
 
   beforeMount() {
     this.apiTournament();
+    this.apiTeamsExplore();
     this.apiGames();
   },
 
@@ -172,6 +191,12 @@ const Dashboard = Vue.extend({
       const response = await axios.get('/api/games', {});
 
       this.games = response.data.games;
+    },
+
+    async apiTeamsExplore() {
+      const response = await axios.get('/api/teams?explore=true', {});
+
+      this.teamsExplore = response.data.teams;
     },
 
     async search() {

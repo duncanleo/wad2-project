@@ -6,6 +6,7 @@
         d-flex
         align-items-center
         justify-content-center
+        text-primary
       "
     >
       <svg
