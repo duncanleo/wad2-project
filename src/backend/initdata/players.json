@@ -1,54 +1,272 @@
 {
-    "warzone": [{
-            "ign": "Venom Killshot",
-            "platform": "xbl"
-        },
+    "warzone": [
         {
             "ign": "ar sh4zzy",
-            "platform": "xbl"
-        },
-        {
-            "ign": "Shotboisinc",
-            "platform": "xbl"
-        },
-        {
-            "ign": "Big Wormmmmmm444",
-            "platform": "xbl"
-        },
-        {
-            "ign": "troubidoux#2673",
-            "platform": "battle"
-        },
-        {
-            "ign": "jmar#21767",
-            "platform": "battle"
-        },
-        {
-            "ign": "rNippy#2624",
-            "platform": "battle"
-        },
-        {
-            "ign": "opmarked#1818",
-            "platform": "battle"
+            "platform": "xbl",
+            "data": {
+                "br": {
+                    "wins": 33,
+                    "kills": 2309,
+                    "kdRatio": 1.3670811130846654,
+                    "downs": 2253,
+                    "topTwentyFive": 455,
+                    "objTime": 0,
+                    "topTen": 228,
+                    "contracts": 718,
+                    "revives": 20,
+                    "topFive": 138,
+                    "score": 2358950,
+                    "timePlayed": 743283,
+                    "gamesPlayed": 812,
+                    "tokens": 0,
+                    "scorePerMinute": 190.42141418544486,
+                    "cash": 0,
+                    "deaths": 1689,
+                    "title": "br"
+                },
+                "br_dmz": {
+                    "wins": 13268,
+                    "kills": 44460,
+                    "kdRatio": 2.4850483483315635,
+                    "downs": 47605,
+                    "topTwentyFive": 13268,
+                    "objTime": 0,
+                    "topTen": 13268,
+                    "contracts": 12879,
+                    "revives": 709,
+                    "topFive": 13268,
+                    "score": 60416552,
+                    "timePlayed": 9889489,
+                    "gamesPlayed": 15444,
+                    "tokens": 0,
+                    "scorePerMinute": 366.5500937409405,
+                    "cash": 3531292,
+                    "deaths": 17891,
+                    "title": "br_dmz"
+                },
+                "br_all": {
+                    "wins": 13301,
+                    "kills": 46769,
+                    "kdRatio": 2.3886108273748725,
+                    "downs": 49858,
+                    "topTwentyFive": 13723,
+                    "objTime": 0,
+                    "topTen": 13496,
+                    "contracts": 13597,
+                    "revives": 729,
+                    "topFive": 13406,
+                    "score": 62775502,
+                    "timePlayed": 10632772,
+                    "gamesPlayed": 16256,
+                    "tokens": 0,
+                    "scorePerMinute": 354.2378337464586,
+                    "cash": 3531292,
+                    "deaths": 19580,
+                    "title": "br_all"
+                }
+            }
         },
         {
             "ign": "FontainesRazor",
-            "platform": "psn"
+            "platform": "psn",
+            "data": {
+                "br": {
+                    "wins": 9,
+                    "kills": 1109,
+                    "kdRatio": 0.8836653386454183,
+                    "downs": 1017,
+                    "topTwentyFive": 254,
+                    "objTime": 0,
+                    "topTen": 88,
+                    "contracts": 828,
+                    "revives": 175,
+                    "topFive": 46,
+                    "score": 1514055,
+                    "timePlayed": 481951,
+                    "gamesPlayed": 566,
+                    "tokens": 0,
+                    "scorePerMinute": 188.49073868505306,
+                    "cash": 0,
+                    "deaths": 1255,
+                    "title": "br"
+                },
+                "br_dmz": {
+                    "wins": 18410,
+                    "kills": 64093,
+                    "kdRatio": 2.0582209377007064,
+                    "downs": 68109,
+                    "topTwentyFive": 18410,
+                    "objTime": 0,
+                    "topTen": 18410,
+                    "contracts": 17738,
+                    "revives": 1309,
+                    "topFive": 18410,
+                    "score": 63276208,
+                    "timePlayed": 11247991,
+                    "gamesPlayed": 19517,
+                    "tokens": 0,
+                    "scorePerMinute": 337.53338529520516,
+                    "cash": 4709702,
+                    "deaths": 31140,
+                    "title": "br_dmz"
+                },
+                "br_all": {
+                    "wins": 18419,
+                    "kills": 65202,
+                    "kdRatio": 2.0127180120388948,
+                    "downs": 69126,
+                    "topTwentyFive": 18664,
+                    "objTime": 0,
+                    "topTen": 18498,
+                    "contracts": 18566,
+                    "revives": 1484,
+                    "topFive": 18456,
+                    "score": 64790263,
+                    "timePlayed": 11729942,
+                    "gamesPlayed": 20083,
+                    "tokens": 0,
+                    "scorePerMinute": 331.40963356852063,
+                    "cash": 4709702,
+                    "deaths": 32395,
+                    "title": "br_all"
+                }
+            }
         },
         {
             "ign": "TTVxednim",
-            "platform": "psn"
-        },
-        {
-            "ign": "ImParker04",
-            "platform": "psn"
+            "platform": "psn",
+            "data": {
+                "br": {
+                    "wins": 34,
+                    "kills": 2373,
+                    "kdRatio": 1.3536794067313178,
+                    "downs": 2303,
+                    "topTwentyFive": 479,
+                    "objTime": 0,
+                    "topTen": 235,
+                    "contracts": 757,
+                    "revives": 26,
+                    "topFive": 143,
+                    "score": 2450800,
+                    "timePlayed": 769388,
+                    "gamesPlayed": 832,
+                    "tokens": 0,
+                    "scorePerMinute": 191.1233343904506,
+                    "cash": 0,
+                    "deaths": 1753,
+                    "title": "br"
+                },
+                "br_dmz": {
+                    "wins": 12476,
+                    "kills": 45094,
+                    "kdRatio": 2.452893820713664,
+                    "downs": 48236,
+                    "topTwentyFive": 12476,
+                    "objTime": 0,
+                    "topTen": 12476,
+                    "contracts": 12420,
+                    "revives": 822,
+                    "topFive": 12476,
+                    "score": 58317956,
+                    "timePlayed": 479298,
+                    "gamesPlayed": 14881,
+                    "tokens": 0,
+                    "scorePerMinute": 7300.421366248138,
+                    "cash": 3362140,
+                    "deaths": 18384,
+                    "title": "br_dmz"
+                },
+                "br_all": {
+                    "wins": 12510,
+                    "kills": 47467,
+                    "kdRatio": 2.3572031583651984,
+                    "downs": 50539,
+                    "topTwentyFive": 12955,
+                    "objTime": 0,
+                    "topTen": 12711,
+                    "contracts": 13177,
+                    "revives": 848,
+                    "topFive": 12619,
+                    "score": 60768756,
+                    "timePlayed": 1248686,
+                    "gamesPlayed": 15713,
+                    "tokens": 0,
+                    "scorePerMinute": 2919.9697602119345,
+                    "cash": 3362140,
+                    "deaths": 20137,
+                    "title": "br_all"
+                }
+            }
         },
         {
             "ign": "BLoveUSC",
-            "platform": "psn"
+            "platform": "psn",
+            "data": {
+                "br": {
+                    "wins": 1,
+                    "kills": 349,
+                    "kdRatio": 0.9281914893617021,
+                    "downs": 334,
+                    "topTwentyFive": 62,
+                    "objTime": 0,
+                    "topTen": 25,
+                    "contracts": 120,
+                    "revives": 6,
+                    "topFive": 8,
+                    "score": 533635,
+                    "timePlayed": 156651,
+                    "gamesPlayed": 186,
+                    "tokens": 0,
+                    "scorePerMinute": 204.39129019284908,
+                    "cash": 0,
+                    "deaths": 376,
+                    "title": "br"
+                },
+                "br_dmz": {
+                    "wins": 11937,
+                    "kills": 34380,
+                    "kdRatio": 1.2350912487426355,
+                    "downs": 36592,
+                    "topTwentyFive": 11937,
+                    "objTime": 0,
+                    "topTen": 11937,
+                    "contracts": 9719,
+                    "revives": 356,
+                    "topFive": 11937,
+                    "score": 49536872,
+                    "timePlayed": 8316408,
+                    "gamesPlayed": 14090,
+                    "tokens": 0,
+                    "scorePerMinute": 357.39135453671827,
+                    "cash": 3167193,
+                    "deaths": 27836,
+                    "title": "br_dmz"
+                },
+                "br_all": {
+                    "wins": 11938,
+                    "kills": 34729,
+                    "kdRatio": 1.2310009924854672,
+                    "downs": 36926,
+                    "topTwentyFive": 11999,
+                    "objTime": 0,
+                    "topTen": 11962,
+                    "contracts": 9839,
+                    "revives": 362,
+                    "topFive": 11945,
+                    "score": 50070507,
+                    "timePlayed": 8473059,
+                    "gamesPlayed": 14276,
+                    "tokens": 0,
+                    "scorePerMinute": 354.5626697512669,
+                    "cash": 3167193,
+                    "deaths": 28212,
+                    "title": "br_all"
+                }
+            }
         }
     ],
-    "fortnite": [{
+    "fortnite": [
+        {
             "ign": "zRotation",
             "platform": "Xbox Live",
             "data": {
@@ -1557,10 +1775,12 @@
                             "type": "xbl",
                             "externalAuthIdType": "xuid",
                             "externalDisplayName": "zRotation",
-                            "authIds": [{
-                                "id": "2533274817020066",
-                                "type": "xuid"
-                            }]
+                            "authIds": [
+                                {
+                                    "id": "2533274817020066",
+                                    "type": "xuid"
+                                }
+                            ]
                         }
                     }
                 }
@@ -1679,7 +1899,8 @@
                             "type": "nintendo",
                             "externalAuthId": "lp1_5aa1dfa81f801782",
                             "externalAuthIdType": "nsa_id",
-                            "authIds": [{
+                            "authIds": [
+                                {
                                     "id": "lp1_5aa1dfa81f801782",
                                     "type": "nsa_id"
                                 },
@@ -2769,10 +2990,12 @@
                             "externalAuthId": "7246846645035920773",
                             "externalAuthIdType": "psn_user_id",
                             "externalDisplayName": "AceCasey-23",
-                            "authIds": [{
-                                "id": "7246846645035920773",
-                                "type": "psn_user_id"
-                            }]
+                            "authIds": [
+                                {
+                                    "id": "7246846645035920773",
+                                    "type": "psn_user_id"
+                                }
+                            ]
                         }
                     }
                 }
@@ -3554,10 +3777,12 @@
                             "externalAuthId": "4381764878530809874",
                             "externalAuthIdType": "psn_user_id",
                             "externalDisplayName": "teninchtom69",
-                            "authIds": [{
-                                "id": "4381764878530809874",
-                                "type": "psn_user_id"
-                            }]
+                            "authIds": [
+                                {
+                                    "id": "4381764878530809874",
+                                    "type": "psn_user_id"
+                                }
+                            ]
                         }
                     }
                 }
@@ -6160,17 +6385,20 @@
                             "externalAuthId": "8365694681255687385",
                             "externalAuthIdType": "psn_user_id",
                             "externalDisplayName": "LT_Trump_45",
-                            "authIds": [{
-                                "id": "8365694681255687385",
-                                "type": "psn_user_id"
-                            }]
+                            "authIds": [
+                                {
+                                    "id": "8365694681255687385",
+                                    "type": "psn_user_id"
+                                }
+                            ]
                         }
                     }
                 }
             }
         }
     ],
-    "apex": [{
+    "apex": [
+        {
             "ign": "Lyixfiz",
             "platform": "psn",
             "data": {
@@ -6202,7 +6430,8 @@
                         "activeLegendName": "Wraith",
                         "activeLegendStats": null
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -7151,11 +7380,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:09:13.343951+00:00"
                 }
             }
@@ -7192,7 +7423,8 @@
                         "activeLegendName": "Wraith",
                         "activeLegendStats": null
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -7484,11 +7716,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:09:25.7866647+00:00"
                 }
             }
@@ -7525,7 +7759,8 @@
                         "activeLegendName": "Valkyrie",
                         "activeLegendStats": null
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -8246,11 +8481,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:09:37.9089969+00:00"
                 }
             }
@@ -8289,7 +8526,8 @@
                             "Arena Kills"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -8908,11 +9146,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:09:50.6361573+00:00"
                 }
             }
@@ -8939,11 +9179,13 @@
                         "countryCode": "JP",
                         "customAvatarUrl": null,
                         "customHeroUrl": null,
-                        "socialAccounts": [{
-                            "platformSlug": "twitter",
-                            "platformUserHandle": "utsuke8223",
-                            "platformUserIdentifier": "utsuke8223"
-                        }],
+                        "socialAccounts": [
+                            {
+                                "platformSlug": "twitter",
+                                "platformUserHandle": "utsuke8223",
+                                "platformUserIdentifier": "utsuke8223"
+                            }
+                        ],
                         "pageviews": 1406,
                         "isSuspicious": null
                     },
@@ -8957,7 +9199,8 @@
                             "Season 9 Wins"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -9838,11 +10081,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:10:01.8233266+00:00"
                 }
             }
@@ -9869,11 +10114,13 @@
                         "countryCode": "US",
                         "customAvatarUrl": null,
                         "customHeroUrl": null,
-                        "socialAccounts": [{
-                            "platformSlug": "twitch",
-                            "platformUserHandle": "dudah999",
-                            "platformUserIdentifier": "dudah999"
-                        }],
+                        "socialAccounts": [
+                            {
+                                "platformSlug": "twitch",
+                                "platformUserHandle": "dudah999",
+                                "platformUserIdentifier": "dudah999"
+                            }
+                        ],
                         "pageviews": 1855,
                         "isSuspicious": null
                     },
@@ -9883,7 +10130,8 @@
                         "activeLegendName": "Valkyrie",
                         "activeLegendStats": null
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -10289,11 +10537,13 @@
                             "stats": {}
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:10:13.8827728+00:00"
                 }
             }
@@ -10334,7 +10584,8 @@
                             "Arena Damage"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -10545,11 +10796,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:10:24.8894573+00:00"
                 }
             }
@@ -10586,7 +10839,8 @@
                         "activeLegendName": "Wraith",
                         "activeLegendStats": null
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -10810,11 +11064,13 @@
                             "stats": {}
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:10:38.9495258+00:00"
                 }
             }
@@ -10851,7 +11107,8 @@
                         "activeLegendName": "Bloodhound",
                         "activeLegendStats": null
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -11172,11 +11429,13 @@
                             "stats": {}
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:10:53.2441049+00:00"
                 }
             }
@@ -11203,11 +11462,13 @@
                         "countryCode": "US",
                         "customAvatarUrl": null,
                         "customHeroUrl": null,
-                        "socialAccounts": [{
-                            "platformSlug": "twitter",
-                            "platformUserHandle": "Infehst",
-                            "platformUserIdentifier": "Infehst"
-                        }],
+                        "socialAccounts": [
+                            {
+                                "platformSlug": "twitter",
+                                "platformUserHandle": "Infehst",
+                                "platformUserIdentifier": "Infehst"
+                            }
+                        ],
                         "pageviews": 915,
                         "isSuspicious": null
                     },
@@ -11221,7 +11482,8 @@
                             "Finishers"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -12208,11 +12470,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:11:03.9772371+00:00"
                 }
             }
@@ -12251,7 +12515,8 @@
                             "Kills"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -13002,11 +13267,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:11:22.3359891+00:00"
                 }
             }
@@ -13033,7 +13300,8 @@
                         "countryCode": "JP",
                         "customAvatarUrl": null,
                         "customHeroUrl": null,
-                        "socialAccounts": [{
+                        "socialAccounts": [
+                            {
                                 "platformSlug": "twitter",
                                 "platformUserHandle": "saidai__",
                                 "platformUserIdentifier": "saidai__"
@@ -13055,7 +13323,8 @@
                             "Kills"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -13562,11 +13831,13 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:11:32.6121186+00:00"
                 }
             }
@@ -13593,11 +13864,13 @@
                         "countryCode": "GB",
                         "customAvatarUrl": null,
                         "customHeroUrl": null,
-                        "socialAccounts": [{
-                            "platformSlug": "twitch",
-                            "platformUserHandle": "gyroaiming_",
-                            "platformUserIdentifier": "gyroaiming_"
-                        }],
+                        "socialAccounts": [
+                            {
+                                "platformSlug": "twitch",
+                                "platformUserHandle": "gyroaiming_",
+                                "platformUserIdentifier": "gyroaiming_"
+                            }
+                        ],
                         "pageviews": 890,
                         "isSuspicious": null
                     },
@@ -13611,7 +13884,8 @@
                             "Arena Wins"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -14241,11 +14515,13 @@
                             "stats": {}
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:11:42.9322226+00:00"
                 }
             }
@@ -14286,7 +14562,8 @@
                             "Kills"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -15432,11 +15709,13 @@
                             "stats": {}
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:11:58.472735+00:00"
                 }
             }
@@ -15463,11 +15742,13 @@
                         "countryCode": "DE",
                         "customAvatarUrl": null,
                         "customHeroUrl": null,
-                        "socialAccounts": [{
-                            "platformSlug": "twitch",
-                            "platformUserHandle": "dekruf",
-                            "platformUserIdentifier": "dekruf"
-                        }],
+                        "socialAccounts": [
+                            {
+                                "platformSlug": "twitch",
+                                "platformUserHandle": "dekruf",
+                                "platformUserIdentifier": "dekruf"
+                            }
+                        ],
                         "pageviews": 471,
                         "isSuspicious": null
                     },
@@ -15481,7 +15762,8 @@
                             "Season 6 Wins"
                         ]
                     },
-                    "segments": [{
+                    "segments": [
+                        {
                             "type": "overview",
                             "attributes": {},
                             "metadata": {
@@ -16269,17 +16551,20 @@
                             }
                         }
                     ],
-                    "availableSegments": [{
-                        "type": "legend",
-                        "attributes": {},
-                        "metadata": {}
-                    }],
+                    "availableSegments": [
+                        {
+                            "type": "legend",
+                            "attributes": {},
+                            "metadata": {}
+                        }
+                    ],
                     "expiryDate": "2021-10-28T15:12:09.0897308+00:00"
                 }
             }
         }
     ],
-    "dota2": [{
+    "dota2": [
+        {
             "ign": "Dendi",
             "data": {
                 "tracked_until": null,

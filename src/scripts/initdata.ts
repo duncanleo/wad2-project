@@ -183,32 +183,32 @@ async function run() {
   } = playersData;
 
   // Disabled because Warzone API is not working
-  // for (const player of wzPlayers) {
-  //   const [user] = await User.findOrCreate({
-  //     where: {
-  //       display_name: player.ign,
-  //     },
-  //     defaults: {
-  //       display_name: player.ign,
-  //       email: `${player.ign}@example.com`,
-  //       password: '',
-  //       bio: null,
-  //       type: 'gamer',
-  //     },
-  //   });
+  for (const player of wzPlayers) {
+    const [user] = await User.findOrCreate({
+      where: {
+        display_name: player.ign,
+      },
+      defaults: {
+        display_name: player.ign,
+        email: `${player.ign}@example.com`,
+        password: '',
+        bio: null,
+        type: 'gamer',
+      },
+    });
 
-  //   await GameAccount.findOrCreate({
-  //     where: {
-  //       user_id: user.id,
-  //       game_id: codmw.id,
-  //     },
-  //     defaults: {
-  //       data: player.data,
-  //       user_id: user.id,
-  //       game_id: codmw.id,
-  //     },
-  //   });
-  // }
+    await GameAccount.findOrCreate({
+      where: {
+        user_id: user.id,
+        game_id: codmw.id,
+      },
+      defaults: {
+        data: player.data,
+        user_id: user.id,
+        game_id: codmw.id,
+      },
+    });
+  }
 
   for (const player of fntPlayers) {
     const [user] = await User.findOrCreate({
