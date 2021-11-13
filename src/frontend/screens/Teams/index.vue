@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="width: 100%" class="row mb-5">
+    <div class="row mb-5">
       <div
         class="col-lg-8 col-md-6 col-12 d-flex align-items-center mb-sm-0 mb-3"
       >
@@ -25,12 +25,13 @@
       </div>
     </div>
 
-    <div class="teams-list">
+    <div class="row teams-list">
       <router-link
         v-for="team in results()"
         v-bind:key="team.id"
         v-bind:to="getTeamLink(team.id)"
         style="text-decoration: none"
+        class="d-block mb-3"
       >
         <team v-bind:team="team" />
       </router-link>

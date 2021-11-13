@@ -1,7 +1,6 @@
 @import "styles/custom";
 @import "styles/variables";
 @import "styles/user-dropdown";
-@import "styles/button";
 * {
     box-sizing: border-box;
     font-family: Dosis, sans-serif;
@@ -21,4 +20,8 @@ body {
 
 .navbar-bg {
     background-color: $primary-800;
+}
+
+.text-tertiary {
+    color: $primary-400;
 }
