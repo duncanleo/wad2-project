@@ -49,7 +49,6 @@
       </div>
       <div class="col-4 d-flex align-items-center justify-content-end py-2">
         <button
-          v-on:click="linkGame"
           type="button"
           class="btn btn-primary fw-bold text-white me-3"
           data-bs-toggle="modal"
@@ -78,355 +77,15 @@
       ></game-stats>
     </div>
 
-    <!-- Link game Modal -->
-    <div class="row bg-danger">
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="dropdown mb-3">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="game-dropdown-button"
-                  style="
-                    width: 100%;
-                    height: 50px;
-                    background-color: #729b98;
-                    font-size: 25px;
-                    text-align: start;
-                  "
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {{
-                    (selectedGame != null && selectedGame.name) ||
-                    'Select a game'
-                  }}
-                </button>
-
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="game-dropdown-button"
-                  style="width: 100%"
-                >
-                  <li
-                    style="
-                      height: 50px;
-                      font-size: 25px;
-                      background-image: url();
-                    "
-                    v-for="game in games"
-                    v-bind:value="game.name"
-                    v-bind:key="game.id"
-                    v-on:click="setSelectedGameId(game)"
-                  >
-                    <a href="#" class="dropdown-item">{{ game.name }}</a>
-                  </li>
-                </ul>
-              </div>
-              <!--end of dropdown-->
-
-              <div class="input-group mb-3" v-if="userSelectedGame != ''">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1"
-                    >Username</span
-                  >
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  v-model="linkAccountUserName"
-                />
-              </div>
-
-              <div class="input-group mb-3" v-if="secondParam == true">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1"
-                    >Platform</span
-                  >
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  v-model="linkAccountPlatform"
-                />
-              </div>
-            </div>
-            <!--end of modal body-->
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-primary"
-                v-on:click="linkGame"
-                data-bs-dismiss="modal"
-              >
-                Link
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <link-game-account-modal />
 
     <!-- end of modal 1-->
+    <edit-profile-modal />
 
-    <!-- Edit profile modal-->
-    <div class="row">
-      <div
-        class="modal fade"
-        id="bioModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit profile</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1"
-                    >Username</span
-                  >
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  v-model="editProfileName"
-                />
-              </div>
-
-              <div class="form-group mb-3">
-                <label for="exampleFormControlTextarea2"></label>
-                <textarea
-                  class="form-control rounded-0"
-                  id="exampleFormControlTextarea2"
-                  rows="3"
-                  v-model="editProfileBio"
-                ></textarea>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                v-on:click="editBio"
-                data-bs-dismiss="modal"
-              >
-                Edit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--unlink game modal -->
-      <div
-        class="modal fade"
-        id="unLink"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="dropdown mb-3">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="game-dropdown-button"
-                  style="
-                    width: 100%;
-                    height: 50px;
-                    background-color: #729b98;
-                    font-size: 25px;
-                    text-align: start;
-                  "
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {{
-                    (selectedGame != null && selectedGame.name) ||
-                    'Select a game'
-                  }}
-                </button>
-
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="game-dropdown-button"
-                  style="width: 100%"
-                >
-                  <li
-                    style="
-                      height: 50px;
-                      font-size: 25px;
-                      background-image: url();
-                    "
-                    v-for="game in meGames"
-                    v-bind:value="game.name"
-                    v-bind:key="game.id"
-                    v-on:click="setSelectedGameId(game)"
-                  >
-                    <a href="#" class="dropdown-item">{{ game.name }}</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                v-on:click="unlinkGame"
-                data-bs-dismiss="modal"
-              >
-                unLink
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <unlink-game-account-modal />
 
     <!--modal3 unlink-->
-
-    <!--Create team modal-->
-    <div class="row">
-      <div
-        class="modal fade"
-        id="createTeamModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Create a team!</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1"
-                    >Team Name</span
-                  >
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Username"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  v-model="teamName"
-                />
-              </div>
-
-              <div class="form-group mb-3">
-                <label for="exampleFormControlTextarea2"
-                  >Team Description</label
-                >
-                <textarea
-                  class="form-control rounded-0"
-                  id="exampleFormControlTextarea2"
-                  rows="3"
-                  v-model="teamDescription"
-                ></textarea>
-              </div>
-
-              <label for="img">Select image:</label>
-              <input type="file" id="img" name="img" accept="image/*" />
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                v-on:click="createTeam"
-                data-bs-dismiss="modal"
-              >
-                Create
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <create-team-modal />
 
     {{ games }}
   </div>
@@ -439,9 +98,10 @@ import GameAccount from '../../components/GameAccount/index.vue';
 import generateAvatar from '../../util/generateAvatar';
 import GameStats from '../../components/GameStats.vue';
 import Team from '../../components/Team.vue';
-
-//glennhamrocks@gmail.com
-//Test123!
+import EditProfileModal from './components/EditProfileModal.vue';
+import CreateTeamModal from './components/CreateTeamModal.vue';
+import LinkGameAccountModal from './components/LinkGameAccountModal.vue';
+import UnlinkGameAccountModal from './components/UnlinkGameAccountModal.vue';
 
 interface TeamsResponse extends App.API.ResponseBase {
   teams: App.API.Team[];
@@ -452,11 +112,14 @@ const Profile = Vue.extend({
     GameAccount,
     GameStats,
     Team,
+    EditProfileModal,
+    CreateTeamModal,
+    LinkGameAccountModal,
+    UnlinkGameAccountModal,
   },
 
   data() {
     return {
-      me: this.$store.state.user as App.API.CurrentUser,
       teams: [] as App.API.Team[],
       linkedGame: false,
       editProfileName: '',
@@ -492,100 +155,8 @@ const Profile = Vue.extend({
 
     generateAvatar,
 
-    //when user clicks on linkGame
-    linkGame() {
-      // if (this.linkedGame == false) {
-      //   this.linkedGame = true;
-      // } else {
-      //   this.linkedGame = false;
-      // }
-
-      if (this.userSelectedGame != '') {
-        if (this.linkAccountPlatform == '') {
-          const response = axios
-            .post(`/api/games/${this.userSelectedGame.id}/account`, {
-              gamertag: this.linkAccountUserName,
-            })
-
-            .then((response) => {
-              console.log(response.data);
-            })
-
-            .catch((error) => {
-              console.log(error.message);
-            });
-        } else {
-          const response = axios
-            .post(`/api/games/${this.userSelectedGame.id}/account`, {
-              gamertag: this.linkAccountUserName,
-              platform: this.linkAccountPlatform,
-            })
-
-            .then((response) => {
-              console.log(response.data);
-              window.location.reload();
-            })
-
-            .catch((error) => {
-              console.log(error.message);
-            });
-        }
-      }
-    },
-
-    unlinkGame() {
-      console.log(this.userSelectedGame.id);
-      const response = axios
-        .delete(`/api/games/${this.userSelectedGame.id}/account`, {})
-
-        .then((response) => {
-          console.log(response.data);
-          window.location.reload();
-        })
-
-        .catch((error) => {
-          console.log(error.message);
-        });
-
-      // DELETE /api/games/:id/account
-    },
-    createTeam() {
-      console.log('working');
-      console.log(this.teamName);
-      console.log(this.teamDescription);
-
-      const response = axios
-        .post(`/api/teams`, {
-          name: this.teamName,
-        })
-
-        .then((response) => {
-          console.log(response.data);
-          window.location.reload();
-        })
-
-        .catch((error) => {
-          console.log(error.message);
-        });
-    },
-    //http://localhost:5000/api/teams
-    // http://localhost:5000/api/teams?self=true
-    // const response = axios
-    //         .get(`/api/teams?self=true`, {
-
-    //         })
-
-    //         .then((response) => {
-    //           console.log(response.data);
-    //         })
-
-    //         .catch((error) => {
-    //           console.log(error.message);
-    //         });
-
     async apiMe() {
-      const response = await axios.get('/api/me', {});
-      console.log(response.data);
+      const response = await axios.get<App.API.CurrentUser>('/api/me', {});
       this.editProfileName = response.data.display_name;
       this.editProfileBio = response.data.bio;
 
@@ -597,7 +168,7 @@ const Profile = Vue.extend({
       }
       //internal ID  codmw_2019/ fortnite/ dota_2/ apex_legends
       for (let indvGame in response.data.gameAccounts) {
-        let gameObj = {};
+        let gameObj: Record<string, string | number> = {};
         gameObj['name'] = response.data.gameAccounts[indvGame].game.name;
         gameObj['id'] = response.data.gameAccounts[indvGame].game.id;
         gameObj['internalId'] =
@@ -676,23 +247,6 @@ const Profile = Vue.extend({
         });
     },
 
-    editBio() {
-      const response = axios
-        .patch(`/api/me`, {
-          display_name: this.editProfileName,
-          bio: this.editProfileBio,
-        })
-
-        .then((response) => {
-          console.log(response.data);
-          window.location.reload();
-        })
-
-        .catch((error) => {
-          console.log(error.message);
-        });
-    },
-
     setSelectedGameId(game) {
       this.userSelectedGame = game;
       console.log(this.userSelectedGame);
@@ -704,6 +258,10 @@ const Profile = Vue.extend({
   },
 
   computed: {
+    me() {
+      return this.$store.state.user as App.API.CurrentUser;
+    },
+
     //gameList function to return all games supported on our website.
 
     //selected name dropdown and also check if game is apex or callofduty for showing of platform
@@ -736,15 +294,6 @@ const Profile = Vue.extend({
   },
 });
 
-Vue.component('button-counter', {
-  data: function () {
-    return {
-      count: 0,
-    };
-  },
-  template:
-    '<button v-on:click="count++">You clicked me {{ count }} times.</button>',
-});
 export default Profile;
 </script>
 

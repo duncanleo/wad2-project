@@ -58,7 +58,7 @@ interface MeUpdatePayload {
 const MeUpdatePayloadSchema = Joi.object<MeUpdatePayload>({
   display_name: Joi.string().optional(),
   email: Joi.string().email().optional(),
-  bio: Joi.string().optional(),
+  bio: Joi.string().optional().allow(null),
 });
 
 export async function meUpdate(req: Request, res: Response) {
