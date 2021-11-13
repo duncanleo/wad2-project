@@ -1,118 +1,81 @@
 <template>
-  <div>
-    <div v-if="team != null">
-      <div class="row">
-        <div class="col-4" style="border: 1px solid black; height: 200px">
-          <img src="team.avatar" alt="" />
-        </div>
+  <div class="container" v-if="team != null">
+    <div class="row">
+      <div
+        class="
+          col-1
+          d-flex
+          align-items-center
+          justify-content-center
+          text-primary
+        "
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          fill="currentColor"
+          class="bi bi-joystick me-2"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"
+          />
+          <path
+            d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"
+          />
+        </svg>
+      </div>
 
-        <div class="col-8 d-flex align-items-center g-1">
-          <!-- d-flex and align-items-center for testing and leader to be aligned -->
+      <div class="col-8 d-flex align-items-center g-1">
+        <div class="ms-3 text-white">
+          <h1 class="fw-bold">{{ team.name }}</h1>
+          <p class="text-tertiary">
+            {{ team.description || 'No description' }}
+          </p>
 
-          <div class="ms-3 text-white">
-            <h1>{{ team.name }}</h1>
-            <button v-if="role == null">Request to Join</button>
-            <span v-if="role == 'leader'">You are a leader of this team.</span>
-          </div>
+          <span v-if="role == 'leader'">You are a leader of this team.</span>
         </div>
       </div>
-      <!-- //729B98 -->
-      <div class="row" style="background-color: #729b98">
-        <h4 class="text-white mt-2">Team Description:</h4>
 
-        <p>
-          {{
-            team.description ||
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-          }}
-        </p>
-        <h4 class="text-white">Roster</h4>
+      <div class="col-3" v-if="!team.is_member">
+        <button
+          class="btn btn-primary fw-bold text-white"
+          v-if="team.join_request_status == null"
+          v-on:click="requestJoin"
+        >
+          Request to Join
+        </button>
+        <span
+          class="text-tertiary fw-bold"
+          v-if="team.join_request_status === 'idle'"
+        >
+          Join Request Sent
+        </span>
+        <span
+          class="text-danger fw-bold"
+          v-if="team.join_request_status === 'rejected'"
+        >
+          Join Request Rejected
+        </span>
+      </div>
+    </div>
+    <!-- //729B98 -->
+    <div class="row mt-4">
+      <h4 class="text-white fw-bold">Roster</h4>
 
-        <div class="row">
-          <div
-            v-for="membership in team.memberships"
-            v-bind:key="membership.id"
-            class="
-              col-lg-6 col-sm-12
-              bg-danger
-              p-3
-              d-flex
-              text-white
-              bg-dark
-              border
-              rounded
-            "
-          >
-            <div class="col-4">
-              <div class="">
-                <img
-                  class=""
-                  v-bind:src="generateAvatar(membership.id)"
-                  alt=""
-                />
-                <span class="d-block text-center">{{
-                  membership.user.display_name
-                }}</span>
-              </div>
-            </div>
-            <div class="col-4">
-              <span class="d-block"><h5>Games:</h5></span>
-              <ul class="w-100" style="padding-left: 10px; margin: 0px">
-                <li
-                  v-for="gameAccount in membership.user.gameAccounts"
-                  v-bind:key="gameAccount.id"
-                  class="w-100"
-                >
-                  <!-- <img class="w-25" v-for="item in gameLogo" v-bind:src="item[gameAccount.game.id]"/> -->
-
-                  <span>{{ gameAccount.game.name }}</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="col-4">
-              <span class="d-block">User Bio:</span>
-              <span>{{ membership.user.bio }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="row bg-dark border rounded text-white g-0"
+      <div class="row">
+        <router-link
+          class="text-decoration-none mb-3"
+          v-bind:to="getPlayerLink(membership.user.id)"
           v-for="membership in team.memberships"
           v-bind:key="membership.id"
         >
-          <div class="col-2">
-            <img v-bind:src="generateAvatar(membership.id)" alt="" />
-            <span class="d-block text-center">{{
-              membership.user.display_name
-            }}</span>
-          </div>
+          <player v-bind:player="membership.user" />
+        </router-link>
+      </div>
 
-          <div class="col-4">
-            <ul class="w-100">
-              <li
-                v-for="gameAccount in membership.user.gameAccounts"
-                v-bind:key="gameAccount.id"
-                class="w-100"
-              >
-                <!-- <img class="w-25" v-for="item in gameLogo" v-bind:src="item[gameAccount.game.id]"/> -->
-                <span>{{ gameAccount.game.name }}</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-6">
-            <span>{{ membership.user.bio }}</span>
-          </div>
-
-          <!-- <ul> -->
-          <!-- <li v-for="membership in team.memberships" v-bind:key="membership.id"> -->
-          <!-- <img v-bind:src="generateAvatar(membership.id)" alt="" /> -->
-          <!-- <img class="img-thumbnail" v-bind:src="generateAvatar(me.id)" alt="" /> -->
-        </div>
-
-        <!-- <div v-if="role == 'leader'">
+      <!-- <div v-if="role == 'leader'">
           <h1>Invitations</h1>
           <ul>
             <li v-for="invitation in invitations" v-bind:key="invitation.id">
@@ -123,21 +86,54 @@
             </li>
           </ul>
         </div> -->
-        <div v-if="role == 'leader'">
-          <h1>Join Requests</h1>
-          <ul>
-            <li
-              v-for="join_request in join_requests"
-              v-bind:key="join_request.id"
+      <div class="row mt-4" v-if="role == 'leader'">
+        <h4 class="text-white fw-bold">Join Requests</h4>
+        <ul>
+          <li
+            class="
+              bg-secondary
+              d-flex
+              align-items-center
+              py-2
+              rounded
+              justify-content-between
+            "
+            v-for="join_request in notAcceptedJoinRequests"
+            v-bind:key="join_request.id"
+          >
+            <router-link
+              class="text-decoration-none"
+              v-bind:to="getPlayerLink(join_request.user.id)"
             >
-              <span>
-                Join Request #{{ join_request.id }} for user
-                {{ join_request.user.display_name }}
+              <player v-bind:player="join_request.user" />
+            </router-link>
+            <div class="d-flex me-4">
+              <button
+                class="btn btn-success text-white fw-bold me-2"
+                v-if="join_request.status === 'idle'"
+                v-on:click="updateJoinRequest(join_request, 'accepted')"
+              >
+                Accept
+              </button>
+              <button
+                class="btn btn-danger text-white fw-bold"
+                v-if="join_request.status === 'idle'"
+                v-on:click="updateJoinRequest(join_request, 'rejected')"
+              >
+                Reject
+              </button>
+              <span
+                class="text-danger fw-bold"
+                v-if="join_request.status === 'rejected'"
+              >
+                Rejected
               </span>
-              <span>Status: {{ join_request.status }}</span>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </li>
+        </ul>
+        <span class="text-tertiary" v-if="join_requests.length === 0">
+          There are no join requests.
+        </span>
       </div>
     </div>
   </div>
@@ -146,7 +142,7 @@
 <script lang="ts">
 import axios from 'axios';
 import Vue from 'vue';
-import { gameAccountLink } from '../../../backend/api/gameaccount';
+import Player from '../../components/Player.vue';
 import generateAvatar from '../../util/generateAvatar';
 
 interface TeamsResponse extends App.API.ResponseBase {
@@ -162,6 +158,10 @@ interface TeamJoinRequestsResponse extends App.API.ResponseBase {
 }
 
 const SingleTeam = Vue.extend({
+  components: {
+    Player,
+  },
+
   data() {
     return {
       team: null as App.API.Team | null,
@@ -178,6 +178,14 @@ const SingleTeam = Vue.extend({
     this.fetchTeamInvites();
     this.fetchTeamJoinRequests();
     this.getGameList();
+  },
+
+  computed: {
+    notAcceptedJoinRequests() {
+      return this.join_requests.filter(
+        (request) => request.status !== 'accepted'
+      );
+    },
   },
 
   methods: {
@@ -226,6 +234,26 @@ const SingleTeam = Vue.extend({
       this.join_requests = response.data.join_requests;
     },
 
+    async requestJoin() {
+      const teamID = this.$route.params.id;
+
+      await axios.post(`/api/teams/${teamID}/join`);
+
+      this.fetchTeamData();
+    },
+
+    async updateJoinRequest(
+      joinRequest: App.API.TeamJoinRequest,
+      status: 'approved' | 'rejected'
+    ) {
+      await axios.patch(`/api/join_requests/${joinRequest.id}`, {
+        status,
+      });
+
+      await this.fetchTeamData();
+      await this.fetchTeamJoinRequests();
+    },
+
     updateRole() {
       const teamID = parseInt(this.$route.params.id, 10);
       const user: App.API.CurrentUser = this.$store.state.user;
@@ -240,6 +268,10 @@ const SingleTeam = Vue.extend({
       this.role = membershipsMap.get(teamID)?.role ?? null;
     },
     generateAvatar,
+
+    getPlayerLink(playerId: number) {
+      return `/players/${playerId}`;
+    },
   },
 
   head: {
