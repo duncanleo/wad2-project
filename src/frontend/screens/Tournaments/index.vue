@@ -91,12 +91,14 @@
           <h4 class="text-light fw-bold">Upcoming</h4>
         </div>
 
-        <div class="row justify-content-center">
-          <tournament
+        <div class="row justify-content-center" style="row-gap: 1rem">
+          <div
+            class="col-lg-4 col-md-6 col-12"
+            v-for="tournament of tournaments"
             v-bind:key="tournament.id"
-            v-for="tournament in tournaments"
-            v-bind:tournament="tournament"
-          />
+          >
+            <tournament v-bind:tournament="tournament" />
+          </div>
 
           <div v-if="results().length < 1">
             <h2 class="text-white">No upcoming tournaments available</h2>

@@ -1,9 +1,10 @@
 <template>
-  <div class="col-4 card text-white bg-transparent">
+  <div class="card h-100 text-white bg-transparent">
     <img
-      class="card-img-top h-50"
+      class="card-img-top"
       v-bind:src="tournament.game.banner_image"
       alt=""
+      style="height: 200px"
     />
     <div class="card-body d-flex flex-column bg-secondary">
       <span class="fw-bold text-primary text-uppercase fs-7">{{
