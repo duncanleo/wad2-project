@@ -1,6 +1,13 @@
 <template>
   <div class="row py-3 bg-secondary rounded-3">
-    <div class="col-1 d-flex align-items-center justify-content-center">
+    <div
+      class="
+        col-lg-1 col-sm-2 col-3
+        d-flex
+        align-items-center
+        justify-content-center
+      "
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -17,7 +24,7 @@
         />
       </svg>
     </div>
-    <div class="col-10 d-flex flex-column">
+    <div class="col-lg-10 col-sm-8 col-6 d-flex flex-column">
       <p class="name text-white fs-4 fw-bold mb-0 lh-1 mb-1">
         {{ team.name }}
       </p>
@@ -26,7 +33,7 @@
       </p>
     </div>
 
-    <div class="col-1 d-flex align-items-center">
+    <div class="col-lg-1 col-sm-2 col-3 d-flex align-items-center">
       <button class="btn btn-primary text-white" v-if="!team.is_member">
         Join
       </button>
