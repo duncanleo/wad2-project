@@ -33,6 +33,7 @@ declare namespace App.API {
     end_at: string;
     game_id: number;
     owner: User;
+    game: Game;
   }
 
   interface User {

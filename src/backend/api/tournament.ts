@@ -77,6 +77,17 @@ export async function tournamentsList(req: Request, res: Response) {
           as: 'owner',
           attributes: ['id', 'display_name', 'bio'],
         },
+        {
+          model: Game,
+          as: 'game',
+          attributes: [
+            'id',
+            'name',
+            'developer',
+            'banner_image',
+            'banner_image_license',
+          ],
+        },
       ],
     });
   }
