@@ -34,9 +34,7 @@
     </div>
 
     <div class="col-lg-1 col-sm-2 col-3 d-flex align-items-center">
-      <button class="btn btn-primary text-white" v-if="!team.is_member">
-        Join
-      </button>
+      <span class="text-tertiary" v-if="team.is_member">Member</span>
     </div>
   </div>
 </template>
