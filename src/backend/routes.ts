@@ -36,6 +36,10 @@ import {
   tournamentsList,
   tournamentUpdate,
 } from './api/tournament';
+import {
+  tournamentParticipationCreate,
+  tournamentParticipationDelete,
+} from './api/tournamentParticipation';
 import { ErrorRequest } from './errors';
 import asyncWrapper from './util/asyncWrapper';
 
@@ -77,6 +81,15 @@ const routes = (app: Application) => {
   app.post('/api/tournaments', asyncWrapper(tournamentCreate));
   app.patch('/api/tournaments/:id', asyncWrapper(tournamentUpdate));
   app.delete('/api/tournaments/:id', asyncWrapper(tournamentDelete));
+
+  app.put(
+    '/api/tournaments/:id/participate',
+    asyncWrapper(tournamentParticipationCreate)
+  );
+  app.delete(
+    '/api/tournaments/:id/participate',
+    asyncWrapper(tournamentParticipationDelete)
+  );
 
   app.get('/api/players', asyncWrapper(playersList));
   app.get('/api/players/:id', asyncWrapper(playerGet));
