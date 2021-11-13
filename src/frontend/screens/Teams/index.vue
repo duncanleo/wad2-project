@@ -19,7 +19,6 @@
           class="border border-0 form-control fw-bold"
           name=""
           v-model="searchTerm"
-          v-on:input="handleInput"
           placeholder="Search"
         />
       </div>
@@ -86,11 +85,6 @@ const Teams = Vue.extend({
         return this.teams;
       }
 
-      console.log(
-        this.teams.filter((team) =>
-          team.name.toLowerCase().includes(this.searchTerm)
-        )
-      );
       return this.teams.filter((team) =>
         team.name.toLowerCase().includes(this.searchTerm)
       );
