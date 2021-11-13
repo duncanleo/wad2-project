@@ -6,12 +6,12 @@
       v-bind:src="generateAvatar(player.id)"
       alt=""
     />
-    <h5 class="text-white mb-0 ms-2 fw-bold">
+    <h5 class="text-white mb-0 ms-2 fw-bold text-start">
       {{ player.display_name }}
     </h5>
     <div v-if="player.gameAccounts != null" class="d-flex flex-column ms-auto">
       <span
-        class="fw-5 fw-bold text-primary text-uppercase"
+        class="fs-6 fw-bold text-primary text-uppercase"
         v-for="gameAccount in player.gameAccounts"
         v-bind:key="gameAccount.id"
       >

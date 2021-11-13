@@ -85,6 +85,10 @@
       <div class="col-12 mt-4 mb-5" v-if="selectedGame !== 'Select a game'">
         <h4 class="text-tertiary fw-bold mb-3">Upcoming</h4>
 
+        <span class="text-tertiary" v-if="upcomingTournaments.length === 0">
+          There are no upcoming tournaments.
+        </span>
+
         <div class="row justify-content-center" style="row-gap: 1rem">
           <div
             class="col-lg-4 col-md-6 col-12"
@@ -101,6 +105,10 @@
       </div>
       <div class="col-12 mt-4 mb-5" v-if="selectedGame !== 'Select a game'">
         <h4 class="text-tertiary fw-bold mb-3">Past</h4>
+
+        <span class="text-tertiary" v-if="pastTournaments.length === 0">
+          There are no past tournaments.
+        </span>
 
         <div class="row justify-content-center" style="row-gap: 1rem">
           <div
