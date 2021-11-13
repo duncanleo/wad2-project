@@ -64,16 +64,14 @@
     <div class="row mt-4">
       <h4 class="text-white fw-bold">Roster</h4>
 
-      <div>
-        <router-link
-          class="text-decoration-none mb-3"
-          v-bind:to="getPlayerLink(membership.user.id)"
-          v-for="membership in team.memberships"
-          v-bind:key="membership.id"
-        >
-          <player v-bind:player="membership.user" />
-        </router-link>
-      </div>
+      <router-link
+        class="text-decoration-none mb-3"
+        v-bind:to="getPlayerLink(membership.user.id)"
+        v-for="membership in team.memberships"
+        v-bind:key="membership.id"
+      >
+        <player v-bind:player="membership.user" />
+      </router-link>
 
       <!-- <div v-if="role == 'leader'">
           <h1>Invitations</h1>
