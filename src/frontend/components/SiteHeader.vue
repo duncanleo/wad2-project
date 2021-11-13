@@ -1,5 +1,5 @@
 <template>
-  <header class="pb-5" v-if="!isHomePage || user != null">
+  <header class="pb-3" v-if="!isHomePage || user != null">
     <nav v-bind:class="['navbar', 'navbar-expand-lg', 'navbar-dark', 'py-4']">
       <div class="container">
         <logo />
