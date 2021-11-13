@@ -118,7 +118,6 @@
 import Vue from 'vue';
 import moment from 'moment';
 import axios, { AxiosError } from 'axios';
-import './styles.scss';
 
 const today = moment().startOf('day').format('yyyy-MM-D');
 

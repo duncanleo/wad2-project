@@ -2,15 +2,11 @@
     cursor: pointer;
 }
 
-.form-control::placeholder {
-    color: white;
+.box {
+    min-height: 75vh;
 }
 
-.box{
-    min-height:75vh;
-}
-
-.center{
+.center {
     margin: auto;
     width: 50%;
 }
