@@ -99,6 +99,7 @@
               class="btn btn-primary fw-bold text-white"
               v-on:click="linkGame"
               v-bind:disabled="!isValid"
+              v-if="!success"
             >
               Link
             </button>

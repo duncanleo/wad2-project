@@ -29,7 +29,15 @@ export default async function me(req: Request, res: Response) {
       {
         model: Game,
         as: 'game',
-        attributes: ['id', 'name', 'developer', 'release_year', 'internal_id'],
+        attributes: [
+          'id',
+          'name',
+          'developer',
+          'release_year',
+          'internal_id',
+          'banner_image',
+          'banner_image_license',
+        ],
       },
     ],
   });
