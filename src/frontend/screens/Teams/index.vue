@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h1>Teams</h1>
+    <h1 class="text-white">Teams</h1>
     <input
       type="text"
+      style="width: 100%; height: 50px; background-color: #729b98"
+      class="border border-1 form-control"
       name=""
-      value=""
-      id=""
       v-model="searchTerm"
-      placeholder="Search"
+      v-on:input="handleInput"
+      placeholder="Search..."
     />
     <div class="teams-list">
       <router-link
@@ -51,13 +52,20 @@ const Teams = Vue.extend({
       const { data } = await axios.get<Response>('/api/teams');
 
       this.teams = data.teams;
+      console.log(this.teams);
     },
 
     results() {
       if (this.searchTerm === '') {
+        console.log(this.teams);
         return this.teams;
       }
 
+      console.log(
+        this.teams.filter((team) =>
+          team.name.toLowerCase().includes(this.searchTerm)
+        )
+      );
       return this.teams.filter((team) =>
         team.name.toLowerCase().includes(this.searchTerm)
       );
