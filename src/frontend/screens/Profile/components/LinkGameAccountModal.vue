@@ -196,6 +196,17 @@ const LinkGameAccountModal = Vue.component('link-game-account-modal', {
         });
 
         this.success = true;
+        await this.updateMe();
+      } catch (error) {
+        this.error =
+          (error as AxiosError).response?.data?.message ?? error.message;
+      }
+    },
+
+    async updateMe() {
+      try {
+        const meResponse = await axios.get(`/api/me`);
+        this.$store.commit('setUser', meResponse.data);
       } catch (error) {
         this.error =
           (error as AxiosError).response?.data?.message ?? error.message;

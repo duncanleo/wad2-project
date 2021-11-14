@@ -141,6 +141,17 @@ const UnlinkGameAccountModal = Vue.component('unlink-game-account-modal', {
         await axios.delete(`/api/games/${this.selectedGame.id}/account`, {});
 
         this.success = true;
+        await this.updateMe();
+      } catch (error) {
+        this.error =
+          (error as AxiosError).response?.data?.message ?? error.message;
+      }
+    },
+
+    async updateMe() {
+      try {
+        const meResponse = await axios.get(`/api/me`);
+        this.$store.commit('setUser', meResponse.data);
       } catch (error) {
         this.error =
           (error as AxiosError).response?.data?.message ?? error.message;
