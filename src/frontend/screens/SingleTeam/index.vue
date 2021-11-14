@@ -63,7 +63,6 @@
         </span>
       </div>
     </div>
-    <!-- //729B98 -->
     <div class="row mt-4">
       <h4 class="text-white fw-bold">Roster</h4>
 
@@ -77,17 +76,6 @@
       </router-link>
     </div>
 
-    <!-- <div v-if="role == 'leader'">
-          <h1>Invitations</h1>
-          <ul>
-            <li v-for="invitation in invitations" v-bind:key="invitation.id">
-              <span>
-                Invite #{{ invitation.id }} for user
-                {{ invitation.user.display_name }}
-              </span>
-            </li>
-          </ul>
-        </div> -->
     <div class="row mt-4" v-if="role == 'leader'">
       <h4 class="text-white fw-bold">Join Requests</h4>
       <ul>

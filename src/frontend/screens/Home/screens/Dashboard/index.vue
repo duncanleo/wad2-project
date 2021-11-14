@@ -178,7 +178,6 @@ const Dashboard = Vue.extend({
   computed: {
     tournamentFilter() {
       var upcomingTournament = [];
-      // var today = new Date()
       var tournamentData = this.tournamentData;
 
       for (let tournament of tournamentData) {
