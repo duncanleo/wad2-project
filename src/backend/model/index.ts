@@ -14,7 +14,7 @@ import { setupUser } from './User';
 
 dotenv.config();
 
-const { NODE_ENV, DOCKER_POSTGRES } = process.env;
+const { NODE_ENV } = process.env;
 
 if (
   NODE_ENV == null ||
