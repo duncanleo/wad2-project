@@ -194,7 +194,6 @@ const SingleTeam = Vue.extend({
       const response = axios
         .get('http://localhost:5000/api/games')
         .then((response) => {
-          console.log(response.data.games);
           for (var game in response.data.games) {
             let gamePic = {};
             gamePic[response.data.games[game].id] =
