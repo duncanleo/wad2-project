@@ -130,9 +130,10 @@
       <span
         ><h4 class="text-white fw-bold">Tournaments</h4>
         <button
-          class="btn btn-success text-white fw-bold me-2"
+          class="btn btn-primary fs-6 text-white border-0 fw-bold ms-3"
           data-bs-toggle="modal"
           data-bs-target="#participateTourney"
+          v-if="role=='leader'"
         >
           Participate
         </button></span
