@@ -130,9 +130,10 @@
       <span
         ><h4 class="text-white fw-bold">Tournaments</h4>
         <button
-          class="btn btn-success text-white fw-bold me-2"
+          class="btn btn-primary fs-6 text-white border-0 fw-bold ms-3"
           data-bs-toggle="modal"
           data-bs-target="#participateTourney"
+          v-if="role=='leader'"
         >
           Participate
         </button></span
@@ -151,11 +152,11 @@
       </span>
     </div>
 
-    <div class="modal" tabindex="-1" id="participateTourney">
+    <div class="modal " tabindex="-1" id="participateTourney">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-dark">
           <div class="modal-header">
-            <h5 class="modal-title">Participate in a Tournament</h5>
+            <h5 class="modal-title text-white">Participate in a Tournament</h5>
             <button
               type="button"
               class="btn-close"
@@ -238,9 +239,10 @@
               <div class="row justify-content-center" style="row-gap: 1rem">
                 <ul class="list-group">
                   <li
-                    class="list-group-item"
+                    class="list-group-item bg-dark border-0"
                     v-for="tournament of upcomingTournaments"
                     v-bind:key="tournament.id"
+                    
                   >
                     <div class="row align-items-center bg-dark text-white">
                       <div class="col-4">
@@ -257,7 +259,7 @@
                       </div>
                       <div class="col-2">
                         <button
-                          class="btn btn-danger text-white fw-bold"
+                          class="btn btn-primary fs-6 text-white border-0 fw-bold ms-3"
                           v-on:click="joinTournament(tournament.id)"
                         >
                           Join
@@ -379,8 +381,7 @@ const SingleTeam = Vue.extend({
 
   methods: {
     joinTournament(tourneyId) {
-      console.log(tourneyId);
-      console.log(this.team);
+      
 
       const response = axios
         .put(`/api/tournaments/${tourneyId}/participate`, {
@@ -388,7 +389,7 @@ const SingleTeam = Vue.extend({
         })
 
         .then((response) => {
-          console.log(response.data);
+          window.location.reload();
         })
         .catch((error) => {
           console.log(error.message);
