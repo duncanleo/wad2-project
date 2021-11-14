@@ -111,12 +111,12 @@ const GameStats = Vue.component('game-stats', {
         case 'apex_legends': {
           stats.push({
             label: 'Rank',
-            value: data.data.segments[0].stats.rankScore.metadata.rankName,
+            value: data.segments[0].stats.rankScore.metadata.rankName,
             type: 'value',
           });
           stats.push({
             label: 'Level',
-            value: data.data.segments[0].stats.level.displayValue,
+            value: data.segments[0].stats.level.displayValue,
             type: 'value',
           });
           break;
