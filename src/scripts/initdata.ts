@@ -192,7 +192,6 @@ async function run() {
     dota2: dotaPlayers,
   } = playersData;
 
-  // Disabled because Warzone API is not working
   for (const player of wzPlayers) {
     const [user] = await User.findOrCreate({
       where: {

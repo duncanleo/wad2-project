@@ -145,8 +145,6 @@ const UnlinkGameAccountModal = Vue.component('unlink-game-account-modal', {
         this.error =
           (error as AxiosError).response?.data?.message ?? error.message;
       }
-
-      // DELETE /api/games/:id/account
     },
   },
 });

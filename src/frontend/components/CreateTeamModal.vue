@@ -47,8 +47,6 @@
               ></textarea>
             </div>
 
-            <!-- <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" accept="image/*" /> -->
             <span v-if="error != null" class="text-danger">{{ error }}</span>
           </div>
           <div class="modal-footer">
