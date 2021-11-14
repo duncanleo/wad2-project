@@ -5,6 +5,7 @@
         <div class="ms-3 text-white">
           <h1 class="fw-bold">{{ tournament.name }}</h1>
           <span class="fw-bold text-tertiary">{{ tournament.region }}</span>
+          <div ref="map" style="width: 400px; height: 300px"></div>
           <p class="card-text text-primary fw-bold fs-3 mb-0">
             {{ tournament.prize_pool > 0 ? `$${tournament.prize_pool}` : '-' }}
           </p>
@@ -94,6 +95,55 @@ const SingleTournament = Vue.extend({
       const response = await axios.get(`/api/tournaments/${id}`);
 
       this.tournament = await response.data.tournament;
+      requestAnimationFrame(this.loadMap);
+    },
+
+    async loadMap() {
+      let region = this.tournament?.region ?? 'Singapore';
+
+      switch (this.tournament?.region) {
+        case 'Russia': {
+          region = 'Moscow';
+          break;
+        }
+        case 'Global': {
+          region = 'Antartica Continent';
+          break;
+        }
+        case 'EMEA':
+        case 'EU': {
+          region = 'Germany';
+          break;
+        }
+        case 'South America': {
+          region = 'Brazil';
+          break;
+        }
+      }
+
+      const response = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          region
+        )}.json?`,
+        {
+          params: {
+            access_token: process.env.MAPBOX_ACCESS_TOKEN,
+          },
+        }
+      );
+
+      const result = response.data?.features?.[0];
+
+      // @ts-ignore
+      mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
+      // @ts-ignore
+      const map = new mapboxgl.Map({
+        container: this.$refs.map,
+        style: 'mapbox://styles/mapbox/streets-v11',
+      });
+
+      map.setCenter(result?.center);
+      map.fitBounds(result?.bbox);
     },
 
     teamLink(id: number) {

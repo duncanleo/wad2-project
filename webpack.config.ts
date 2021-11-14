@@ -72,6 +72,11 @@ const frontend: webpack.Configuration = {
       inject: 'body',
       template: 'src/frontend/index.html',
     }),
+    new webpack.DefinePlugin({
+      'process.env.MAPBOX_ACCESS_TOKEN': JSON.stringify(
+        process.env.MAPBOX_ACCESS_TOKEN
+      ),
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.js', '.vue'],
