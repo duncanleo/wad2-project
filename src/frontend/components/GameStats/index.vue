@@ -1,43 +1,41 @@
 <template>
-  <div class="col-lg-4 col-md-6 col-sm-12 g-0">
-    <div class="card bg-dark mt-3 mx-auto" style="width: 19rem">
-      <img
-        class="card-img-top"
-        v-bind:src="gameAccount.game.banner_image"
-        alt="Card image cap"
-        style="height: 15vw; object-fit: cover"
-      />
-      <div class="card-body bg-secondary">
-        <p class="text-primary text-uppercase fw-bold">
-          {{ gameAccount.game.name }}
-        </p>
+  <div class="card bg-dark flex-grow-1">
+    <img
+      class="card-img-top"
+      v-bind:src="gameAccount.game.banner_image"
+      alt="Card image cap"
+      style="height: 15vw; object-fit: cover"
+    />
+    <div class="card-body bg-secondary">
+      <p class="text-primary text-uppercase fw-bold">
+        {{ gameAccount.game.name }}
+      </p>
+      <div
+        class="text-center align-items-center mt-auto mb-2 bg-white"
+        v-for="stat in stats"
+        v-bind:key="stat.name"
+      >
         <div
-          class="text-center align-items-center mt-auto mb-2 bg-white"
-          v-for="stat in stats"
-          v-bind:key="stat.name"
+          class="progress"
+          style="height: 24px"
+          v-if="stat.type === 'progress'"
         >
           <div
-            class="progress"
-            style="height: 24px"
-            v-if="stat.type === 'progress'"
+            class="progress-bar"
+            role="progressbar"
+            v-bind:style="{ width: `${(stat.value / stat.max) * 100}%` }"
+            v-bind:aria-valuenow="stat.value"
+            v-bind:aria-valuemin="stat.min"
+            v-bind:aria-valuemax="stat.max"
           >
-            <div
-              class="progress-bar"
-              role="progressbar"
-              v-bind:style="{ width: `${(stat.value / stat.max) * 100}%` }"
-              v-bind:aria-valuenow="stat.value"
-              v-bind:aria-valuemin="stat.min"
-              v-bind:aria-valuemax="stat.max"
-            >
-              <h3 class="text-white fs-6 fw-bold mb-0">
-                {{ stat.label }} ({{ stat.value.toFixed(4) }} )
-              </h3>
-            </div>
+            <h3 class="text-white fs-6 fw-bold mb-0">
+              {{ stat.label }} ({{ stat.value.toFixed(4) }} )
+            </h3>
           </div>
-          <div class="bg-light rounded-3" v-if="stat.type === 'value'">
-            <h3 class="bg-primary text-white fs-6 fw-bold">{{ stat.label }}</h3>
-            <h3>{{ stat.value }}</h3>
-          </div>
+        </div>
+        <div class="bg-light rounded-3" v-if="stat.type === 'value'">
+          <h3 class="bg-primary text-white fs-6 fw-bold">{{ stat.label }}</h3>
+          <h3>{{ stat.value }}</h3>
         </div>
       </div>
     </div>

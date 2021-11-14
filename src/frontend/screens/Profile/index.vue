@@ -44,10 +44,12 @@
 
     <!-- Games row  to display games you have and to link games -->
     <div class="row">
-      <div class="col-8 d-flex align-items-center py-2">
+      <div class="col-8 d-flex align-items-center py-2 mb-2">
         <h4 class="text-white fw-bold">My Games</h4>
       </div>
-      <div class="col-4 d-flex align-items-center justify-content-end py-2">
+      <div
+        class="col-4 d-flex align-items-center justify-content-end py-2 mb-2"
+      >
         <button
           type="button"
           class="btn btn-primary fw-bold text-white me-3"
@@ -66,12 +68,14 @@
         </button>
       </div>
     </div>
-    <div class="row">
-      <game-stats
+    <div class="row tournament-grid">
+      <div
+        class="d-flex"
         v-bind:key="gameAccount.id"
         v-for="gameAccount in me.gameAccounts"
-        v-bind:gameAccount="gameAccount"
-      />
+      >
+        <game-stats v-bind:gameAccount="gameAccount" />
+      </div>
     </div>
 
     <link-game-account-modal />
@@ -99,6 +103,7 @@ import EditProfileModal from './components/EditProfileModal.vue';
 import CreateTeamModal from '../../components/CreateTeamModal.vue';
 import LinkGameAccountModal from './components/LinkGameAccountModal.vue';
 import UnlinkGameAccountModal from './components/UnlinkGameAccountModal.vue';
+import './styles.scss';
 
 interface TeamsResponse extends App.API.ResponseBase {
   teams: App.API.Team[];

@@ -1,14 +1,22 @@
 <template>
   <div class="container">
-    <h1 class="text-white">Welcome, {{ user.display_name }}</h1>
-    <input
-      type="text"
-      class="form-control border-0 fw-bold"
-      name=""
-      v-model="searchTerm"
-      v-on:input="handleInput"
-      placeholder="Search"
-    />
+    <div class="row">
+      <div
+        class="col-lg-4 col-md-6 col-12 d-flex align-items-center mb-sm-0 mb-2"
+      >
+        <h1 class="text-tertiary">Welcome, {{ user.display_name }}!</h1>
+      </div>
+      <div class="col-lg-8 col-md-6 col-12 d-flex align-items-center">
+        <input
+          type="text"
+          class="form-control border-0 fw-bold"
+          name=""
+          v-model="searchTerm"
+          v-on:input="handleInput"
+          placeholder="Search"
+        />
+      </div>
+    </div>
 
     <div class="row mt-4" v-if="players.length > 0">
       <h4 class="fw-bold text-white">Players</h4>
@@ -119,7 +127,7 @@
       <hr />
 
       <div
-        class="col-lg-4 col-md-6 col-12"
+        class="col-lg-4 col-md-6 col-12 mb-3"
         v-for="tournament of tournamentFilter"
         v-bind:key="tournament.id"
       >
