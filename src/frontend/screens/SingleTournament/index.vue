@@ -12,6 +12,7 @@
           <a
             class="btn btn-primary border-0 mt-2 text-white fw-bold"
             :href="tournament.url"
+            target="_blank"
           >
             Visit Website
           </a>
