@@ -14,11 +14,11 @@ import { setupUser } from './User';
 
 dotenv.config();
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV, DOCKER_POSTGRES } = process.env;
 
 if (
   NODE_ENV == null ||
-  !['production', 'development', 'test'].includes(NODE_ENV)
+  !['production', 'development', 'test', 'docker'].includes(NODE_ENV)
 ) {
   throw new Error('invalid NODE_ENV');
 }
