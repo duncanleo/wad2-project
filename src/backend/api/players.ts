@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Joi from 'joi';
 import sampleSize from 'lodash/sampleSize';
+import { Op } from 'sequelize';
 
 import { ErrorBadRequest, ErrorForbidden, ErrorUnauthorized } from '../errors';
 import { Game, GameAccount, Membership, Team, User } from '../model';
@@ -29,6 +30,12 @@ export async function playersList(req: Request, res: Response) {
 
   const players = await User.findAll({
     attributes: ['id', 'display_name', 'bio'],
+    where: {
+      type: 'gamer',
+      id: {
+        [Op.ne]: user.id,
+      },
+    },
     include: [
       {
         model: GameAccount,
