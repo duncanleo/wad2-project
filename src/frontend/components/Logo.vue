@@ -1,5 +1,5 @@
 <template>
-  <router-link class="navbar-brand" to="/">
+  <router-link class="navbar-brand d-flex align-items-center mb-0" to="/">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -13,6 +13,7 @@
         fill="#FFF"
       />
     </svg>
+    <h2 class="text-white fw-bold mb-0 ms-2">GameUp</h2>
   </router-link>
 </template>
 
