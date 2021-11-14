@@ -154,6 +154,8 @@
           <div class="modal-body">
 
             <p>{{selectedGameId}}</p>
+            {{results}}
+            
             <div class="dropdown w-100">
           <button
             class="
@@ -229,6 +231,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import Player from '../../components/Player.vue';
 import generateAvatar from '../../util/generateAvatar';
+import moment from 'moment';
 
 interface TeamsResponse extends App.API.ResponseBase {
   team: App.API.Team;
@@ -260,6 +263,7 @@ const SingleTeam = Vue.extend({
       gameLogo: [],
       selectedGameId: null as number | null,
       games: [] as App.API.Game[],
+      tournaments: [] as App.API.Tournament[],
     };
   },
 
@@ -270,6 +274,7 @@ const SingleTeam = Vue.extend({
     this.fetchTeamJoinRequests();
     this.getGameList();
     this.fetchGames();
+    this.fetchTournaments();
   },
 
   computed: {
@@ -281,9 +286,33 @@ const SingleTeam = Vue.extend({
         (request) => request.status !== 'accepted'
       );
     },
+    results() {
+      if (this.selectedGameId == null) {
+        return this.tournaments;
+      }
+
+      return this.tournaments.filter(
+        (tournament) => tournament.game_id === this.selectedGameId
+      );
+    },
+
+    upcomingTournaments() {
+      const now = moment();
+
+      return this.results.filter((tournament) => {
+        const start = moment(tournament.start_at);
+
+        return start.isAfter(now);
+      });
+    },
   },
 
   methods: {
+    async fetchTournaments() {
+      const response = await axios.get<TournamentsResponse>('/api/tournaments');
+
+      this.tournaments = response.data.tournaments;
+    },
     async fetchGames() {
       const response = await axios.get<GamesResponse>('/api/games');
 
