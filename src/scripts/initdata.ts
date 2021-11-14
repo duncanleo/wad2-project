@@ -302,10 +302,15 @@ async function run() {
   for (const teamData of teamsData) {
     const transaction = await sequelize.transaction();
 
-    const team = await Team.create({
-      name: teamData.name,
-      description: teamData.description,
-      avatar: teamData.avatar,
+    const [team] = await Team.findOrCreate({
+      where: {
+        name: teamData.name,
+      },
+      defaults: {
+        name: teamData.name,
+        description: teamData.description,
+        avatar: teamData.avatar,
+      },
     });
 
     for (const memberName of teamData.members) {
@@ -321,14 +326,18 @@ async function run() {
         continue;
       }
 
-      await Membership.create(
-        {
+      await Membership.findOrCreate({
+        where: {
+          team_id: team.id,
+          user_id: player.id,
+        },
+        defaults: {
           team_id: team.id,
           user_id: player.id,
           role: 'leader',
         },
-        { transaction }
-      );
+        transaction,
+      });
     }
 
     for (const tournamentName of teamData.tournaments) {
@@ -343,13 +352,17 @@ async function run() {
         continue;
       }
 
-      await TournamentParticipation.create(
-        {
+      await TournamentParticipation.findOrCreate({
+        where: {
           team_id: team.id,
           tournament_id: tournament.id,
         },
-        { transaction }
-      );
+        defaults: {
+          team_id: team.id,
+          tournament_id: tournament.id,
+        },
+        transaction,
+      });
     }
 
     try {
