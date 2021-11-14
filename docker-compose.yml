@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    links:
+      - postgres
+    ports:
+      - '5000:5000'
+    env_file: .env
+    environment:
+      - 'NODE_ENV=docker'
+      - 'DATABASE_URL=postgres://postgres:postgres@postgres:5432/wad2_project_dev'
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14-bullseye
+    environment:
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_DB=wad2_project_dev'

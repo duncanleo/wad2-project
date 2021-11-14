@@ -40,6 +40,7 @@ routes(app);
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 switch (NODE_ENV) {
+  case 'docker':
   case 'production': {
     const assetsPath = path.join(__dirname, '..', 'public');
 
