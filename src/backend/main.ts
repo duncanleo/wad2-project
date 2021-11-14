@@ -26,6 +26,13 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  if (req.session != null) {
+    req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
+  }
+  next();
+});
+
 app.use(morgan('dev'));
 
 routes(app);
