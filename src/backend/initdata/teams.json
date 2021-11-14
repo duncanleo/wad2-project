@@ -1,0 +1,51 @@
+[
+  {
+    "name": "BlackBird",
+    "avatar": null,
+    "description": "An active eSports organization based in Japan.",
+    "members": [
+      "Lyixfiz",
+      "ema",
+      "xnont",
+      "zRotation"
+    ],
+    "tournaments": [
+      "The Last Dance in Verdansk",
+      "SenseiSwishem Tipoff",
+      "ALGS: 2021 Split 1 Pro League - APAC North"
+    ]
+  },
+  {
+    "name": "Amazing Wonders",
+    "avatar": null,
+    "description": "An American eSports organization based in Los Angeles, California.",
+    "members": [
+      "Ninja",
+      "AceCasey-23",
+      "xnont",
+      "ar sh4zzy"
+    ],
+    "tournaments": [
+      "Fortnite Cash Cup",
+      "ALGS: 2021 Split 1 Pro League - APAC North",
+      "DreamLeague Season 16 DPC WEU: Closed Qualifier"
+    ]
+  },
+  {
+    "name": "Claw Gaming",
+    "avatar": null,
+    "description": "Canadian gaming organization",
+    "members": [
+      "FontainesRazor",
+      "h20lover69",
+      "Lala_coco_",
+      "Dendi",
+      "Merlini"
+    ],
+    "tournaments": [
+      "Fortnite Cash Cup",
+      "SenseiSwishem Tipoff",
+      "Dota 2 Champions League 2021 Season 5"
+    ]
+  }
+]

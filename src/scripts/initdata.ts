@@ -1,8 +1,18 @@
 import moment from 'moment';
 
 import playersData from '../backend/initdata/players.json';
+import teamsData from '../backend/initdata/teams.json';
 import tournamentData from '../backend/initdata/tournaments.json';
-import { Game, GameAccount, Tournament, User } from '../backend/model';
+import {
+  Game,
+  GameAccount,
+  Membership,
+  sequelize,
+  Team,
+  Tournament,
+  TournamentParticipation,
+  User,
+} from '../backend/model';
 import { SUPPORTED_GAMES } from '../constants';
 
 async function createTournament(
@@ -287,6 +297,67 @@ async function run() {
         game_id: dota2.id,
       },
     });
+  }
+
+  for (const teamData of teamsData) {
+    const transaction = await sequelize.transaction();
+
+    const team = await Team.create({
+      name: teamData.name,
+      description: teamData.description,
+      avatar: teamData.avatar,
+    });
+
+    for (const memberName of teamData.members) {
+      const player = await User.findOne({
+        where: {
+          display_name: memberName,
+        },
+        transaction,
+      });
+
+      if (player == null) {
+        console.error('Cannot find player', memberName);
+        continue;
+      }
+
+      await Membership.create(
+        {
+          team_id: team.id,
+          user_id: player.id,
+          role: 'leader',
+        },
+        { transaction }
+      );
+    }
+
+    for (const tournamentName of teamData.tournaments) {
+      const tournament = await Tournament.findOne({
+        where: {
+          name: tournamentName,
+        },
+      });
+
+      if (tournament == null) {
+        console.error('Cannot find tournament', tournamentName);
+        continue;
+      }
+
+      await TournamentParticipation.create(
+        {
+          team_id: team.id,
+          tournament_id: tournament.id,
+        },
+        { transaction }
+      );
+    }
+
+    try {
+      await transaction.commit();
+    } catch (e) {
+      console.error(e);
+      await transaction.rollback();
+    }
   }
 }
 
