@@ -1,5 +1,5 @@
 <template>
-  <div class="row min-vh-100 d-flex flex-lg-row">
+  <div class="row min-vh-100 d-flex flex-lg-row m-0">
     <div class="col-lg-4 col-md-12 col-12 pe-0">
       <div class="px-3 mt-2 mb-3">
         <logo />
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8 col-md-12 col-12 bg-dark ps-0">
+    <div class="col-lg-8 col-md-12 col-12 bg-dark ps-0 pe-0">
       <div
         class="content py-sm-0 py-5 mb-sm-0 mb-3"
         v-if="selectedGame != null"
