@@ -76,12 +76,10 @@ const Teams = Vue.extend({
       const { data } = await axios.get<Response>('/api/teams');
 
       this.teams = data.teams;
-      console.log(this.teams);
     },
 
     results() {
       if (this.searchTerm === '') {
-        console.log(this.teams);
         return this.teams;
       }
 
