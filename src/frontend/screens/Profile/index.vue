@@ -87,8 +87,6 @@
 
     <!--modal3 unlink-->
     <create-team-modal />
-
-    {{ games }}
   </div>
 </template>
 
