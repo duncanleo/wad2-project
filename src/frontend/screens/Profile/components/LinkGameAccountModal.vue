@@ -68,7 +68,33 @@
               />
             </div>
 
-            <div class="input-group mb-3" v-if="isPlatformRequired">
+            <div class="dropdown mb-3" v-if="isPlatformRequired">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="game-dropdown-button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{
+                  (selectedPlatform != null && platform) || 'Select a platform'
+                }}
+              </button>
+              
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="game-dropdown-button"
+                style="width: 100%"
+              >
+                <li v-for="item in platformPara[0][selectedGame.internal_id]" v-on:click="setSelectedPlatform(item)" v-model="platform">
+                  <a href="#" class="dropdown-item">{{ item }}</a>
+                </li>
+              </ul>
+
+              
+            </div>
+
+            <!-- <div class="input-group mb-3" v-if="isPlatformRequired">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Platform</span>
               </div>
@@ -81,7 +107,10 @@
                 aria-describedby="basic-addon1"
                 v-model="platform"
               />
-            </div>
+            </div> -->
+
+
+
             <span v-if="error != null" class="text-danger">{{ error }}</span>
           </div>
           <!--end of modal body-->
@@ -127,6 +156,8 @@ const LinkGameAccountModal = Vue.component('link-game-account-modal', {
       success: false,
       games: [] as App.API.Game[],
       selectedGame: null as App.API.Game | null,
+      selectedPlatform:"",
+      platformPara:[{"codmw_2019":["psn","steam","battle","xbl","acti"] , "apex_legends":["origin","xbl","psn"]}],
     };
   },
 
@@ -145,7 +176,7 @@ const LinkGameAccountModal = Vue.component('link-game-account-modal', {
     isValid() {
       return (
         this.username.length > 0 &&
-        (!this.isPlatformRequired || this.platform?.length > 0)
+        (!this.isPlatformRequired || this.platform?.length !=null)
       );
     },
 
@@ -180,6 +211,10 @@ const LinkGameAccountModal = Vue.component('link-game-account-modal', {
 
     setSelectedGame(game: App.API.Game) {
       this.selectedGame = game;
+    
+    },
+    setSelectedPlatform(userPlatform) {
+      this.platform = userPlatform
     },
 
     //when user clicks on linkGame
