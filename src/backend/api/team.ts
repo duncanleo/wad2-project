@@ -54,6 +54,7 @@ export async function teamsList(req: Request, res: Response) {
       'id',
       'name',
       'avatar',
+      'description',
       'created_at',
       [
         Sequelize.literal(
@@ -187,6 +188,7 @@ export async function teamSingle(req: Request, res: Response) {
       'id',
       'name',
       'avatar',
+      'description',
       'created_at',
       [
         Sequelize.literal(
