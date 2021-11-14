@@ -38,7 +38,10 @@
         </div>
       </div>
 
-      <div class="col-md-3 col-12" v-if="!team.is_member">
+      <div
+        class="col-md-2 col-12 d-flex align-items-center"
+        v-if="!team.is_member"
+      >
         <button
           class="btn btn-primary fw-bold text-white"
           v-if="team.join_request_status == null"

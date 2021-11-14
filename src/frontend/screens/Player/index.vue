@@ -27,7 +27,7 @@
         <router-link
           v-bind:to="teamLink(membership.team.id)"
           style="text-decoration: none"
-          class="fs-5 text-white col-12 mb-3 mx-2 text-decoration-none"
+          class="d-block text-white col-12 mb-3 text-decoration-none"
         >
           <team v-bind:team="membership.team" />
         </router-link>
@@ -43,11 +43,13 @@
       <span class="text-tertiary" v-if="player.gameAccounts.length === 0">
         No games found
       </span>
-      <game-stats
-        v-for="gameAccount in player.gameAccounts"
-        v-bind:key="gameAccount.id"
-        v-bind:gameAccount="gameAccount"
-      />
+      <div class="tournament-grid">
+        <game-stats
+          v-for="gameAccount in player.gameAccounts"
+          v-bind:key="gameAccount.id"
+          v-bind:gameAccount="gameAccount"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -58,6 +60,7 @@ import Vue from 'vue';
 import GameStats from '../../components/GameStats/index.vue';
 import generateAvatar from '../../util/generateAvatar';
 import Team from '../../components/Team.vue';
+import './styles.scss';
 
 interface Response extends App.API.ResponseBase {
   player: App.API.User;
