@@ -1,5 +1,52 @@
 @import "../../styles/variables";
 
+.game-card {
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+
+    .card-img {
+      transform: scale(1.05);
+    }
+  }
+
+  .card-title {
+    transition: font-size 100ms ease-in-out;
+  }
+
+  .card-img-overlay {
+    background-image: linear-gradient(
+      0deg,
+      hsla(0, 0%, 35.29%, 0) 0%,
+      hsla(0, 0%, 34.53%, 0.034375) 16.36%,
+      hsla(0, 0%, 32.42%, 0.125) 33.34%,
+      hsla(0, 0%, 29.18%, 0.253125) 50.1%,
+      hsla(0, 0%, 24.96%, 0.4) 65.75%,
+      hsla(0, 0%, 19.85%, 0.546875) 79.43%,
+      hsla(0, 0%, 13.95%, 0.675) 90.28%,
+      hsla(0, 0%, 7.32%, 0.765625) 97.43%,
+      hsla(0, 0%, 0%, 0.8) 100%
+    );
+  }
+
+  .card-img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 100ms ease-in-out;
+
+    &.active {
+      transform: scale(1.05);
+    }
+  }
+}
+
+
+
 .content {
   display: flex;
   position: relative;
@@ -17,11 +64,12 @@
     right: 0;
     object-fit: cover;
     z-index: 1;
+    filter: blur(3px);
   }
 
   .content-inner {
     z-index: 2;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba($primary-800, 0.8);
     width: 70%;
     margin-right: 5%;
     padding: 15px 20px;

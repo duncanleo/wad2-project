@@ -1,41 +1,61 @@
 <template>
-  <div class="row min-vh-100 d-flex flex-lg-row flex-column-reverse">
-    <div class="col-lg-4 col-md-12 col-12">
-      <logo />
-      <h3 class="text-white text-uppercase fw-bold">Start playing today</h3>
-      <div class="row gy-2">
+  <div class="row min-vh-100 d-flex flex-lg-row">
+    <div class="col-lg-4 col-md-12 col-12 pe-0">
+      <div class="px-3 mt-2 mb-3">
+        <logo />
+        <h3 class="text-white fs-5 text-uppercase">Start playing today</h3>
+      </div>
+      <div class="gy-2 px-3">
         <div
-          class="card px-0 bg-transparent text-white"
+          class="game-card card px-0 bg-transparent text-white mb-3"
+          style="height: 20vh"
           v-for="(game, index) in games"
           v-bind:key="game.id"
           v-on:click="setSelectedGameIndex(index)"
         >
           <img
             class="card-img"
+            :class="{ active: game.id === selectedGame.id }"
             v-bind:src="game.banner_image"
             alt="Banner image"
           />
-          <div class="card-img-overlay">
-            <h5 class="card-title">{{ game.name }}</h5>
+          <div class="card-img-overlay d-flex flex-column-reverse">
+            <h5
+              class="card-title fw-bold"
+              :class="{ 'fs-4': game.id === selectedGame.id }"
+            >
+              {{ game.name }}
+            </h5>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-8 col-md-12 col-12 bg-dark">
-      <div class="content" v-if="selectedGame != null">
+    <div class="col-lg-8 col-md-12 col-12 bg-dark ps-0">
+      <div
+        class="content py-sm-0 py-5 mb-sm-0 mb-3"
+        v-if="selectedGame != null"
+      >
         <img
           class="background-image"
           v-bind:src="selectedGame.background_image"
           alt="Background image"
         />
-        <div class="content-inner">
-          <h2 class="display-4 fw-bold mb-5">Find your gamer community.</h2>
-          <p class="lead mb-5">It's just a tap away</p>
+        <div class="content-inner rounded-3">
+          <h2 class="display-3 fw-bold mb-1 lh-1 py-2">
+            Find your gamer community
+          </h2>
+          <p class="lead text-tertiary mb-4 fs-4">It's just a tap away.</p>
           <div class="d-flex flex-wrap" v-if="$store.state.user == null">
-            <router-link class="btn btn-primary me-2 mb-2 mb-sm-0" to="/signup">
+            <router-link
+              class="btn btn-primary me-2 mb-2 mb-sm-0 text-white fw-bold"
+              to="/signup"
+            >
               Sign-up
             </router-link>
-            <router-link class="btn btn-outline-dark mb-2 mb-sm-0" to="/login">
+            <router-link
+              class="btn btn-outline-light mb-2 mb-sm-0 fw-bold"
+              to="/login"
+            >
               Login
             </router-link>
           </div>
@@ -47,7 +67,6 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { sample } from 'lodash';
 import Vue from 'vue';
 import Logo from '../../../../components/Logo.vue';
 
