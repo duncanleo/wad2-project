@@ -27,7 +27,7 @@ export async function signup(req: Request, res: Response) {
     throw new ErrorBadRequest(validationResult.error.message);
   }
 
-  const { email, password, display_name } =
+  const { email, password, display_name, type } =
     validationResult.value as SignupPayload;
 
   let user = await User.findOne({
@@ -46,7 +46,7 @@ export async function signup(req: Request, res: Response) {
     display_name,
     email,
     password: hashedPassword,
-    type: 'gamer',
+    type,
     bio: null,
   });
 
