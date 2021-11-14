@@ -112,6 +112,7 @@ const CreateTeamModal = Vue.component('create-team-modal', {
       try {
         await axios.post(`/api/teams`, {
           name: this.name,
+          description: this.description,
         });
         this.success = true;
       } catch (error) {
