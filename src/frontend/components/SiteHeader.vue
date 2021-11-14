@@ -43,7 +43,7 @@
             </li>
             <li class="nav-item" v-if="user == null">
               <router-link
-                class="btn btn-outline-dark me-2"
+                class="btn btn-dark me-2"
                 to="/login"
                 active-class="active"
               >
@@ -52,7 +52,7 @@
             </li>
             <li class="nav-item" v-if="user == null">
               <router-link
-                class="btn btn-primary"
+                class="btn btn-primary text-white fw-bold"
                 to="/signup"
                 active-class="active"
               >
