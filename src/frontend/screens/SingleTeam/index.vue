@@ -130,7 +130,7 @@
       <h4 class="text-white fw-bold">Tournaments</h4>
 
       <div
-        class="col-lg-4 col-md-6 col-12"
+        class="col-lg-4 col-md-6 col-12 mb-3"
         v-for="participation of team.participations"
         v-bind:key="participation.id"
       >
