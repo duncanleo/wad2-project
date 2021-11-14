@@ -49,9 +49,6 @@ export async function search(req: Request, res: Response) {
         model: Membership,
         as: 'memberships',
         attributes: [],
-        where: {
-          user_id: user.id,
-        },
       },
     ],
     group: ['Team.id'],
