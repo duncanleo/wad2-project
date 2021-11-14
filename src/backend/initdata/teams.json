@@ -12,7 +12,8 @@
     "tournaments": [
       "The Last Dance in Verdansk",
       "SenseiSwishem Tipoff",
-      "ALGS: 2021 Split 1 Pro League - APAC North"
+      "ALGS: 2021 Split 1 Pro League - APAC North",
+      "The Witness Series Championship - South America"
     ]
   },
   {
@@ -28,7 +29,8 @@
     "tournaments": [
       "Fortnite Cash Cup",
       "ALGS: 2021 Split 1 Pro League - APAC North",
-      "DreamLeague Season 16 DPC WEU: Closed Qualifier"
+      "DreamLeague Season 16 DPC WEU: Closed Qualifier",
+      "Box Fight Championship Apex Cup #11"
     ]
   },
   {
@@ -45,7 +47,25 @@
     "tournaments": [
       "Fortnite Cash Cup",
       "SenseiSwishem Tipoff",
-      "Dota 2 Champions League 2021 Season 5"
+      "Dota 2 Champions League 2021 Season 5",
+      " ESL One DPC NA Winter: Closed Qualifier"
+    ]
+  },
+  {
+    "name": "100 Gamers",
+    "avatar": null,
+    "description": "Brazilian gaming organization",
+    "members": [
+      "lmaopad",
+      "OG.Ceb",
+      "KuroKy",
+      "Alliance.s4",
+      "gs_utsuke"
+    ],
+    "tournaments": [
+      "The Witness Series Championship - South America",
+      "Box Fight Championship Apex Cup #11",
+      " ESL One DPC NA Winter: Closed Qualifier"
     ]
   }
 ]
