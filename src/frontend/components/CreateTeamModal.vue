@@ -115,6 +115,7 @@ const CreateTeamModal = Vue.component('create-team-modal', {
           description: this.description,
         });
         this.success = true;
+        window.location.reload();
       } catch (error) {
         this.error =
           (error as AxiosError).response?.data?.message ?? error.message;
