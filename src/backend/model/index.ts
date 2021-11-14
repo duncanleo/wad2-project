@@ -25,7 +25,7 @@ if (
 
 const dbConfig = config[NODE_ENV as keyof typeof config];
 
-let sequelize;
+let sequelize: Sequelize;
 
 if ('use_env_variable' in dbConfig) {
   const connectionUri = process.env[dbConfig.use_env_variable];
