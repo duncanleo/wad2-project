@@ -136,6 +136,10 @@
       >
         <tournament v-bind:tournament="participation.tournament" />
       </div>
+
+      <span class="text-tertiary" v-if="team.participations.length === 0">
+        There are no tournaments to display.
+      </span>
     </div>
   </div>
 </template>
